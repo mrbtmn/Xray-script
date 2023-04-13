@@ -1495,35 +1495,35 @@ install_bbr()
     while :
     do
         echo -e "\\n\\n\\n"
-        tyblue "------------------请选择要使用的bbr版本------------------"
-        green  "  1. 安装/升级最新稳定版内核并启用bbr  (推荐)"
-        green  "  2. 安装/升级最新xanmod内核并启用bbr  (推荐)"
-        green  "  3. 安装/升级最新xanmod内核并启用bbr2 (推荐)"
-        tyblue "  4. 安装/升级最新版内核并启用bbr"
+        tyblue "------------------Please select the bbr version you want to use------------------"
+        green  "  1. Install/upgrade the latest stable kernel and enable bbr (recommended)"
+        green  "  2. Install/upgrade latest xanmod kernel and enable bbr (recommended)"
+        green  "  3. Install/upgrade latest xanmod kernel and enable bbr2 (recommended)"
+        tyblue "  4. Install/upgrade the latest version of the kernel and enable bbr"
         if version_ge $your_kernel_version 4.9; then
-            tyblue "  5. 启用bbr"
+            tyblue "  5. enable bbr"
         else
-            tyblue "  5. 升级内核启用bbr"
+            tyblue "  5. Upgrade the kernel to enable bbr"
         fi
-        tyblue "  6. 启用bbr2"
-        tyblue "  7. 安装第三方内核并启用bbrplus/bbr魔改版/暴力bbr魔改版/锐速"
-        tyblue "  8. 更换队列算法"
-        tyblue "  9. 开启/关闭bbr2_ECN"
-        tyblue " 10. 卸载多余内核"
-        tyblue "  0. 退出bbr安装"
-        tyblue "------------------关于安装bbr加速的说明------------------"
-        green  " bbr拥塞算法可以大幅提升网络速度，建议启用"
-        yellow " 更换第三方内核可能造成系统不稳定，甚至无法开机"
+        tyblue "  6. enable bbr2"
+        tyblue "  7. Install a third-party kernel and enable bbrplus/bbr magic revision/violent bbr magic revision/sharp speed"
+        tyblue "  8. Replace Queue Algorithm"
+        tyblue "  9. Enable/disable bbr2_ECN"
+        tyblue " 10. Unload extra kernels"
+        tyblue "  0. exit bbr install"
+        tyblue "------------------Instructions for installing bbr acceleration------------------"
+        green  " The bbr congestion algorithm can greatly increase the network speed, it is recommended to enable it"
+        yellow " Replacing the third-party kernel may cause the system to be unstable or even unable to boot"
         tyblue "---------------------------------------------------------"
-        tyblue " 当前内核版本：${your_kernel_version}"
-        tyblue " 最新内核版本：${latest_kernel_version}"
-        tyblue " 当前内核是否支持bbr："
+        tyblue " current kernel version：${your_kernel_version}"
+        tyblue " latest kernel version：${latest_kernel_version}"
+        tyblue " Does the current kernel support bbr："
         if version_ge $your_kernel_version 4.9; then
-            green "     是"
+            green "     yes"
         else
-            red "     否，需升级内核"
+            red "     No, the kernel needs to be upgraded"
         fi
-        tyblue "   当前拥塞控制算法："
+        tyblue "   Current Congestion Control Algorithm："
         local tcp_congestion_control
         tcp_congestion_control=$(sysctl net.ipv4.tcp_congestion_control | cut -d = -f 2 | awk '{print $1}')
         if [[ "$tcp_congestion_control" =~ bbr|nanqinlang|tsunami ]]; then
@@ -1536,19 +1536,19 @@ install_bbr()
         else
             tyblue "       ${tcp_congestion_control} \\033[31m(bbr未启用)"
         fi
-        tyblue "   当前队列算法："
+        tyblue "   current queue algorithm："
         green "       $(sysctl net.core.default_qdisc | cut -d = -f 2 | awk '{print $1}')"
-        tyblue "   当前bbr2_ECN："
+        tyblue "   Current bbr2_ECN："
         if [ "$(cat /sys/module/tcp_bbr2/parameters/ecn_enable 2>/dev/null)" == "Y" ] && [ "$(sysctl net.ipv4.tcp_ecn | cut -d = -f 2 | awk '{print $1}')" == "1" ]; then
-            green  "       已启用"
+            green  "       activated"
         else
-            blue   "       未启用"
+            blue   "       Not Enabled"
         fi
         echo
         local choice=""
         while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>10))
         do
-            read -p "您的选择是：" choice
+            read -p "your choice is：" choice
         done
         if (( 1<=choice&&choice<=4 )); then
             if (( choice==1 || choice==4 )) && ([ $release == "ubuntu" ] || [ $release == "debian" ] || [ $release == "deepin" ] || [ $release == "other-debian" ]) && ! dpkg-deb --help | grep -qw "zstd"; then
@@ -1565,7 +1565,7 @@ install_bbr()
                             if ! $apt update; then
                                 red "$apt update出错"
                                 green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
-                                yellow "按回车键继续或者Ctrl+c退出"
+                                yellow "Press Enter to continue or Ctrl+c to exit"
                                 read -s
                             fi
                             install_dependence linux-base
@@ -1573,8 +1573,8 @@ install_bbr()
                     fi
                 fi
                 if (( choice==1 || choice==4 )) && ([ $release == "ubuntu" ] || [ $release == "debian" ] || [ $release == "deepin" ] || [ $release == "other-debian" ]) && ! version_ge "$(dpkg --list | grep '^[ '$'\t]*ii[ '$'\t][ '$'\t]*linux-base[ '$'\t]' | awk '{print $3}')" "4.5ubuntu1~16.04.1"; then
-                    red    "当前系统版本过低，不支持安装此内核！"
-                    green  "请使用新系统或选择安装xanmod内核"
+                    red    "The current system version is too low to support the installation of this kernel！"
+                    green  "Please use a new system or choose to install the xanmod kernel"
                 else
                     if [ $choice -eq 3 ]; then
                         local temp_bbr=bbr2
@@ -1590,12 +1590,12 @@ install_bbr()
                     fi
                     if [ $in_install_update_xray_tls_web -eq 1 ]; then
                         echo
-                        tyblue "提示："
-                        yellow " 更换内核后服务器将重启，重启后，请再次运行脚本完成 Xray-TLS+Web 剩余部分的安装/升级"
-                        yellow " 再次运行脚本时，重复之前选过的选项即可"
+                        tyblue "hint："
+                        yellow " After changing the kernel, the server will restart. After restarting, please run the script again to complete the installation/upgrade of the rest of Xray-TLS+Web"
+                        yellow " When running the script again, repeat the previously selected options"
                         echo
                         sleep 2s
-                        yellow "按回车键以继续。。。"
+                        yellow "press enter to continue。。。"
                         read -s
                     fi
                     local temp_kernel_sh_url
@@ -1607,24 +1607,24 @@ install_bbr()
                         temp_kernel_sh_url="https://github.com/kirin10000/xanmod-install/raw/main/xanmod-install.sh"
                     fi
                     if ! wget -O kernel.sh "$temp_kernel_sh_url"; then
-                        red    "获取内核安装脚本失败"
-                        yellow "按回车键继续或者按Ctrl+c终止"
+                        red    "Failed to fetch kernel install script"
+                        yellow "Press Enter to continue or Ctrl+c to terminate"
                         read -s
                     fi
                     chmod +x kernel.sh
                     ./kernel.sh
                     if [ "$(sysctl net.ipv4.tcp_congestion_control | cut -d = -f 2 | awk '{print $1}')" == "$temp_bbr" ] && [ "$(sysctl net.core.default_qdisc | cut -d = -f 2 | awk '{print $1}')" == "$(grep '^[ '$'\t]*net.core.default_qdisc[ '$'\t]*=' "/etc/sysctl.conf" | tail -n 1 | cut -d = -f 2 | awk '{print $1}')" ]; then
-                        green "--------------------$temp_bbr已安装--------------------"
+                        green "--------------------$temp_bbr Installed--------------------"
                     else
-                        red "开启$temp_bbr失败"
-                        red "如果刚安装完内核，请先重启"
-                        red "如果重启仍然无效，请尝试选项3"
+                        red "Failed to open $temp_bbr"
+                        red "If you have just installed the kernel, please reboot first"
+                        red "If restarting still doesn't work, try option 3"
                     fi
                 fi
             fi
         elif [ $choice -eq 5 ]; then
             if [ "$(sysctl net.ipv4.tcp_congestion_control | cut -d = -f 2 | awk '{print $1}')" == "bbr" ] && [ "$(grep '^[ '$'\t]*net.ipv4.tcp_congestion_control[ '$'\t]*=' "/etc/sysctl.conf" | tail -n 1 | cut -d = -f 2 | awk '{print $1}')" == "bbr" ] && [ "$(sysctl net.core.default_qdisc | cut -d = -f 2 | awk '{print $1}')" == "$(grep '^[ '$'\t]*net.core.default_qdisc[ '$'\t]*=' "/etc/sysctl.conf" | tail -n 1 | cut -d = -f 2 | awk '{print $1}')" ]; then
-                green "--------------------bbr已安装--------------------"
+                green "--------------------bbr installed--------------------"
             else
                 sed -i '/^[ \t]*net.core.default_qdisc[ \t]*=/d' /etc/sysctl.conf
                 sed -i '/^[ \t]*net.ipv4.tcp_congestion_control[ \t]*=/d' /etc/sysctl.conf
@@ -1633,21 +1633,21 @@ install_bbr()
                 sysctl -p
                 sleep 1s
                 if [ "$(sysctl net.ipv4.tcp_congestion_control | cut -d = -f 2 | awk '{print $1}')" == "bbr" ] && [ "$(sysctl net.core.default_qdisc | cut -d = -f 2 | awk '{print $1}')" == "fq" ]; then
-                    green "--------------------bbr已安装--------------------"
+                    green "--------------------bbr installed--------------------"
                 else
                     if [ $in_install_update_xray_tls_web -eq 1 ]; then
                         echo
-                        tyblue "提示：开启bbr需要更换内核"
-                        yellow " 更换内核后服务器将重启，重启后，请再次运行脚本完成 Xray-TLS+Web 剩余部分的安装/升级"
-                        yellow " 再次运行脚本时，重复之前选过的选项即可"
+                        tyblue "Tip: To enable bbr, you need to replace the kernel"
+                        yellow " After changing the kernel, the server will restart. After restarting, please run the script again to complete the installation/upgrade of the rest of Xray-TLS+Web"
+                        yellow " When running the script again, repeat the previously selected options"
                         echo
                         sleep 2s
-                        yellow "按回车键以继续。。。"
+                        yellow "press enter to continue。。。"
                         read -s
                     fi
                     if ! wget -O bbr.sh https://github.com/teddysun/across/raw/master/bbr.sh; then
-                        red    "获取bbr脚本失败"
-                        yellow "按回车键继续或者按Ctrl+c终止"
+                        red    "Failed to get bbr script"
+                        yellow "Press Enter to continue or Ctrl+c to terminate"
                         read -s
                     fi
                     chmod +x bbr.sh
@@ -1656,7 +1656,7 @@ install_bbr()
             fi
         elif [ $choice -eq 6 ]; then
             if [ "$(sysctl net.ipv4.tcp_congestion_control | cut -d = -f 2 | awk '{print $1}')" == "bbr2" ] && [ "$(grep '^[ '$'\t]*net.ipv4.tcp_congestion_control[ '$'\t]*=' "/etc/sysctl.conf" | tail -n 1 | cut -d = -f 2 | awk '{print $1}')" == "bbr2" ] && [ "$(sysctl net.core.default_qdisc | cut -d = -f 2 | awk '{print $1}')" == "$(grep '^[ '$'\t]*net.core.default_qdisc[ '$'\t]*=' "/etc/sysctl.conf" | tail -n 1 | cut -d = -f 2 | awk '{print $1}')" ]; then
-                green "--------------------bbr2已安装--------------------"
+                green "--------------------bbr2 installed--------------------"
             else
                 sed -i '/^[ \t]*net.core.default_qdisc[ \t]*=/d' /etc/sysctl.conf
                 sed -i '/^[ \t]*net.ipv4.tcp_congestion_control[ \t]*=/d' /etc/sysctl.conf
@@ -1665,28 +1665,28 @@ install_bbr()
                 sysctl -p
                 sleep 1s
                 if [ "$(sysctl net.ipv4.tcp_congestion_control | cut -d = -f 2 | awk '{print $1}')" == "bbr2" ] && [ "$(sysctl net.core.default_qdisc | cut -d = -f 2 | awk '{print $1}')" == "fq" ]; then
-                    green "--------------------bbr2已安装--------------------"
+                    green "--------------------bbr2 installed--------------------"
                 else
-                    red "启用bbr2失败"
-                    yellow "可能是内核不支持"
+                    red "Failed to enable bbr2"
+                    yellow "Maybe the kernel doesn't support"
                 fi
             fi
         elif [ $choice -eq 7 ]; then
-            tyblue "提示：安装bbrplus/bbr魔改版/暴力bbr魔改版/锐速内核需要重启"
+            tyblue "Tips: Installing bbrplus/bbr magic revision/violent bbr magic revision/sharp kernel needs to be restarted"
             if [ $in_install_update_xray_tls_web -eq 1 ]; then
-                yellow " 重启后，请："
-                yellow "    1. 再次运行脚本，重复之前选过的选项"
-                yellow "    2. 到这一步时，再次选择这个选项完成 bbrplus/bbr魔改版/暴力bbr魔改版/锐速 剩余部分的安装"
-                yellow "    3. 选择 \"退出bbr安装\" 选项完成 Xray-TLS+Web 剩余部分的安装/升级"
+                yellow " After restarting, please："
+                yellow "    1. Run the script again, repeating the previously selected options"
+                yellow "    2. At this point, select this option again to complete the installation of the remaining parts of bbrplus/bbr magic revision/violent bbr magic revision/sharp speed"
+                yellow "    3. choose \"exit bbr install\" option complete Xray-TLS+Web Installation/upgrade of the remainder"
             else
-                yellow " 重启后，请再次运行脚本并选择这个选项完成 bbrplus/bbr魔改版/暴力bbr魔改版/锐速 剩余部分的安装"
+                yellow " After restarting, please run the script again and select this option to complete the installation of the remaining parts of bbrplus/bbr magic revision/violent bbr magic revision/sharp speed"
             fi
             sleep 2s
-            yellow " 按回车键以继续。。。。"
+            yellow " press enter to continue。。。。"
             read -s
             if ! wget -O tcp.sh "https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh"; then
-                red    "获取脚本失败"
-                yellow "按回车键继续或者按Ctrl+c终止"
+                red    "Failed to fetch script"
+                yellow "Press Enter to continue or Ctrl+c to terminate"
                 read -s
             fi
             chmod +x tcp.sh
@@ -1696,9 +1696,9 @@ install_bbr()
         elif [ $choice -eq 9 ]; then
             enable_ecn
         elif [ $choice -eq 10 ]; then
-            tyblue " 该操作将会卸载除现在正在使用的内核外的其余内核"
-            tyblue "    您正在使用的内核是：$(uname -r)"
-            ask_if "是否继续？(y/n)" && remove_other_kernel
+            tyblue " This operation will uninstall all kernels except the one currently in use"
+            tyblue "    The kernel you are using is：$(uname -r)"
+            ask_if "Whether to continue？(y/n)" && remove_other_kernel
         else
             break
         fi
@@ -1710,7 +1710,7 @@ install_bbr()
 readProtocolConfig()
 {
     echo -e "\\n\\n\\n"
-    tyblue "---------------------请选择传输协议---------------------"
+    tyblue "---------------------Please select a transfer protocol---------------------"
     tyblue " 1. TCP"
     tyblue " 2. gRPC"
     tyblue " 3. WebSocket"
@@ -1718,17 +1718,17 @@ readProtocolConfig()
     tyblue " 5. TCP + WebSocket"
     tyblue " 6. gRPC + WebSocket"
     tyblue " 7. TCP + gRPC + WebSocket"
-    yellow " 0. 无 (仅提供Web服务)"
+    yellow " 0. None (web service only)"
     echo
-    blue   " 注："
-    blue   "   1. 如不使用CDN，请选择TCP"
-    blue   "   2. gRPC和WebSocket支持通过CDN，关于两者的区别，详见：https://github.com/kirin10000/Xray-script#关于grpc与websocket"
-    blue   "   3. 仅TCP能使用XTLS"
+    blue   " Note："
+    blue   "   1. If you don't use CDN, please choose TCP"
+    blue   "   2. gRPC and WebSocket support CDN. For the difference between the two, see: https://github.com/kirin10000/Xray-script#About grpc and websocket"
+    blue   "   3. Only TCP can use XTLS"
     echo
     local choice=""
     while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>7))
     do
-        read -p "您的选择是：" choice
+        read -p "your choice is：" choice
     done
     if [ $choice -eq 1 ] || [ $choice -eq 4 ] || [ $choice -eq 5 ] || [ $choice -eq 7 ]; then
         protocol_1=1
@@ -1746,7 +1746,7 @@ readProtocolConfig()
         protocol_3=0
     fi
     if [ $protocol_1 -eq 1 ]; then
-        tyblue "-------------- 请选择TCP传输配置 --------------"
+        tyblue "-------------- Please select a TCP transport configuration --------------"
         tyblue " 1. VLESS + TCP + XTLS"
         tyblue " 2. VLESS + TCP + TLS"
         tyblue " 3. VLESS + TCP + XTLS/TLS"
@@ -1758,30 +1758,30 @@ readProtocolConfig()
         done
     fi
     if [ $protocol_2 -eq 1 ]; then
-        tyblue "-------------- 请选择使用gRPC传输的代理协议 --------------"
+        tyblue "-------------- Please select the proxy protocol that uses gRPC transport --------------"
         tyblue " 1. VMess"
         tyblue " 2. VLESS"
         echo
-        yellow " 注：使用VMess的好处是可以对CDN加密，若使用VLESS，CDN提供商可获取传输明文"
+        yellow " Note: The advantage of using VMess is that the CDN can be encrypted. If VLESS is used, the CDN provider can obtain the transmission plaintext"
         echo
         choice=""
         while [[ ! "$choice" =~ ^([1-9][0-9]*)$ ]] || ((choice>2))
         do
-            read -p "您的选择是：" choice
+            read -p "your choice is：" choice
         done
         [ $choice -eq 1 ] && protocol_2=2
     fi
     if [ $protocol_3 -eq 1 ]; then
-        tyblue "-------------- 请选择使用WebSocket传输的代理协议 --------------"
+        tyblue "-------------- Please select the proxy protocol that uses WebSocket transport --------------"
         tyblue " 1. VMess"
         tyblue " 2. VLESS"
         echo
-        yellow " 注：使用VMess的好处是可以对CDN加密，若使用VLESS，CDN提供商可获取传输明文"
+        yellow " Note: The advantage of using VMess is that the CDN can be encrypted. If VLESS is used, the CDN provider can obtain the transmission plaintext"
         echo
         choice=""
         while [[ ! "$choice" =~ ^([1-9][0-9]*)$ ]] || ((choice>2))
         do
-            read -p "您的选择是：" choice
+            read -p "your choice is：" choice
         done
         [ $choice -eq 1 ] && protocol_3=2
     fi
@@ -1794,21 +1794,21 @@ readPretend()
     while [ $queren -ne 1 ]
     do
         echo -e "\\n\\n\\n"
-        tyblue "------------------------------请选择伪装网站页面------------------------------"
-        green  " 1. Cloudreve (推荐)"
-        purple "     个人网盘"
-        green  " 2. Nextcloud (推荐)"
-        purple "     个人网盘，需安装php"
-        tyblue " 3. 403页面"
-        purple "     模拟网站后台"
-        red    " 4. 自定义静态网站 (不推荐)"
-        red    " 5. 自定义反向代理网页 (不推荐)"
+        tyblue "------------------------------Please choose a fake website page------------------------------"
+        green  " 1. Cloudreve (recommend)"
+        purple "     Personal network disk"
+        green  " 2. Nextcloud (recommend)"
+        purple "     Personal network disk, need to install php"
+        tyblue " 3. 403 page"
+        purple "     Simulation website background"
+        red    " 4. Custom static website (not recommended)"
+        red    " 5. Custom reverse proxy web pages (not recommended)"
         echo
-        green  " 内存<128MB 建议选择 403页面"
-        green  " 128MB<=内存<1G 建议选择 Cloudreve"
-        green  " 内存>=1G 建议选择 Nextcloud 或 Cloudreve"
+        green  " Memory <128MB, it is recommended to choose 403 page"
+        green  " 128MB<=memory<1G, it is recommended to choose Cloudreve"
+        green  " Memory>=1G It is recommended to choose Nextcloud or Cloudreve"
         echo
-        yellow " 关于选择伪装网站的详细说明见：https://github.com/kirin10000/Xray-script#伪装网站说明"
+        yellow " For detailed instructions on choosing a camouflaged website, see：https://github.com/kirin10000/Xray-script#伪装网站说明"
         echo
         pretend=""
         while [[ "$pretend" != "1" && "$pretend" != "2" && "$pretend" != "3" && "$pretend" != "4" && "$pretend" != "5" ]]
@@ -1874,7 +1874,7 @@ readPretend()
             pretend=""
             while [ -z "$pretend" ]
             do
-                read -p "请输入反向代理网址：" pretend
+                read -p "Please enter the reverse proxy URL：" pretend
             done
         fi
     done
@@ -1886,10 +1886,10 @@ readDomain()
         if [ -z "$1" ]; then
             return 1
         elif [ "${1%%.*}" == "www" ]; then
-            red "域名前面不要带www！"
+            red "Do not put www in front of the domain name！"
             return 1
         elif [ "$(echo -n "$1" | wc -c)" -gt 42 ]; then
-            red "域名过长！"
+            red "domain name too long！"
             return 1
         else
             return 0
@@ -1899,15 +1899,15 @@ readDomain()
     local domain_config=""
     local pretend
     echo -e "\\n\\n\\n"
-    tyblue "--------------------请选择域名解析情况--------------------"
-    tyblue " 1. 主域名 和 www.主域名 都解析到此服务器上 \\033[32m(推荐)"
-    green  "    如：123.com 和 www.123.com 都解析到此服务器上"
-    tyblue " 2. 仅某个特定域名解析到此服务器上"
-    green  "    如：123.com 或 www.123.com 或 xxx.123.com 中的一个解析到此服务器上"
+    tyblue "--------------------Please select the domain name resolution--------------------"
+    tyblue " 1. Both the main domain name and www.main domain name are resolved to this server \\033[32m(推荐)"
+    green  "    like：123.com and www.123.com resolve to this server"
+    tyblue " 2. Only a specific domain name resolves to this server"
+    green  "    like：123.com or www.123.com 或 xxx.123.com One of the resolves to this server"
     echo
     while [ "$domain_config" != "1" ] && [ "$domain_config" != "2" ]
     do
-        read -p "您的选择是：" domain_config
+        read -p "your choice is：" domain_config
     done
     local queren=0
     while [ $queren -ne 1 ]
@@ -2391,11 +2391,11 @@ get_all_certs()
     do
         if ! get_cert "$i"; then
             red    "域名\"${true_domain_list[$i]}\"证书申请失败！"
-            yellow "请检查："
-            yellow "    1.域名是否解析正确"
-            yellow "    2.vps防火墙80端口是否开放"
+            yellow "Check, please："
+            yellow "    1.Whether the domain name is resolved correctly"
+            yellow "    2.Is port 80 of the vps firewall open?"
             yellow "并在安装/重置域名完成后，使用脚本主菜单\"重置域名\"选项修复"
-            yellow "按回车键继续。。。"
+            yellow "press enter to continue。。。"
             read -s
         fi
     done
@@ -2631,7 +2631,7 @@ EOF
         echo "}" >> $nginx_config
     done
 cat >> $nginx_config << EOF
-#-----------------不要修改以下内容----------------
+#-----------------Do not modify the following----------------
 #domain_list=${domain_list[@]}
 #true_domain_list=${true_domain_list[@]}
 #domain_config_list=${domain_config_list[@]}
@@ -4045,7 +4045,7 @@ start_menu()
     echo
     tyblue "        Cloudreve ：           ${cloudreve_status}"
     echo
-    tyblue "       官网：https://github.com/kirin10000/Xray-script"
+    tyblue "       official website：https://github.com/kirin10000/Xray-script"
     echo
     tyblue "----------------------------------Precautions----------------------------------"
     yellow " 1. This script requires a domain name that resolves to this server"
@@ -4136,7 +4136,7 @@ start_menu()
         check_ssh_timeout
         check_important_dependence_installed "procps" "procps-ng"
         doupdate
-        green "更新完成！"
+        green "update completed！"
     elif [ $choice -eq 5 ]; then
         [ "$dnf" == "yum" ] && check_important_dependence_installed "" "yum-utils"
         check_important_dependence_installed ca-certificates ca-certificates
@@ -4173,7 +4173,7 @@ start_menu()
         install_update_xray
         green "Xray更新完成！"
     elif [ $choice -eq 10 ]; then
-        ! ask_if "确定要删除吗?(y/n)" && return 0
+        ! ask_if "You sure you want to delete it?(y/n)" && return 0
         [ "$dnf" == "yum" ] && check_important_dependence_installed "" "yum-utils"
         check_important_dependence_installed ca-certificates ca-certificates
         check_important_dependence_installed curl curl
