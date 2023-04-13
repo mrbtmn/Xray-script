@@ -4035,7 +4035,7 @@ start_menu()
     local cloudreve_status
     [ $cloudreve_is_installed -eq 1 ] && cloudreve_status="\\033[32m已安装" || cloudreve_status="\\033[31m未安装"
     systemctl -q is-active cloudreve && cloudreve_status+="                \\033[32m运行中" || cloudreve_status+="                \\033[31m未运行"
-    tyblue "------------------------ Xray-TLS+Web 搭建/管理脚本 ------------------------"
+    tyblue "------------------------ Xray-TLS+Web build/admin script ------------------------"
     echo
     tyblue "           Xray   ：           ${xray_status}"
     echo
@@ -4047,11 +4047,11 @@ start_menu()
     echo
     tyblue "       官网：https://github.com/kirin10000/Xray-script"
     echo
-    tyblue "----------------------------------注意事项----------------------------------"
-    yellow " 1. 此脚本需要一个解析到本服务器的域名"
-    tyblue " 2. 此脚本安装时间较长，建议在安装前阅读："
+    tyblue "----------------------------------Precautions----------------------------------"
+    yellow " 1. This script requires a domain name that resolves to this server"
+    tyblue " 2. This script takes a long time to install, it is recommended to read it before installation："
     tyblue "      https://github.com/kirin10000/Xray-script#安装时长说明"
-    green  " 3. 建议在纯净的系统上使用此脚本 (VPS控制台-重置系统)"
+    green  " 3. It is recommended to use this script on a clean system (VPS console - reset system)"
     tyblue "----------------------------------------------------------------------------"
     echo
     echo
