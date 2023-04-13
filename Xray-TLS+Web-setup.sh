@@ -52,7 +52,7 @@ unset domain_config_list
 # 域名伪装列表，对应域名列表
 unset pretend_list
 
-# TCP配置，0代表禁用，1代表XTLS，2代表TLS，3代表XTLS+TLS
+# TCP configuration, 0 means disable, 1 means XTLS, 2 means TLS, 3 means XTLS TLS
 unset protocol_1
 # grpc使用的代理协议，0代表禁用，1代表VLESS，2代表VMess
 unset protocol_2
@@ -142,12 +142,12 @@ version_ge()
 #检查脚本更新
 check_script_update()
 {
-    [ "$(md5sum "${BASH_SOURCE[0]}" | awk '{print $1}')" == "$(md5sum <(wget -O - "https://github.com/kirin10000/Xray-script/raw/main/Xray-TLS+Web-setup.sh") | awk '{print $1}')" ] && return 1 || return 0
+    [ "$(md5sum "${BASH_SOURCE[0]}" | awk '{print $1}')" == "$(md5sum <(wget -O - "https://github.com/mrbtmn/Xray-script/raw/main/Xray-TLS+Web-setup.sh") | awk '{print $1}')" ] && return 1 || return 0
 }
 #更新脚本
 update_script()
 {
-    if wget -O "${BASH_SOURCE[0]}" "https://github.com/kirin10000/Xray-script/raw/main/Xray-TLS+Web-setup.sh" || wget -O "${BASH_SOURCE[0]}" "https://github.com/kirin10000/Xray-script/raw/main/Xray-TLS+Web-setup.sh"; then
+    if wget -O "${BASH_SOURCE[0]}" "https://github.com/mrbtmn/Xray-script/raw/main/Xray-TLS+Web-setup.sh" || wget -O "${BASH_SOURCE[0]}" "https://github.com/mrbtmn/Xray-script/raw/main/Xray-TLS+Web-setup.sh"; then
         green "脚本更新完成，请重新运行脚本！"
         exit 0
     else
