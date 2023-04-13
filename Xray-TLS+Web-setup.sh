@@ -4055,65 +4055,65 @@ start_menu()
     tyblue "----------------------------------------------------------------------------"
     echo
     echo
-    tyblue " -----------安装/更新/卸载-----------"
+    tyblue " -----------Install/Update/Uninstall-----------"
     if [ $is_installed -eq 0 ]; then
-        green  "   1. 安装Xray-TLS+Web"
+        green  "   1. Install Xray-TLS+Web"
     else
-        green  "   1. 重新安装Xray-TLS+Web"
+        green  "   1. Reinstall Xray-TLS+Web"
     fi
-    purple "         流程：[更新系统组件]->[安装bbr]->[安装php]->安装Nginx->安装Xray->申请证书->配置文件->[安装/配置Cloudreve]"
-    green  "   2. 更新Xray-TLS+Web"
-    purple "         流程：更新脚本->[更新系统组件]->[更新bbr]->[更新php]->[更新Nginx]->更新Xray->更新证书->更新配置文件->[更新Cloudreve]"
-    tyblue "   3. 检查更新/更新脚本"
-    tyblue "   4. 更新系统组件"
-    tyblue "   5. 安装/检查更新/更新bbr"
-    purple "         包含：bbr2/bbrplus/bbr魔改版/暴力bbr魔改版/锐速"
-    tyblue "   6. 安装/检查更新/更新php"
-    tyblue "   7. 检查更新/更新Nginx"
-    tyblue "   8. 更新Cloudreve"
-    tyblue "   9. 更新Xray"
-    red    "  10. 卸载Xray-TLS+Web"
-    red    "  11. 卸载php"
-    red    "  12. 卸载Cloudreve"
+    purple "         Process: [Update system components]->[Install bbr]->[Install php]->Install Nginx->Install Xray->Apply for a certificate->Configuration file->[Install/Configure Cloudreve]"
+    green  "   2. Update Xray-TLS+Web"
+    purple "         Process: update script -> [update system components] -> [update bbr] -> [update php] -> [update Nginx] -> update Xray -> update certificate -> update configuration file -> [update Cloudreve]"
+    tyblue "   3. Check for Updates / Update Script"
+    tyblue "   4. Update system components"
+    tyblue "   5. install/check for updates/update bbr"
+    purple "         Contains: bbr2/bbrplus/bbr magic revision/violent bbr magic revision/sharp speed"
+    tyblue "   6. install/check for updates/update php"
+    tyblue "   7. Check for Updates / Update Nginx"
+    tyblue "   8. Update Cloudreve"
+    tyblue "   9. Update Xray"
+    red    "  10. Uninstall Xray-TLS+Web"
+    red    "  11. uninstall php"
+    red    "  12. Uninstall Cloudreve"
     echo
-    tyblue " --------------启动/停止-------------"
-    tyblue "  13. 启动/重启Xray-TLS+Web"
-    tyblue "  14. 停止Xray-TLS+Web"
+    tyblue " --------------start/stop-------------"
+    tyblue "  13. Start/restart Xray-TLS+Web"
+    tyblue "  14. Stop Xray-TLS+Web"
     echo
-    tyblue " ----------------管理----------------"
-    tyblue "  15. 查看配置信息"
-    tyblue "  16. 重置域名"
-    purple "         将删除所有域名配置，安装过程中域名输错了造成Xray无法启动可以用此选项修复"
-    tyblue "  17. 添加域名"
-    tyblue "  18. 删除域名"
-    tyblue "  19. 修改伪装网站类型"
-    tyblue "  20. 重新安装Cloudreve"
-    purple "         将删除所有Cloudreve网盘的文件和帐户信息，管理员密码忘记可用此选项恢复"
-    tyblue "  21. 修改传输协议"
-    tyblue "  22. 修改id(用户ID/UUID)"
-    tyblue "  23. 修改gRPC的serviceName"
-    tyblue "  24. 修改WebSocket的path(路径)"
+    tyblue " ----------------manage----------------"
+    tyblue "  15. View configuration information"
+    tyblue "  16. reset domain name"
+    purple "         All domain name configurations will be deleted. If the domain name is entered incorrectly during installation, Xray cannot be started. This option can be used to repair it."
+    tyblue "  17. add domain name"
+    tyblue "  18. delete domain name"
+    tyblue "  19. Modify the type of camouflaged website"
+    tyblue "  20. Reinstall Cloudreve"
+    purple "         All Cloudreve network disk files and account information will be deleted, if the administrator password is forgotten, this option can be used to recover"
+    tyblue "  21. Modify the transport protocol"
+    tyblue "  22. Modify id (user ID/UUID)"
+    tyblue "  23. Modify the serviceName of gRPC"
+    tyblue "  24. Modify the path (path) of WebSocket"
     echo
-    tyblue " ----------------其它----------------"
-    tyblue "  25. 精简系统"
-    purple "         删除不必要的系统组件，即使已经安装 Xray-TLS+Web 仍然可以使用此功能"
-    tyblue "  26. 尝试修复退格键无法使用的问题"
-    purple "         部分ssh工具(如Xshell)可能有这类问题"
-    tyblue "  27. 修改dns"
-    yellow "  0. 退出脚本"
+    tyblue " ----------------other----------------"
+    tyblue "  25. streamlined system"
+    purple "         Remove unnecessary system components, even if Xray-TLS+Web is installed, you can still use this feature"
+    tyblue "  26. Try to fix the problem that the backspace key cannot be used"
+    purple "         Some ssh tools (such as Xshell) may have such problems"
+    tyblue "  27. modify dns"
+    yellow "  0. exit script"
     echo
     echo
     local choice=""
     while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>27))
     do
-        read -p "您的选择是：" choice
+        read -p "your choice is：" choice
     done
     if (( choice==2 || (7<=choice&&choice<=9) || choice==13 || (15<=choice&&choice<=24) )) && [ $is_installed -eq 0 ]; then
-        red "请先安装Xray-TLS+Web！！"
+        red "Please install Xray-TLS+Web first！！"
         return 1
     fi
     if (( 17<=choice&&choice<=20 )) && ! (systemctl -q is-active nginx && systemctl -q is-active xray); then
-        red "请先启动Xray-TLS+Web！！"
+        red "Please start Xray-TLS+Web first！！"
         return 1
     fi
     if [ $choice -eq 1 ]; then
@@ -4152,8 +4152,8 @@ start_menu()
         check_update_update_nginx
     elif [ $choice -eq 8 ]; then
         if [ $cloudreve_is_installed -eq 0 ]; then
-            red    "请先安装Cloudreve！"
-            tyblue "在 修改伪装网站类型/重置域名/添加域名 里选择Cloudreve"
+            red    "Please install Cloudreve first!"
+            tyblue "Select Cloudreve in Modify Masquerade Website Type/Reset Domain Name/Add Domain Name"
             return 1
         fi
         [ "$dnf" == "yum" ] && check_important_dependence_installed "" "yum-utils"
@@ -4187,20 +4187,20 @@ start_menu()
     elif [ $choice -eq 11 ]; then
         get_config_info
         [ $is_installed -eq 1 ] && check_need_php && red "有域名正在使用php" && return 1
-        ! ask_if "确定要删除php吗?(y/n)" && return 0
+        ! ask_if "Are you sure you want to delete php?(y/n)" && return 0
         remove_php && green "删除完成！"
     elif [ $choice -eq 12 ]; then
         get_config_info
-        [ $is_installed -eq 1 ] && check_need_cloudreve && red "有域名正在使用Cloudreve" && return 1
-        ! ask_if "确定要删除cloudreve吗?(y/n)" && return 0
-        remove_cloudreve && green "删除完成！"
+        [ $is_installed -eq 1 ] && check_need_cloudreve && red "There are domains using Cloudreve" && return 1
+        ! ask_if "Are you sure you want to delete cloudreve?(y/n)" && return 0
+        remove_cloudreve && green "delete complete！"
     elif [ $choice -eq 13 ]; then
         restart_xray_tls_web
     elif [ $choice -eq 14 ]; then
         systemctl stop xray nginx
         [ $php_is_installed -eq 1 ] && systemctl stop php-fpm
         [ $cloudreve_is_installed -eq 1 ] && systemctl stop cloudreve
-        green "已停止！"
+        green "stopped！"
     elif [ $choice -eq 15 ]; then
         get_config_info
         print_config_info
