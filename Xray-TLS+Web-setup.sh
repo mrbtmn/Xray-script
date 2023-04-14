@@ -2931,16 +2931,16 @@ print_share_link()
         local ip=""
         while [ -z "$ip" ]
         do
-            read -p "请输入您的服务器IP(用于生成分享链接)：" ip
+            read -p "Please enter your server IP (for generating sharing links)：" ip
         done
     fi
     if [[ "$ip" =~ : ]] && ! [[ "$ip" =~ ^\[.*:.*\]$ ]]; then
         ip="[$ip]"
     fi
     echo
-    tyblue "分享链接："
+    tyblue "share link："
     if [ $protocol_1 -eq 1 ] || [ $protocol_1 -eq 3 ]; then
-        green  "============ VLESS-TCP-XTLS\\033[35m(不走CDN)\\033[32m ============"
+        green  "============ VLESS-TCP-XTLS\\033[35m(don't go CDN)\\033[32m ============"
         for i in "${!domain_list[@]}"
         do
             if [ "${pretend_list[$i]}" == "1" ] || [ "${pretend_list[$i]}" == "2" ]; then
@@ -2962,26 +2962,26 @@ print_share_link()
         done
     fi
     if [ $protocol_2 -eq 1 ]; then
-        green  "=========== VLESS-gRPC-TLS \\033[35m(若域名开启了CDN解析则会连接CDN，否则将直连)\\033[32m ==========="
+        green  "=========== VLESS-gRPC-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
             tyblue "vless://${xid_2}@${i}:443?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1"
         done
     elif [ $protocol_2 -eq 2 ]; then
-        green  "=========== VMess-gRPC-TLS \\033[35m(若域名开启了CDN解析则会连接CDN，否则将直连)\\033[32m ==========="
+        green  "=========== VMess-gRPC-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
             tyblue "vmess://${xid_2}@${i}:443?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1"
         done
     fi
     if [ $protocol_3 -eq 1 ]; then
-        green  "=========== VLESS-WebSocket-TLS \\033[35m(若域名开启了CDN解析则会连接CDN，否则将直连)\\033[32m ==========="
+        green  "=========== VLESS-WebSocket-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
             tyblue "vless://${xid_3}@${i}:443?type=ws&security=tls&path=%2F${path#/}%3Fed=2048"
         done
     elif [ $protocol_3 -eq 2 ]; then
-        green  "=========== VMess-WebSocket-TLS \\033[35m(若域名开启了CDN解析则会连接CDN，否则将直连)\\033[32m ==========="
+        green  "=========== VMess-WebSocket-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
             tyblue "vmess://${xid_3}@${i}:443?type=ws&security=tls&path=%2F${path#/}%3Fed=2048"
@@ -2993,14 +2993,14 @@ print_config_info()
     echo -e "\\n\\n\\n"
     if [ $protocol_1 -ne 0 ]; then
         if [ $protocol_1 -eq 1 ]; then
-            tyblue "--------------------- VLESS-TCP-XTLS (不走CDN) ---------------------"
+            tyblue "--------------------- VLESS-TCP-XTLS (Do not use CDN) ---------------------"
         elif [ $protocol_1 -eq 2 ]; then
-            tyblue "--------------------- VLESS-TCP-TLS (不走CDN) ---------------------"
+            tyblue "--------------------- VLESS-TCP-TLS (Do not use CDN) ---------------------"
         else
-            tyblue "--------------------- VLESS-TCP-XTLS/TLS (不走CDN) ---------------------"
+            tyblue "--------------------- VLESS-TCP-XTLS/TLS (Do not use CDN) ---------------------"
         fi
-        tyblue " protocol(传输协议)    ：\\033[33mvless"
-        purple "  (V2RayN选择\"添加[VLESS]服务器\";V2RayNG选择\"手动输入[VLESS]\")"
+        tyblue " protocol(Transfer Protocol)    ：\\033[33mvless"
+        purple "  (V2RayN selection\"Add [VLESS] server\";V2RayNG selection\"manual input[VLESS]\")"
         tyblue " address(地址)         ：\\033[33m服务器ip"
         purple "  (Qv2ray:主机)"
         tyblue " port(端口)            ：\\033[33m443"
@@ -3195,20 +3195,20 @@ install_update_xray_tls_web()
     if [ $install_php -eq 1 ]; then
         if [ $update -eq 1 ]; then
             if check_php_update; then
-                ! ask_if "检测到php有新版本，是否更新?(y/n)" && use_existed_php=1
+                ! ask_if "It is detected that there is a new version of php, whether to update?(y/n)" && use_existed_php=1
             else
-                green "php已经是最新版本，不更新"
+                green "PHP is already the latest version, not updated"
                 use_existed_php=1
             fi
         elif [ $php_is_installed -eq 1 ]; then
-            tyblue "---------------检测到php已存在---------------"
-            tyblue " 1. 使用现有php"
-            tyblue " 2. 卸载现有php并重新编译安装"
+            tyblue "---------------detected that php already exists---------------"
+            tyblue " 1. use existing php"
+            tyblue " 2. Uninstall the existing php and recompile the installation"
             echo
             choice=""
             while [ "$choice" != "1" ] && [ "$choice" != "2" ]
             do
-                read -p "您的选择是：" choice
+                read -p "your choice is：" choice
             done
             [ $choice -eq 1 ] && use_existed_php=1
         fi
@@ -3217,41 +3217,41 @@ install_update_xray_tls_web()
     local use_existed_nginx=0
     if [ $update -eq 1 ]; then
         if check_nginx_update; then
-            ! ask_if "检测到Nginx有新版本，是否更新?(y/n)" && use_existed_nginx=1
+            ! ask_if "Detected that there is a new version of Nginx, whether to update?(y/n)" && use_existed_nginx=1
         else
-            green "Nginx已经是最新版本，不更新"
+            green "Nginx is already the latest version, not updated"
             use_existed_nginx=1
         fi
     elif [ $nginx_is_installed -eq 1 ]; then
-        tyblue "---------------检测到Nginx已存在---------------"
-        tyblue " 1. 使用现有Nginx"
-        tyblue " 2. 卸载现有Nginx并重新编译安装"
+        tyblue "---------------Detected that Nginx already exists---------------"
+        tyblue " 1. Use existing Nginx"
+        tyblue " 2. Uninstall the existing Nginx and recompile the installation"
         echo
         choice=""
         while [ "$choice" != "1" ] && [ "$choice" != "2" ]
         do
-            read -p "您的选择是：" choice
+            read -p "your choice is：" choice
         done
         [ $choice -eq 1 ] && use_existed_nginx=1
     fi
     #此参数只在[ $update -eq 0 ]时有效
     local temp_remove_cloudreve=1
     if [ $update -eq 0 ] && [ "${pretend_list[0]}" == "1" ] && [ $cloudreve_is_installed -eq 1 ]; then
-        tyblue "----------------- Cloudreve已存在 -----------------"
-        tyblue " 1. 使用现有Cloudreve"
-        tyblue " 2. 卸载并重新安装"
+        tyblue "----------------- Cloudreve already exists -----------------"
+        tyblue " 1. Use existing Cloudreve"
+        tyblue " 2. uninstall and reinstall"
         echo
-        red    "警告：卸载Cloudreve将删除网盘中所有文件和用户信息"
+        red    "Warning: Uninstalling Cloudreve will delete all files and user information in the network disk"
         choice=""
         while [ "$choice" != "1" ] && [ "$choice" != "2" ]
         do
-            read -p "您的选择是：" choice
+            read -p "your choice is：" choice
         done
         [ $choice -eq 1 ] && temp_remove_cloudreve=0
     fi
 
     if [ $update -eq 0 ]; then
-        green "即将开始安装Xray-TLS+Web，可能需要10-20分钟。。。"
+        green "The installation of Xray-TLS+Web is about to start, it may take 10-20 minutes。。。"
         sleep 3s
     fi
 
@@ -3324,12 +3324,12 @@ install_update_xray_tls_web()
     if [ $update -eq 0 ]; then
         [ "${pretend_list[0]}" == "1" ] && [ $temp_remove_cloudreve -eq 1 ] && remove_cloudreve
         init_web 0
-        green "-------------------安装完成-------------------"
+        green "-------------------The installation is complete-------------------"
         print_config_info
     else
         [ $cloudreve_is_installed -eq 1 ] && update_cloudreve
         turn_on_off_cloudreve
-        green "-------------------更新完成-------------------"
+        green "-------------------update completed-------------------"
     fi
     cd /
     rm -rf "$temp_dir"
@@ -3339,7 +3339,7 @@ install_update_xray_tls_web()
 #主菜单函数
 full_install_php()
 {
-    green "开始安装/更新php。。。"
+    green "Start installing/updating php。。。"
     sleep 3s
     install_php_compile_toolchains
     install_php_dependence
@@ -3359,9 +3359,9 @@ install_check_update_update_php()
     check_important_dependence_installed tzdata tzdata
     get_system_info
     if (([ $release == "centos" ] || [ $release == centos-stream ] || [ $release == oracle ]) && ! version_ge "$systemVersion" "8" ) || ([ $release == "rhel" ] && ! version_ge "$systemVersion" "8") || ([ $release == "fedora" ] && ! version_ge "$systemVersion" "30") || ([ $release == "ubuntu" ] && ! version_ge "$systemVersion" "20.04") || ([ $release == "debian" ] && ! version_ge "$systemVersion" "11"); then
-        red "系统版本过低，无法安装php！"
+        red "The system version is too low to install php！"
         echo
-        tyblue "安装Nextcloud需要安装php"
+        tyblue "Installing Nextcloud requires installing php"
         yellow "仅支持在以下版本系统下安装php："
         yellow " 1. Ubuntu 20.04+"
         yellow " 2. Debian 11+"
@@ -3373,7 +3373,7 @@ install_check_update_update_php()
         yellow " 8. 其他以 Red Hat 8+ 为基的系统"
         return 1
     elif [ $release == "other-debian" ] || [ $release == "other-redhat" ]; then
-        yellow "未知的系统，可能导致php安装失败！"
+        yellow "Unknown system may cause php installation to fail！"
         echo
         tyblue "安装Nextcloud需要安装php"
         yellow "仅支持在以下版本系统下安装php："
@@ -3399,7 +3399,7 @@ install_check_update_update_php()
         ask_update_script_force
         if check_php_update; then
             green "php有新版本"
-            ! ask_if "是否更新？(y/n)" && return 0
+            ! ask_if "Whether to update？(y/n)" && return 0
         else
             green "php已是最新版本"
             return 0
@@ -3407,10 +3407,10 @@ install_check_update_update_php()
         systemctl -q is-active php-fpm && php_status=1
     else
         ask_update_script
-        tyblue "安装php用于运行nextcloud网盘"
-        yellow "编译&&安装php可能需要消耗15-60分钟"
-        yellow "且php将占用一定系统资源，不建议内存<512M的机器使用"
-        ! ask_if "是否继续？(y/n)" && return 0
+        tyblue "Install php to run nextcloud network disk"
+        yellow "Compiling && installing php may take 15-60 minutes"
+        yellow "And php will occupy a certain amount of system resources, so it is not recommended for machines with memory <512M"
+        ! ask_if "Whether to continue？(y/n)" && return 0
     fi
     check_ssh_timeout
     get_config_info
@@ -3421,7 +3421,7 @@ install_check_update_update_php()
     else
         systemctl stop php-fpm
     fi
-    green "安装/更新完成！"
+    green "Install/update complete！"
 }
 check_update_update_nginx()
 {
@@ -3436,10 +3436,10 @@ check_update_update_nginx()
     install_epel
     ask_update_script_force
     if check_nginx_update; then
-        green "Nginx有新版本"
-        ! ask_if "是否更新？(y/n)" && return 0
+        green "Nginx has a new version"
+        ! ask_if "Whether to update？(y/n)" && return 0
     else
-        green "Nginx已是最新版本"
+        green "Nginx is the latest version"
         return 0
     fi
     check_ssh_timeout
@@ -3471,7 +3471,7 @@ check_update_update_nginx()
     fi
     cd /
     rm -rf "$temp_dir"
-    green "更新完成！"
+    green "update completed！"
 }
 restart_xray_tls_web()
 {
@@ -3482,15 +3482,15 @@ restart_xray_tls_web()
     turn_on_off_cloudreve
     sleep 1s
     if ! systemctl -q is-active xray; then
-        red "Xray启动失败！！"
+        red "Xray failed to start！！"
     elif ! systemctl -q is-active nginx; then
-        red "Nginx启动失败！！"
+        red "Nginx failed to start！！"
     elif check_need_php && ! systemctl -q is-active php-fpm; then
-        red "php启动失败！！"
+        red "php failed to start！！"
     elif check_need_cloudreve && ! systemctl -q is-active cloudreve; then
-        red "Cloudreve启动失败！！"
+        red "Cloudreve failed to start！！"
     else
-        green "重启/启动成功！！"
+        green "Reboot/boot successfully！！"
     fi
 }
 reinit_domain()
@@ -3504,8 +3504,8 @@ reinit_domain()
     check_important_dependence_installed wget wget
     install_acme_dependence
     ask_update_script
-    yellow "重置域名将删除所有现有域名(包括域名证书、伪装网站等)"
-    ! ask_if "是否继续？(y/n)" && return 0
+    yellow "Resetting the domain name will delete all existing domain names (including domain certificates, fake websites, etc.)"
+    ! ask_if "Whether to continue？(y/n)" && return 0
     get_config_info
     readDomain
     if [ "${pretend_list[-1]}" == "2" ] && [ $php_is_installed -eq 0 ]; then
@@ -3521,7 +3521,7 @@ reinit_domain()
         [ "${pretend_list[-1]}" == "1" ] && check_SELinux
         install_web_dependence "${pretend_list[-1]}"
     fi
-    green "重置域名中。。。"
+    green "reset domain name。。。"
     local temp_domain="${domain_list[-1]}"
     local temp_true_domain="${true_domain_list[-1]}"
     local temp_domain_config="${domain_config_list[-1]}"
@@ -3558,7 +3558,7 @@ reinit_domain()
     sleep 2s
     systemctl restart xray nginx
     init_web 0
-    green "域名重置完成！！"
+    green "Domain name reset complete！！"
     print_config_info
 }
 add_domain()
@@ -3580,13 +3580,13 @@ add_domain()
     do
         ((i--))
         if [ "${domain_list[-1]}" == "${domain_list[$i]}" ] || [ "${domain_list[-1]}" == "${true_domain_list[$i]}" ] || [ "${true_domain_list[-1]}" == "${domain_list[$i]}" ] || [ "${true_domain_list[-1]}" == "${true_domain_list[$i]}" ]; then
-            red "域名已存在！"
+            red "Domain already exists！"
             return 1
         fi
     done
     if [ "${pretend_list[-1]}" == "1" ] && [ $need_cloudreve -eq 1 ]; then
-        yellow "Cloudreve只能用于一个域名！！"
-        tyblue "Nextcloud可以用于多个域名"
+        yellow "Cloudreve can only be used for one domain name！！"
+        tyblue "Nextcloud can be used for multiple domain names"
         return 1
     fi
     if [ "${pretend_list[-1]}" == "2" ] && [ $php_is_installed -eq 0 ]; then
@@ -3605,8 +3605,8 @@ add_domain()
     if ! get_cert "-1"; then
         sleep 2s
         systemctl restart xray nginx
-        red "申请证书失败！！"
-        red "域名添加失败"
+        red "Failed to apply for a certificate！！"
+        red "Failed to add domain name"
         return 1
     fi
     config_nginx
@@ -3615,18 +3615,18 @@ add_domain()
     systemctl stop php-fpm cloudreve
     systemctl restart xray nginx
     init_web "-1"
-    green "域名添加完成！！"
+    green "Domain name added！！"
     print_config_info
 }
 delete_domain()
 {
     get_config_info
     if [ ${#domain_list[@]} -le 1 ]; then
-        red "只有一个域名"
+        red "only one domain name"
         return 1
     fi
     local i
-    tyblue "-----------------------请选择要删除的域名-----------------------"
+    tyblue "-----------------------Please select the domain name to delete-----------------------"
     for i in "${!domain_list[@]}"
     do
         if [ ${domain_config_list[$i]} -eq 1 ]; then
@@ -3635,17 +3635,17 @@ delete_domain()
             tyblue " $((i+1)). ${domain_list[$i]}"
         fi
     done
-    yellow " 0. 不删除"
+    yellow " 0. not delete"
     local delete=""
     while ! [[ "$delete" =~ ^([1-9][0-9]*|0)$ ]] || [ $delete -gt ${#domain_list[@]} ]
     do
-        read -p "你的选择是：" delete
+        read -p "your choice is：" delete
     done
     [ $delete -eq 0 ] && return 0
     ((delete--))
     if [ "${pretend_list[$delete]}" == "2" ]; then
-        red "警告：此操作可能导致该域名下的Nextcloud网盘数据被删除"
-        ! ask_if "是否要继续？(y/n)" && return 0
+        red "Warning: This operation may cause the Nextcloud network disk data under this domain name to be deleted"
+        ! ask_if "do you want to continue？(y/n)" && return 0
     fi
     $HOME/.acme.sh/acme.sh --remove --domain ${true_domain_list[$delete]} --ecc
     rm -rf $HOME/.acme.sh/${true_domain_list[$delete]}_ecc
@@ -3664,7 +3664,7 @@ delete_domain()
     systemctl restart xray nginx
     turn_on_off_php
     turn_on_off_cloudreve
-    green "域名删除完成！！"
+    green "Domain name deletion complete！！"
     print_config_info
 }
 change_pretend()
@@ -3681,7 +3681,7 @@ change_pretend()
         change=0
     else
         local i
-        tyblue "-----------------------请选择要修改伪装类型的域名-----------------------"
+        tyblue "-----------------------Please select the domain name to modify the masquerade type-----------------------"
         for i in "${!domain_list[@]}"
         do
             if [ ${domain_config_list[$i]} -eq 1 ]; then
@@ -3690,10 +3690,10 @@ change_pretend()
                 tyblue " $((i+1)). ${domain_list[$i]}"
             fi
         done
-        yellow " 0. 不修改"
+        yellow " 0. do not modify"
         while ! [[ "$change" =~ ^([1-9][0-9]*|0)$ ]] || [ $change -gt ${#domain_list[@]} ]
         do
-            read -p "你的选择是：" change
+            read -p "your choice is：" change
         done
         [ $change -eq 0 ] && return 0
         ((change--))
@@ -3701,19 +3701,19 @@ change_pretend()
     local pretend
     readPretend "${true_domain_list[$change]}"
     if [ "${pretend_list[$change]}" == "$pretend" ]; then
-        yellow "伪装类型没有变化"
+        yellow "Camouflage type does not change"
         return 1
     fi
     if [ "${pretend_list[$change]}" == "2" ]; then
-        red "警告：此操作可能导致该域名下的Nextcloud网盘数据被删除"
-        ! ask_if "是否要继续？(y/n)" && return 0
+        red "Warning: This operation may cause the Nextcloud network disk data under this domain name to be deleted"
+        ! ask_if "do you want to continue？(y/n)" && return 0
     fi
     local need_cloudreve=0
     check_need_cloudreve && need_cloudreve=1
     pretend_list[$change]="$pretend"
     if [ "$pretend" == "1" ] && [ $need_cloudreve -eq 1 ]; then
-        yellow "Cloudreve只能用于一个域名！！"
-        tyblue "Nextcloud可以用于多个域名"
+        yellow "Cloudreve can only be used for one domain name！！"
+        tyblue "Nextcloud can be used for multiple domain names"
         return 1
     fi
     if [ "$pretend" == "2" ] && [ $php_is_installed -eq 0 ]; then
@@ -3739,8 +3739,8 @@ reinstall_cloudreve()
 {
     get_config_info
     ! check_need_cloudreve && red "Cloudreve目前没有绑定域名" && return 1
-    red "重新安装Cloudreve将删除所有的网盘文件以及帐户信息，并重置管理员密码"
-    ! ask_if "确定要继续吗？(y/n)" && return 0
+    red "Reinstalling Cloudreve will delete all network disk files and account information, and reset the administrator password"
+    ! ask_if "Are you sure you want to continue?？(y/n)" && return 0
     [ "$dnf" == "yum" ] && check_important_dependence_installed "" "yum-utils"
     check_SELinux
     check_important_dependence_installed ca-certificates ca-certificates
@@ -3758,7 +3758,7 @@ reinstall_cloudreve()
     done
     cd /
     rm -rf "$temp_dir"
-    green "重装完成！"
+    green "reload complete！"
 }
 change_xray_protocol()
 {
@@ -3768,7 +3768,7 @@ change_xray_protocol()
     local protocol_3_old=$protocol_3
     readProtocolConfig
     if [ $protocol_1_old -eq $protocol_1 ] && [ $protocol_2_old -eq $protocol_2 ] && [ $protocol_3_old -eq $protocol_3 ]; then
-        red "传输协议未更换"
+        red "Transport protocol not changed"
         return 1
     fi
     [ $protocol_1_old -eq 0 ] && [ $protocol_1 -ne 0 ] && xid_1=$(cat /proc/sys/kernel/random/uuid)
@@ -3784,14 +3784,14 @@ change_xray_protocol()
     config_nginx
     systemctl -q is-active xray && systemctl restart xray
     systemctl -q is-active nginx && systemctl restart nginx
-    green "更换成功！！"
+    green "Replaced successfully！！"
     print_config_info
 }
 change_xray_id()
 {
     get_config_info
     local flag=""
-    tyblue "-------------请输入你要修改的id-------------"
+    tyblue "-------------Please enter the id you want to modify-------------"
     tyblue " 1. TCP的id"
     tyblue " 2. gRPC的id"
     tyblue " 3. WebSocket的id"
@@ -3802,22 +3802,22 @@ change_xray_id()
     done
     local temp_protocol="protocol_$flag"
     if [ ${!temp_protocol} -eq 0 ]; then
-        red "没有使用该协议！"
+        red "not using the protocol！"
         return 1
     fi
     local xid="xid_$flag"
-    tyblue "您现在的id是：${!xid}"
-    ! ask_if "是否要继续?(y/n)" && return 0
+    tyblue "Your current id is：${!xid}"
+    ! ask_if "do you want to continue?(y/n)" && return 0
     while true
     do
         xid=""
         while [ -z "$xid" ]
         do
-            tyblue "-------------请输入新的id-------------"
+            tyblue "-------------Please enter a new id-------------"
             read xid
         done
-        tyblue "您输入的id是：$xid"
-        ask_if "是否确定?(y/n)" && break
+        tyblue "The id you entered is：$xid"
+        ask_if "Are you sure?(y/n)" && break
     done
     if [ $flag -eq 1 ]; then
         xid_1="$xid"
@@ -3828,81 +3828,81 @@ change_xray_id()
     fi
     config_xray
     systemctl -q is-active xray && systemctl restart xray
-    green "更换成功！！"
+    green "Replaced successfully！！"
     print_config_info
 }
 change_xray_serviceName()
 {
     get_config_info
     if [ $protocol_2 -eq 0 ]; then
-        red "没有使用gRPC协议！"
+        red "Not using the gRPC protocol！"
         return 1
     fi
-    tyblue "您现在的serviceName是：$serviceName"
-    ! ask_if "是否要继续?(y/n)" && return 0
+    tyblue "Your current serviceName is：$serviceName"
+    ! ask_if "do you want to continue?(y/n)" && return 0
     while true
     do
         serviceName=""
         while [ -z "$serviceName" ]
         do
-            tyblue "---------------请输入新的serviceName(字母数字组合)---------------"
+            tyblue "---------------Please enter a new serviceName (alphanumeric combination)---------------"
             read serviceName
         done
-        tyblue "您输入的serviceName是：$serviceName"
-        ask_if "是否确定?(y/n)" && break
+        tyblue "The serviceName you entered is：$serviceName"
+        ask_if "Are you sure?(y/n)" && break
     done
     config_xray
     config_nginx
     systemctl -q is-active xray && systemctl restart xray
     systemctl -q is-active nginx && systemctl restart nginx
-    green "更换成功！！"
+    green "Replaced successfully！！"
     print_config_info
 }
 change_xray_path()
 {
     get_config_info
     if [ $protocol_3 -eq 0 ]; then
-        red "没有使用WebSocket协议！"
+        red "Not using the WebSocket protocol！"
         return 1
     fi
-    tyblue "您现在的path是：$path"
-    ! ask_if "是否要继续?(y/n)" && return 0
+    tyblue "Your current path is：$path"
+    ! ask_if "do you want to continue?(y/n)" && return 0
     while true
     do
         path=""
         while [ -z "$path" ]
         do
-            tyblue "---------------请输入新的path(/+字母数字组合)---------------"
+            tyblue "---------------Please enter a new path (/+ alphanumeric combination)---------------"
             read path
         done
-        tyblue "您输入的path是：$path"
-        ask_if "是否确定?(y/n)" && break
+        tyblue "The path you entered is：$path"
+        ask_if "Are you sure?(y/n)" && break
     done
     config_xray
     systemctl -q is-active xray && systemctl restart xray
-    green "更换成功！！"
+    green "Replaced successfully！！"
     print_config_info
 }
 simplify_system()
 {
     if systemctl -q is-active xray || systemctl -q is-active nginx || systemctl -q is-active php-fpm; then
-        yellow "请先停止Xray-TLS+Web"
+        yellow "Please stop Xray-TLS+Web first"
         return 1
     fi
     [ "$dnf" == "yum" ] && check_important_dependence_installed "" "yum-utils"
     check_important_dependence_installed tzdata tzdata
     get_system_info
     check_important_dependence_installed "procps" "procps-ng"
-    yellow "警告："
-    tyblue " 1. 此功不能保证在所有系统运行成功 (特别是某些VPS定制系统)，如果运行失败，可能导致VPS无法开机"
-    tyblue " 2. 如果VPS上部署了 Xray-TLS+Web 以外的东西，可能被误删"
-    ! ask_if "是否要继续?(y/n)" && return 0
+    yellow "warn："
+    tyblue " 1. This function cannot be guaranteed to run successfully on all systems (especially some VPS customized systems), if it fails to run, it may cause the VPS to fail to boot"
+    tyblue " 2. If something other than Xray-TLS+Web is deployed on the VPS, it may be deleted by mistake"
+    ! ask_if "do you want to continue?(y/n)" && return 0
     echo
     local save_ssh=0
-    yellow "提示：精简系统可能导致ssh配置文件(/etc/ssh/sshd_config)恢复默认"
-    tyblue "这可能导致ssh端口恢复默认(22)，且有些系统默认仅允许密钥登录(不允许密码登录)"
-    tyblue "你可以自己备份ssh文件或使用脚本自动备份"
-    ask_if "是否备份ssh配置文件?(y/n)" && save_ssh=1
+    yellow "Tip: Streamlining the system may cause the ssh configuration file (/etc/ssh/sshd_config) to restore the default"
+    tyblue "This may cause the ssh port to return to the default (22), and some systems only allow key logins by default (no password logins are allowed)"
+    tyblue "You can back up the ssh files yourself or use a script to do it automatically"
+    ask_if "Whether to back up the ssh configuration file?(y/n)" && save_ssh=1
     if [ $save_ssh -eq 1 ]; then
         enter_temp_dir
         cp /etc/ssh/sshd_config sshd_config
@@ -3941,7 +3941,7 @@ simplify_system()
         for package in "${debian_remove_packages[@]}"
         do
             if grep -q "$package" temp; then
-                tyblue "将删除软件包：$package"
+                tyblue "will remove the package：$package"
                 remove_packages+=("$package")
             fi
         done
@@ -3952,21 +3952,21 @@ simplify_system()
             $apt update
             $apt -y -f --no-install-recommends install
             if ! apt_auto_remove_purge "${remove_packages[@]}"; then
-                red    "精简系统时有错误发生（某些软件包卸载失败）"
+                red    "An error occurred while downsizing the system (uninstallation of some packages failed）"
                 echo
-                tyblue "如果您是小白，建议选择n终止卸载，如果后续仍有出现错误，请重装系统"
+                tyblue "If you are a novice, it is recommended to choose n to terminate the uninstallation. If there are still errors in the future, please reinstall the system"
                 echo
-                tyblue "否则，可以按照以下步骤尝试修复："
-                tyblue " 1. 阅读错误信息，找到导致卸载错误的软件包；手动运行这条命令可能可以帮助寻找错误包： $apt -f --no-install-recommends install (在终端中运行，参考2)"
-                tyblue " 2. 按ctrl+z将脚本挂在后台，也可尝试新建一个终端(不一定能新建成功)"
-                tyblue " 3. 如果能看出导致卸载错误的原因并解决是最好；如果不能，运行 '$apt update && $apt --no-install-recommends install 软件包名' 手动升级该软件包"
-                tyblue " 4. 运行fg命令返回脚本(对应ctrl+z命令)"
-                tyblue " 5. 在完成上述步骤后，选择y继续卸载"
+                tyblue "Otherwise, you can try to fix it by following the steps below："
+                tyblue " 1. Read the error message to find the package that caused the uninstall error; running this command manually may help to find the wrong package： $apt -f --no-install-recommends install (在终端中运行，参考2)"
+                tyblue " 2. Press ctrl+z to hang the script in the background, or try to create a new terminal (it may not be successful)"
+                tyblue " 3. It's best if you can see what's causing the uninstall error and fix it; if you can't, run '$apt update && $apt --no-install-recommends install 软件包名' 手动升级该软件包"
+                tyblue " 4. Run the fg command to return to the script (corresponding to the ctrl+z command)"
+                tyblue " 5. After completing the above steps, select y to continue uninstalling"
                 echo
-                if ask_if "继续卸载?(y/n)"; then
+                if ask_if "continue to uninstall?(y/n)"; then
                     if ! apt_auto_remove_purge "${remove_packages[@]}"; then
-                        red "卸载失败！"
-                        tyblue "按回车键继续，如果后续仍有出现错误，请重装系统"
+                        red "uninstall failed！"
+                        tyblue "Press the Enter key to continue, if there are still errors, please reinstall the system"
                         read -s
                     fi
                 fi
@@ -3988,18 +3988,18 @@ simplify_system()
         rm -rf "$temp_dir"
         systemctl restart $ssh_service
     fi
-    green "精简完成"
+    green "Streamlined"
 }
 repair_tuige()
 {
-    yellow "尝试修复退格键异常问题，退格键正常请不要修复"
-    ! ask_if "是否要继续?(y/n)" && return 0
+    yellow "Try to fix the abnormal problem of the backspace key, please do not fix the backspace key if it is normal"
+    ! ask_if "do you want to continue?(y/n)" && return 0
     if stty -a | grep -q 'erase = ^?'; then
         stty erase '^H'
     elif stty -a | grep -q 'erase = ^H'; then
         stty erase '^?'
     fi
-    green "修复完成！！"
+    green "repair completed！！"
 }
 change_dns()
 {
