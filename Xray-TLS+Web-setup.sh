@@ -1528,13 +1528,13 @@ install_bbr()
         tcp_congestion_control=$(sysctl net.ipv4.tcp_congestion_control | cut -d = -f 2 | awk '{print $1}')
         if [[ "$tcp_congestion_control" =~ bbr|nanqinlang|tsunami ]]; then
             if [ $tcp_congestion_control == nanqinlang ]; then
-                tcp_congestion_control="${tcp_congestion_control} \\033[35m(暴力bbr魔改版)"
+                tcp_congestion_control="${tcp_congestion_control} \\033[35m(Violent bbr magic version)"
             elif [ $tcp_congestion_control == tsunami ]; then
-                tcp_congestion_control="${tcp_congestion_control} \\033[35m(bbr魔改版)"
+                tcp_congestion_control="${tcp_congestion_control} \\033[35m(bbr magic revision)"
             fi
             green  "       ${tcp_congestion_control}"
         else
-            tyblue "       ${tcp_congestion_control} \\033[31m(bbr未启用)"
+            tyblue "       ${tcp_congestion_control} \\033[31m(bbr is not enabled)"
         fi
         tyblue "   current queue algorithm："
         green "       $(sysctl net.core.default_qdisc | cut -d = -f 2 | awk '{print $1}')"
@@ -1564,7 +1564,7 @@ install_bbr()
                         if ! version_ge "$(dpkg --list | grep '^[ '$'\t]*ii[ '$'\t][ '$'\t]*linux-base[ '$'\t]' | awk '{print $3}')" "4.5ubuntu1~16.04.1"; then
                             if ! $apt update; then
                                 red "$apt update出错"
-                                green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
+                                green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，thank you for your support"
                                 yellow "Press Enter to continue or Ctrl+c to exit"
                                 read -s
                             fi
