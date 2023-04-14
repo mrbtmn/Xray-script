@@ -3001,18 +3001,18 @@ print_config_info()
         fi
         tyblue " protocol(Transfer Protocol)    ：\\033[33mvless"
         purple "  (V2RayN selection\"Add [VLESS] server\";V2RayNG selection\"manual input[VLESS]\")"
-        tyblue " address(address)         ：\\033[33m服务器ip"
+        tyblue " address(address)         ：\\033[33mServer ip"
         purple "  (Qv2ray: Host)"
         tyblue " port(port)            ：\\033[33m443"
         tyblue " id(User ID/UUID)       ：\\033[33m${xid_1}"
         if [ $protocol_1 -eq 1 ]; then
             tyblue " flow(Flow Control)            ：\\033[33mxtls-rprx-vision"
         elif [ $protocol_1 -eq 2 ]; then
-            tyblue " flow(Flow Control)            ：\\033[33m空"
+            tyblue " flow(Flow Control)            ：\\033[33mnull"
         else
             tyblue " flow(Flow Control)            ："
             tyblue "                         Use XTLS ：\\033[33mxtls-rprx-vision"
-            tyblue "                         Use TLS  ：\\033[33m空"
+            tyblue "                         Use TLS  ：\\033[33mnull"
         fi
         tyblue " encryption(encryption)      ：\\033[33mnone"
         tyblue " ---Transport/StreamSettings(Low-level transport/stream settings)---"
@@ -3025,12 +3025,12 @@ print_config_info()
         if [ ${#domain_list[@]} -eq 1 ]; then
             tyblue "  serverName                    ：\\033[33m${domain_list[*]}"
         else
-            tyblue "  serverName                    ：\\033[33m${domain_list[*]} \\033[35m(任选其一)"
+            tyblue "  serverName                    ：\\033[33m${domain_list[*]} \\033[35m(choose one)"
         fi
         purple "   (V2RayN(G):SNI;Qv2ray:TLS Settings - Server Address;Shadowrocket:Peer name)"
         tyblue "  allowInsecure                 ：\\033[33mfalse"
         purple "   (Qv2ray:TLS Settings - Allow insecure certificates (unchecked);Shadowrocket:Allow unsafe (off))"
-        tyblue "  fingerprint                   ：\\033[33m空\\033[36m/\\033[33mchrome\\033[32m(recommend)\\033[36m/\\033[33mfirefox\\033[36m/\\033[33mios\\033[36m/\\033[33msafari\\033[36m/\\033[33mandroid\\033[36m/\\033[33medge\\033[36m/\\033[33m360\\033[36m/\\033[33mqq\\033[36m/\\033[33mrandom"
+        tyblue "  fingerprint                   ：\\033[33mnull\\033[36m/\\033[33mchrome\\033[32m(recommend)\\033[36m/\\033[33mfirefox\\033[36m/\\033[33mios\\033[36m/\\033[33msafari\\033[36m/\\033[33mandroid\\033[36m/\\033[33medge\\033[36m/\\033[33m360\\033[36m/\\033[33mqq\\033[36m/\\033[33mrandom"
         purple "                                    (This option determines whether to forge the browser fingerprint: empty means no forgery, use the default fingerprint of the GO program；random means to randomly select a browser forged fingerprint)"
         tyblue "  alpn                          ："
         tyblue "                                  fake browser fingerprint  ：This parameter does not take effect，Can be set freely"
@@ -3055,13 +3055,13 @@ print_config_info()
         if [ ${#domain_list[@]} -eq 1 ]; then
             tyblue " address(address)         ：\\033[33m${domain_list[*]}"
         else
-            tyblue " address(address)         ：\\033[33m${domain_list[*]} \\033[35m(任选其一)"
+            tyblue " address(address)         ：\\033[33m${domain_list[*]} \\033[35m(choose one)"
         fi
         purple "  (Qv2ray: Host)"
         tyblue " port(port)            ：\\033[33m443"
         tyblue " id(User ID/UUID)       ：\\033[33m${xid_2}"
         if [ $protocol_2 -eq 1 ]; then
-            tyblue " flow(Flow Control)            ：\\033[33m空"
+            tyblue " flow(Flow Control)            ：\\033[33mnull"
             tyblue " encryption(encryption)      ：\\033[33mnone"
         else
             tyblue " security(Encryption)    ：Using a CDN is recommended\\033[33mauto\\033[36m;Do not use CDN, recommended\\033[33mnone"
@@ -3074,11 +3074,11 @@ print_config_info()
         purple "   (V2RayN(G)camouflage type(type)choose multi"
         tyblue "  security(transport layer encryption)          ：\\033[33mtls"
         purple "   (V2RayN(G):underlying transport security;Qv2ray:TLS Settings - Security Type)"
-        tyblue "  serverName                    ：\\033[33m空"
+        tyblue "  serverName                    ：\\033[33mnull"
         purple "   (V2RayN(G):SNI and cloaked domains;Qv2ray:TLS Settings - Server Address;Shadowrocket:Peer name)"
         tyblue "  allowInsecure                 ：\\033[33mfalse"
         purple "   (Qv2ray:TLS Settings - Allow insecure certificates (unchecked);Shadowrocket:Allow unsafe (off))"
-        tyblue "  fingerprint                   ：\\033[33m空\\033[36m/\\033[33mchrome\\033[32m(recommend)\\033[36m/\\033[33mfirefox\\033[36m/\\033[33msafari"
+        tyblue "  fingerprint                   ：\\033[33mnull\\033[36m/\\033[33mchrome\\033[32m(recommend)\\033[36m/\\033[33mfirefox\\033[36m/\\033[33msafari"
         purple "                                           (This option determines whether to forge browser fingerprints, empty means no forgery)"
         tyblue "  alpn                          ：It is recommended to set\\033[33mh2,http/1.1 \\033[35m(When this option is empty/not configured, the default is\"h2,http/1.1\")"
         purple "   (Qv2ray:TLS settings - ALPN) (Pay attention to Qv2ray if you want to set alpn to h2,http/1.1，Please fill out\"h2|http/1.1\")"
@@ -3107,7 +3107,7 @@ print_config_info()
         tyblue " port(port)            ：\\033[33m443"
         tyblue " id(User ID/UUID)       ：\\033[33m${xid_3}"
         if [ $protocol_3 -eq 1 ]; then
-            tyblue " flow(Flow Control)            ：\\033[33m空"
+            tyblue " flow(Flow Control)            ：\\033[33mnull"
             tyblue " encryption(encryption)      ：\\033[33mnone"
         else
             tyblue " security(Encryption)    ：Using a CDN is recommended\\033[33mauto\\033[36m;Do not use CDN, recommended\\033[33mnone"
@@ -3117,15 +3117,15 @@ print_config_info()
         tyblue "  network(transfer method)             ：\\033[33mws"
         purple "   (Shadowrocket transmission mode choose websocket)"
         tyblue "  path(path)                    ：\\033[33m${path}?ed=2048"
-        tyblue "  Host                          ：\\033[33m空"
+        tyblue "  Host                          ：\\033[33mnull"
         purple "   (V2RayN(G):Masquerade domain name; Qv2ray: protocol setting - request header)"
         tyblue "  security(transport layer encryption)          ：\\033[33mtls"
         purple "   (V2RayN(G):underlying transport security;Qv2ray:TLS Settings - Security Type)"
-        tyblue "  serverName                    ：\\033[33m空"
+        tyblue "  serverName                    ：\\033[33mnull"
         purple "   (V2RayN(G):SNI and cloaked domains;Qv2ray:TLS Settings - Server Address;Shadowrocket:Peer name)"
         tyblue "  allowInsecure                 ：\\033[33mfalse"
         purple "   (Qv2ray:TLS Settings - Allow insecure certificates (unchecked);Shadowrocket:Allow unsafe (off))"
-        tyblue "  fingerprint                   ：\\033[33m空\\033[32m(recommend)\\033[36m/\\033[33mchrome\\033[36m/\\033[33mfirefox\\033[36m/\\033[33msafari"
+        tyblue "  fingerprint                   ：\\033[33mnull\\033[32m(recommend)\\033[36m/\\033[33mchrome\\033[36m/\\033[33mfirefox\\033[36m/\\033[33msafari"
         purple "                                           (This option determines whether to forge browser fingerprints, empty means no forgery)"
         tyblue "  alpn                          ：This parameter does not take effect, you can set it freely \\033[35m(In Websocket mode alpn will be fixed as\"http/1.1\")"
         tyblue " ------------------------other-----------------------"
@@ -3137,7 +3137,7 @@ print_config_info()
     yellow "Note: Some options may not be covered by the sharing link. If you are not afraid of trouble, it is recommended to fill in manually"
     ask_if "Whether to generate a share link？(y/n)" && print_share_link
     echo
-    yellow " About fingerprint and alpn，See details：https://github.com/kirin10000/Xray-script#关于tls握手tls指纹和alpn"
+    yellow " About fingerprint and alpn，See details：https://github.com/kirin10000/Xray-script#About tls handshake tls fingerprint and alpn"
     echo
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
