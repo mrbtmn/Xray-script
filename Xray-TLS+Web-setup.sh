@@ -1900,7 +1900,7 @@ readDomain()
     local pretend
     echo -e "\\n\\n\\n"
     tyblue "--------------------Please select the domain name resolution--------------------"
-    tyblue " 1. Both the main domain name and www.main domain name are resolved to this server \\033[32m(推荐)"
+    tyblue " 1. Both the main domain name and www.main domain name are resolved to this server \\033[32m(recommend)"
     green  "    like：123.com and www.123.com resolve to this server"
     tyblue " 2. Only a specific domain name resolves to this server"
     green  "    like：123.com or www.123.com or xxx.123.com One of the resolves to this server"
