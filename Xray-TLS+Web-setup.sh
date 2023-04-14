@@ -1903,7 +1903,7 @@ readDomain()
     tyblue " 1. Both the main domain name and www.main domain name are resolved to this server \\033[32m(推荐)"
     green  "    like：123.com and www.123.com resolve to this server"
     tyblue " 2. Only a specific domain name resolves to this server"
-    green  "    like：123.com or www.123.com 或 xxx.123.com One of the resolves to this server"
+    green  "    like：123.com or www.123.com or xxx.123.com One of the resolves to this server"
     echo
     while [ "$domain_config" != "1" ] && [ "$domain_config" != "2" ]
     do
@@ -3119,32 +3119,32 @@ print_config_info()
         tyblue "  path(路径)                    ：\\033[33m${path}?ed=2048"
         tyblue "  Host                          ：\\033[33m空"
         purple "   (V2RayN(G):伪装域名;Qv2ray:协议设置-请求头)"
-        tyblue "  security(传输层加密)          ：\\033[33mtls"
-        purple "   (V2RayN(G):底层传输安全;Qv2ray:TLS设置-安全类型)"
+        tyblue "  security(transport layer encryption)          ：\\033[33mtls"
+        purple "   (V2RayN(G):underlying transport security;Qv2ray:TLS Settings - Security Type)"
         tyblue "  serverName                    ：\\033[33m空"
-        purple "   (V2RayN(G):SNI和伪装域名;Qv2ray:TLS设置-服务器地址;Shadowrocket:Peer 名称)"
+        purple "   (V2RayN(G):SNI and cloaked domains;Qv2ray:TLS Settings - Server Address;Shadowrocket:Peer name)"
         tyblue "  allowInsecure                 ：\\033[33mfalse"
-        purple "   (Qv2ray:TLS设置-允许不安全的证书(不打勾);Shadowrocket:允许不安全(关闭))"
+        purple "   (Qv2ray:TLS Settings - Allow insecure certificates (unchecked);Shadowrocket:Allow unsafe (off))"
         tyblue "  fingerprint                   ：\\033[33m空\\033[32m(推荐)\\033[36m/\\033[33mchrome\\033[36m/\\033[33mfirefox\\033[36m/\\033[33msafari"
-        purple "                                           (此选项决定是否伪造浏览器指纹，空代表不伪造)"
-        tyblue "  alpn                          ：此参数不生效，可随意设置 \\033[35m(Websocket模式下alpn将被固定为\"http/1.1\")"
-        tyblue " ------------------------其他-----------------------"
-        tyblue "  Mux(多路复用)                 ：建议关闭"
-        purple "   (V2RayN:设置页面-开启Mux多路复用)"
+        purple "                                           (This option determines whether to forge browser fingerprints, empty means no forgery)"
+        tyblue "  alpn                          ：This parameter does not take effect, you can set it freely \\033[35m(In Websocket mode alpn will be fixed as\"http/1.1\")"
+        tyblue " ------------------------other-----------------------"
+        tyblue "  Mux(multiplexing)                 ：recommended to close"
+        purple "   (V2RayN:Settings page - enable Mux multiplexing)"
         tyblue "------------------------------------------------------------------------"
     fi
     echo
-    yellow "注：部分选项可能分享链接无法涉及，如果不怕麻烦，建议手动填写"
-    ask_if "是否生成分享链接？(y/n)" && print_share_link
+    yellow "Note: Some options may not be covered by the sharing link. If you are not afraid of trouble, it is recommended to fill in manually"
+    ask_if "Whether to generate a share link？(y/n)" && print_share_link
     echo
-    yellow " 关于fingerprint与alpn，详见：https://github.com/kirin10000/Xray-script#关于tls握手tls指纹和alpn"
+    yellow " About fingerprint and alpn，See details：https://github.com/kirin10000/Xray-script#关于tls握手tls指纹和alpn"
     echo
-    blue   " 若要实现Fullcone(NAT类型开放)，需要以下条件："
-    blue   "   如果客户端系统为Windows，并且正在使用透明代理或TUN/Bypass LAN，请确保当前网络设置为专用网络"
+    blue   " To achieve Fullcone (NAT type open), the following conditions are required："
+    blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " 脚本最后更新时间：2023.1.1"
+    tyblue " script last update time：2023.1.1"
     echo
-    red    " 此脚本仅供交流学习使用，请勿使用此脚本行违法之事。网络非法外之地，行非法之事，必将接受法律制裁!!!!"
+    red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
 }
 
