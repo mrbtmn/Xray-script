@@ -4025,16 +4025,16 @@ start_menu()
 {
     local xray_status
     [ $xray_is_installed -eq 1 ] && xray_status="\\033[32mInstalled" || xray_status="\\033[31mNot Installed"
-    systemctl -q is-active xray && xray_status+="                \\033[32m运行中" || xray_status+="                \\033[31m未运行"
+    systemctl -q is-active xray && xray_status+="                \\033[32mRunning" || xray_status+="                \\033[31mNot running"
     local nginx_status
-    [ $nginx_is_installed -eq 1 ] && nginx_status="\\033[32m已安装" || nginx_status="\\033[31m未安装"
-    systemctl -q is-active nginx && nginx_status+="                \\033[32m运行中" || nginx_status+="                \\033[31m未运行"
+    [ $nginx_is_installed -eq 1 ] && nginx_status="\\033[32mInstalled" || nginx_status="\\033[31mNot Installed"
+    systemctl -q is-active nginx && nginx_status+="                \\033[32mRunning" || nginx_status+="                \\033[31mNot running"
     local php_status
-    [ $php_is_installed -eq 1 ] && php_status="\\033[32m已安装" || php_status="\\033[31m未安装"
-    systemctl -q is-active php-fpm && php_status+="                \\033[32m运行中" || php_status+="                \\033[31m未运行"
+    [ $php_is_installed -eq 1 ] && php_status="\\033[32mInstalled" || php_status="\\033[31mNot Installed"
+    systemctl -q is-active php-fpm && php_status+="                \\033[32mRunning" || php_status+="                \\033[31mNot running"
     local cloudreve_status
-    [ $cloudreve_is_installed -eq 1 ] && cloudreve_status="\\033[32m已安装" || cloudreve_status="\\033[31m未安装"
-    systemctl -q is-active cloudreve && cloudreve_status+="                \\033[32m运行中" || cloudreve_status+="                \\033[31m未运行"
+    [ $cloudreve_is_installed -eq 1 ] && cloudreve_status="\\033[32mInstalled" || cloudreve_status="\\033[31mNot Installed"
+    systemctl -q is-active cloudreve && cloudreve_status+="                \\033[32mRunning" || cloudreve_status+="                \\033[31mNot running"
     tyblue "------------------------ Xray-TLS+Web build/admin script ------------------------"
     echo
     tyblue "           Xray   ：           ${xray_status}"
@@ -4050,7 +4050,7 @@ start_menu()
     tyblue "----------------------------------Precautions----------------------------------"
     yellow " 1. This script requires a domain name that resolves to this server"
     tyblue " 2. This script takes a long time to install, it is recommended to read it before installation："
-    tyblue "      https://github.com/kirin10000/Xray-script#安装时长说明"
+    tyblue "      https://github.com/kirin10000/Xray-script#Installation duration instructions"
     green  " 3. It is recommended to use this script on a clean system (VPS console - reset system)"
     tyblue "----------------------------------------------------------------------------"
     echo
