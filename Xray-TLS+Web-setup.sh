@@ -142,40 +142,40 @@ version_ge()
 #检查脚本更新
 check_script_update()
 {
-    [ "$(md5sum "${BASH_SOURCE[0]}" | awk '{print $1}')" == "$(md5sum <(wget -O - "https://github.com/mrbtmn/Xray-script/raw/main/Xray-TLS+Web-setup.sh") | awk '{print $1}')" ] && return 1 || return 0
+    [ "$(md5sum "${BASH_SOURCE[0]}" | awk '{print $1}')" == "$(md5sum <(wget -O - "https://github.com/kirin10000/Xray-script/raw/main/Xray-TLS+Web-setup.sh") | awk '{print $1}')" ] && return 1 || return 0
 }
 #更新脚本
 update_script()
 {
-    if wget -O "${BASH_SOURCE[0]}" "https://github.com/mrbtmn/Xray-script/raw/main/Xray-TLS+Web-setup.sh" || wget -O "${BASH_SOURCE[0]}" "https://github.com/mrbtmn/Xray-script/raw/main/Xray-TLS+Web-setup.sh"; then
-        green "脚本更新完成，请重新运行脚本！"
+    if wget -O "${BASH_SOURCE[0]}" "https://github.com/kirin10000/Xray-script/raw/main/Xray-TLS+Web-setup.sh" || wget -O "${BASH_SOURCE[0]}" "https://github.com/mrbtmn/Xray-script/raw/main/Xray-TLS+Web-setup.sh"; then
+        green "The script update is complete, please run the script again！"
         exit 0
     else
-        red "更新脚本失败！"
+        red "update script failed！"
         exit 1
     fi
 }
 ask_update_script()
 {
     if check_script_update; then
-        green "脚本可升级"
-        ask_if "是否升级脚本？(y/n)" && update_script
+        green "Script can be upgraded"
+        ask_if "Whether to upgrade the script？(y/n)" && update_script
     else
-        green "脚本已经是最新版本"
+        green "The script is already the latest version"
     fi
 }
 ask_update_script_force()
 {
     if check_script_update; then
-        green "脚本可升级"
-        if ask_if "是否升级脚本？(y/n)"; then
+        green "Script can be upgraded"
+        if ask_if "Whether to upgrade the script？(y/n)"; then
             update_script
         else
-            red "请先更新脚本"
+            red "Please update the script first"
             exit 0
         fi
     else
-        green "脚本已经是最新版本"
+        green "The script is already the latest version"
     fi
 }
 redhat_install()
@@ -291,9 +291,9 @@ install_dependence()
             $apt update
             $apt_no_install_recommends -y -f install
             if ! $apt_no_install_recommends -y install "$@"; then
-                yellow "依赖安装失败！！"
-                green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
-                yellow "按回车键继续或者Ctrl+c退出"
+                yellow "Dependency installation failed！！"
+                green  "Welcome to Bug report (https://github.com/kirin10000/Xray-script/issues), thank you for your support"
+                yellow "Press Enter to continue or Ctrl+c to exit"
                 read -s
             fi
         fi
@@ -440,8 +440,8 @@ enter_temp_dir()
     mkdir "$temp_dir" || temp_exit_code=1
     cd "$temp_dir" || temp_exit_code=1
     if [ $temp_exit_code -eq 1 ]; then
-        yellow "进入临时目录失败"
-        tyblue "可能是之前运行脚本中断导致，建议先重启系统，再运行脚本"
+        yellow "Failed to enter temp directory"
+        tyblue "It may be caused by the interruption of the previous running script. It is recommended to restart the system before running the script"
         exit 1
     fi
 }
@@ -491,22 +491,22 @@ check_php_update()
 swap_on()
 {
     if [ $using_swap_now -ne 0 ]; then
-        red    "开启swap错误发生"
+        red    "Open swap error occurs"
         green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
-        yellow "按回车键继续或者Ctrl+c退出"
+        yellow "Press Enter to continue or Ctrl+c to exit"
         read -s
     fi
     local need_swap_size=$(( $1+$(free -m | sed -n 2p | awk '{print $3}')+$(free -m | sed -n 3p | awk '{print $3}')-$(free -m | sed -n 2p | awk '{print $2}')-$(free -m | sed -n 3p | awk '{print $2}') ))
     if [ $need_swap_size -gt 0 ]; then
-        tyblue "可用内存不足$1M，自动申请swap。。"
+        tyblue "If the available memory is less than $1M, automatically apply for swap。。"
         if dd if=/dev/zero of=${temp_dir}/swap bs=1M count=$need_swap_size && chmod 0600 ${temp_dir}/swap && mkswap ${temp_dir}/swap && swapon ${temp_dir}/swap; then
             using_swap_now=1
         else
             rm -rf ${temp_dir}/swap
-            red    "开启swap失败！"
-            yellow "可能是机器内存和硬盘空间都不足"
+            red    "Failed to open swap！"
+            yellow "It may be that the machine memory and hard disk space are insufficient"
             green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
-            yellow "按回车键继续或者Ctrl+c退出"
+            yellow "Press Enter to continue or Ctrl+c to exit"
             read -s
         fi
     fi
@@ -514,14 +514,14 @@ swap_on()
 swap_off()
 {
     if [ $using_swap_now -eq 1 ]; then
-        tyblue "正在恢复swap。。。"
+        tyblue "Restoring swap。。。"
         if swapoff ${temp_dir}/swap && rm -rf ${temp_dir}/swap; then
             using_swap_now=0
         else
-            red    "关闭swap失败！"
+            red    "Failed to close swap！"
             green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的
 支持"
-            yellow "按回车键继续或者Ctrl+c退出"
+            yellow "Press Enter to continue or Ctrl+c to exit"
             read -s
         fi
     fi
@@ -549,14 +549,14 @@ turn_on_off_cloudreve()
 }
 let_change_cloudreve_domain()
 {
-    tyblue "----------- 请打开\"https://${domain_list[$1]}\"修改Cloudreve站点信息 ---------"
-    tyblue "  1. 登陆帐号"
-    tyblue "  2. 右上角头像 -> 管理面板"
-    tyblue "  3. 左侧的参数设置 -> 站点信息"
-    tyblue "  4. 站点URL改为\"https://${domain_list[$1]}\" -> 往下拉点击保存"
+    tyblue "----------- please open\"https://${domain_list[$1]}\"Modify Cloudreve site information ---------"
+    tyblue "  1. login account"
+    tyblue "  2. Avatar in the upper right corner -> Admin Panel"
+    tyblue "  3. Parameter settings on the left -> Site information"
+    tyblue "  4. Site URL changed to\"https://${domain_list[$1]}\" -> Scroll down and click save"
     sleep 15s
     echo -e "\\n\\n"
-    tyblue "按两次回车键以继续。。。"
+    tyblue "Press enter twice to continue。。。"
     read -s
     read -s
 }
@@ -784,7 +784,7 @@ gen_cxxflags()
 
 check_base_command
 if [[ ! -f '/etc/os-release' ]]; then
-    red "系统版本太老，Xray官方脚本不支持"
+    red "The system version is too old, Xray official script does not support"
     exit 1
 fi
 if [[ -f /.dockerenv ]] || grep -q 'docker\|lxc' /proc/1/cgroup && [[ "$(type -P systemctl)" ]]; then
@@ -792,17 +792,17 @@ if [[ -f /.dockerenv ]] || grep -q 'docker\|lxc' /proc/1/cgroup && [[ "$(type -P
 elif [[ -d /run/systemd/system ]] || grep -q systemd <(ls -l /sbin/init); then
     true
 else
-    red "仅支持使用systemd的系统！"
+    red "Only supported on systems using systemd！"
     exit 1
 fi
 if [[ ! -d /dev/shm ]]; then
-    red "/dev/shm不存在，不支持的系统"
+    red "/dev/shm不存在，unsupported system"
     exit 1
 fi
 if [[ "$(type -P apt)" ]] || [ "$(type -P apt-get)" ]; then
     if [[ "$(type -P dnf)" ]] || [[ "$(type -P microdnf)" ]] || [[ "$(type -P yum)" ]]; then
         red "同时存在 apt/apt-get 和 dnf/microdnf/yum"
-        red "不支持的系统！"
+        red "unsupported system！"
         exit 1
     fi
     release="other-debian"
@@ -861,7 +861,7 @@ fi
 ([ $xray_is_installed -eq 1 ] && [ $nginx_is_installed -eq 1 ]) && is_installed=1 || is_installed=0
 cpu_thread_num="$(grep '^processor' /proc/cpuinfo | uniq | wc -l)"
 if [ -z "$cpu_thread_num" ] || [ $cpu_thread_num -lt 1 ]; then
-    red "获取CPU线程数失败！"
+    red "Failed to get the number of CPU threads！"
     exit 1
 fi
 case "$(uname -m)" in
@@ -890,9 +890,9 @@ get_system_info()
 {
     timezone="$(ls -l /etc/localtime | awk -F zoneinfo/ '{print $NF}')"
     if [[ ! -L /etc/localtime ]] || [ "$timezone" == "" ]; then
-        yellow "获取时区失败！"
+        yellow "Failed to get time zone！"
         green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
-        yellow "按回车键继续或者Ctrl+c退出"
+        yellow "Press Enter to continue or Ctrl+c to exit"
         read -s
     fi
     if bash -c "echo $(grep '^[ '$'\t]*ID[ '$'\t]*=' /etc/os-release | cut -d = -f 2-)" | grep -qiw ubuntu; then
@@ -918,17 +918,17 @@ get_system_info()
     fi
     systemVersion="$(bash -c "echo $(grep '^[ '$'\t]*VERSION_ID[ '$'\t]*=' /etc/os-release | cut -d = -f 2-)")"
     if [ "$(bash -c "echo $(grep '^[ '$'\t]*ID[ '$'\t]*=' /etc/os-release | cut -d = -f 2-)")" == "" ] || [ "$systemVersion" == "" ]; then
-        yellow "获取系统信息失败！"
+        yellow "Failed to get system information！"
         green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
-        yellow "按回车键继续或者Ctrl+c退出"
+        yellow "Press Enter to continue or Ctrl+c to exit"
         read -s
     fi
 }
 
-#检查TCP 80端口和443端口是否被占用
+#Check whether TCP port 80 and port 443 are occupied
 check_port()
 {
-    green "正在检查端口占用。。。"
+    green "Checking port usage。。。"
     local xray_status=0
     local nginx_status=0
     systemctl -q is-active xray && xray_status=1 && systemctl stop xray
@@ -939,8 +939,8 @@ check_port()
     for i in "${check_list[@]}"
     do
         if ss -natl | awk '{print $4}'  | awk -F : '{print $NF}' | grep -E "^[0-9]+$" | grep -wq "${i}"; then
-            red "TCP:${i}端口被占用！"
-            yellow "请用 lsof -i:${i} 命令检查"
+            red "TCP:${i}port is occupied！"
+            yellow "Please use lsof -i:${i} command check"
             exit 1
         fi
     done
@@ -954,18 +954,18 @@ check_nginx_installed_system()
     if [[ ! -f /usr/lib/systemd/system/nginx.service ]] && [[ ! -f /lib/systemd/system/nginx.service ]]; then
         return 0
     fi
-    red    "------------检测到Nginx已安装，并且会与此脚本冲突------------"
-    yellow " 如果您不记得之前有安装过Nginx，那么可能是使用别的一键脚本时安装的"
-    yellow " 建议使用纯净的系统运行此脚本"
+    red    "------------Nginx is detected to be installed and will conflict with this script------------"
+    yellow " If you don't remember installing Nginx before, it may have been installed when using another one-click script"
+    yellow " It is recommended to use a clean system to run this script"
     echo
-    ! ask_if "是否尝试卸载？(y/n)" && exit 0
+    ! ask_if "Do you try to uninstall？(y/n)" && exit 0
     apt_purge '^nginx' '^libnginx'
     $dnf -y remove 'nginx*'
     if [[ ! -f /usr/lib/systemd/system/nginx.service ]] && [[ ! -f /lib/systemd/system/nginx.service ]]; then
         return 0
     fi
-    red "卸载失败！"
-    yellow "请尝试更换系统，建议使用Ubuntu最新版系统"
+    red "uninstall failed！"
+    yellow "Please try to replace the system, it is recommended to use the latest version of Ubuntu system"
     green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
     exit 1
 }
@@ -1007,11 +1007,11 @@ check_ssh_timeout()
     fi
     echo -e "\\n\\n\\n"
     tyblue "------------------------------------------"
-    tyblue " 安装可能需要比较长的时间"
-    tyblue " 如果中途断开连接将会很麻烦"
-    tyblue " 设置ssh连接超时时间将有效降低断连可能性"
+    tyblue " Installation may take a long time"
+    tyblue " It will be troublesome if you disconnect in the middle"
+    tyblue " Setting the ssh connection timeout will effectively reduce the possibility of disconnection"
     echo
-    ! ask_if "是否设置ssh连接超时时间？(y/n)" && return 0
+    ! ask_if "Whether to set the ssh connection timeout？(y/n)" && return 0
     sed -i '/^[ \t]*ClientAliveInterval[ \t]/d' /etc/ssh/sshd_config
     sed -i '/^[ \t]*ClientAliveCountMax[ \t]/d' /etc/ssh/sshd_config
     echo >> /etc/ssh/sshd_config
@@ -1019,12 +1019,12 @@ check_ssh_timeout()
     echo "ClientAliveCountMax 60" >> /etc/ssh/sshd_config
     echo "#This file has been edited by Xray-TLS-Web-setup-script" >> /etc/ssh/sshd_config
     systemctl restart $ssh_service
-    green  "----------------------配置完成----------------------"
-    tyblue " 请重新连接服务器以让配置生效"
+    green  "----------------------configuration complete----------------------"
+    tyblue " Please reconnect to the server for the configuration to take effect"
     if [ $in_install_update_xray_tls_web -eq 1 ]; then
-        yellow " 重新连接服务器后，请再次运行脚本完成剩余部分的安装/升级"
-        yellow " 再次运行脚本时，重复之前选过的选项即可"
-        yellow " 按回车键退出。。。。"
+        yellow " After reconnecting to the server, run the script again to complete the rest of the install/upgrade"
+        yellow " When running the script again, repeat the previously selected options"
+        yellow " press enter to exit。。。。"
         read -s
     fi
     exit 0
@@ -1033,14 +1033,14 @@ check_ssh_timeout()
 #删除防火墙和阿里云盾
 uninstall_firewall()
 {
-    green "正在删除防火墙。。。"
+    green "removing firewall。。。"
     ufw disable
     apt_purge firewalld
     apt_purge ufw
     systemctl stop firewalld
     systemctl disable firewalld
     $dnf -y remove firewalld
-    green "正在删除阿里云盾和腾讯云盾 (仅对阿里云和腾讯云服务器有效)。。。"
+    green "Deleting Alibaba Cloud Shield and Tencent Cloud Shield (only valid for Alibaba Cloud and Tencent Cloud servers)。。。"
     #阿里云盾
     pkill -9 assist_daemon
     rm -rf /usr/local/share/assist-daemon
@@ -1343,8 +1343,8 @@ install_bbr()
                 fi
             done
             if [ $ok_install -lt 1 ]; then
-                red "未发现正在使用的内核，可能已经被卸载，请先重新启动"
-                yellow "按回车键继续。。。"
+                red "The kernel in use was not found, it may have been uninstalled, please restart first"
+                yellow "press enter to continue。。。"
                 read -s
                 return 1
             fi
@@ -1355,7 +1355,7 @@ install_bbr()
                 fi
             done
             if [ ${#kernel_list_modules[@]} -eq 0 ] && [ ${#kernel_list_image[@]} -eq 0 ]; then
-                yellow "没有内核可卸载"
+                yellow "no kernel to unload"
                 return 0
             fi
             apt_purge "${kernel_list_image[@]}" "${kernel_list_modules[@]}" && exit_code=0
@@ -1384,8 +1384,8 @@ install_bbr()
                 fi
             done
             if [ $ok_install -lt 1 ]; then
-                red "未发现正在使用的内核，可能已经被卸载，请先重新启动"
-                yellow "按回车键继续。。。"
+                red "The kernel in use was not found, it may have been uninstalled, please restart first"
+                yellow "press enter to continue。。。"
                 read -s
                 return 1
             fi
@@ -1415,17 +1415,17 @@ install_bbr()
             done
             #if [ ${#kernel_list[@]} -eq 0 ] && [ ${#kernel_list_headers[@]} -eq 0 ] && [ ${#kernel_list_devel[@]} -eq 0 ] && [ ${#kernel_list_modules[@]} -eq 0 ] && [ ${#kernel_list_core[@]} -eq 0 ]; then
             if [ ${#kernel_list[@]} -eq 0 ] && [ ${#kernel_list_devel[@]} -eq 0 ] && [ ${#kernel_list_modules[@]} -eq 0 ] && [ ${#kernel_list_core[@]} -eq 0 ]; then
-                yellow "没有内核可卸载"
+                yellow "no kernel to unload"
                 return 0
             fi
             #$dnf -y remove "${kernel_list[@]}" "${kernel_list_headers[@]}" "${kernel_list_modules[@]}" "${kernel_list_core[@]}" "${kernel_list_devel[@]}" && exit_code=0
             $dnf -y remove "${kernel_list[@]}" "${kernel_list_modules[@]}" "${kernel_list_core[@]}" "${kernel_list_devel[@]}" && exit_code=0
         fi
         if [ $exit_code -eq 0 ]; then
-            green "卸载成功"
+            green "uninstalled successfully"
         else
-            red "卸载失败！"
-            yellow "按回车键继续或Ctrl+c退出"
+            red "uninstall failed！"
+            yellow "Press Enter to continue or Ctrl+c to exit"
             read -s
             return 1
         fi
@@ -1433,7 +1433,7 @@ install_bbr()
     change_qdisc()
     {
         local list=('fq' 'fq_pie' 'cake' 'fq_codel')
-        tyblue "---------------请选择你要使用的队列算法---------------"
+        tyblue "---------------Please select the queue algorithm you want to use---------------"
         green  " 1.fq"
         green  " 2.fq_pie"
         tyblue " 3.cake"
@@ -1451,9 +1451,9 @@ install_bbr()
         sysctl -p
         sleep 1s
         if [ "$(sysctl net.core.default_qdisc | cut -d = -f 2 | awk '{print $1}')" == "$qdisc" ]; then
-            green "更换成功！"
+            green "Replaced successfully！"
         else
-            red "更换失败，内核不支持"
+            red "Replacement failed, kernel does not support"
             sed -i '/^[ \t]*net.core.default_qdisc[ \t]*=/d' /etc/sysctl.conf
             echo "net.core.default_qdisc = $default_qdisc" >> /etc/sysctl.conf
             return 1
@@ -1462,7 +1462,7 @@ install_bbr()
     enable_ecn()
     {
         if [[ ! -f /sys/module/tcp_bbr2/parameters/ecn_enable ]] || [ "$(sysctl net.ipv4.tcp_congestion_control | cut -d = -f 2 | awk '{print $1}')" != "bbr2" ]; then
-            red "请先开启bbr2！"
+            red "Please enable bbr2 first！"
             return 1
         fi
         if [ "$(cat /sys/module/tcp_bbr2/parameters/ecn_enable)" == "Y" ] && [ "$(sysctl net.ipv4.tcp_ecn | cut -d = -f 2 | awk '{print $1}')" == "1" ]; then
@@ -1470,9 +1470,9 @@ install_bbr()
             tyblue "重启系统bbr2_ECN将自动关闭"
             return 0
         fi
-        tyblue "提示：bbr2_ECN 会在系统重启后自动关闭"
+        tyblue "Tip: bbr2_ECN will be automatically closed after system restart"
         tyblue " 若重启系统，可以 运行脚本 -> 安装/更新bbr -> 启用bbr2_ECN 来重新启用bbr2_ECN"
-        yellow "按回车键以继续。。。"
+        yellow "press enter to continue。。。"
         read -s
         echo Y > /sys/module/tcp_bbr2/parameters/ecn_enable
         sysctl net.ipv4.tcp_ecn=1
@@ -1754,7 +1754,7 @@ readProtocolConfig()
         protocol_1=""
         while [[ ! "$protocol_1" =~ ^([1-9][0-9]*)$ ]] || ((protocol_1>3))
         do
-            read -p "您的选择是：" protocol_1
+            read -p "your choice is：" protocol_1
         done
     fi
     if [ $protocol_2 -eq 1 ]; then
@@ -1813,22 +1813,22 @@ readPretend()
         pretend=""
         while [[ "$pretend" != "1" && "$pretend" != "2" && "$pretend" != "3" && "$pretend" != "4" && "$pretend" != "5" ]]
         do
-            read -p "您的选择是：" pretend
+            read -p "your choice is：" pretend
         done
         queren=1
         if [ $pretend -eq 1 ]; then
             if [ -z "$machine" ]; then
-                red "您的VPS指令集不支持Cloudreve！"
-                yellow "Cloudreve仅支持 x86_64, arm64, armv7, armv6, armv5 !"
+                red "Your VPS instruction set does not support Cloudreve！"
+                yellow "Cloudreve only supports x86_64, arm64, armv7, armv6, armv5 !"
                 sleep 3s
                 queren=0
             fi
         elif [ $pretend -eq 2 ]; then
             if (([ $release == "centos" ] || [ $release == centos-stream ] || [ $release == oracle ]) && ! version_ge "$systemVersion" "8" ) || ([ $release == "rhel" ] && ! version_ge "$systemVersion" "8") || ([ $release == "fedora" ] && ! version_ge "$systemVersion" "30") || ([ $release == "ubuntu" ] && ! version_ge "$systemVersion" "20.04") || ([ $release == "debian" ] && ! version_ge "$systemVersion" "11"); then
-                red "系统版本过低，无法安装php！"
+                red "The system version is too low to install php！"
                 echo
-                tyblue "安装Nextcloud需要安装php"
-                yellow "仅支持在以下版本系统下安装php："
+                tyblue "Installing Nextcloud requires installing php"
+                yellow "Only support the installation of php under the following version systems："
                 yellow " 1. Ubuntu 20.04+"
                 yellow " 2. Debian 11+"
                 yellow " 3. 其他以 Debian 11+ 为基的系统"
@@ -1915,24 +1915,24 @@ readDomain()
         domain=""
         echo
         if [ $domain_config -eq 1 ]; then
-            tyblue '---------请输入主域名(前面不带"www."、"http://"或"https://")---------'
+            tyblue '---------Please enter the primary domain name (without the preceding"www."、"http://"or"https://")---------'
             while ! check_domain "$domain"
             do
-                read -p "请输入域名：" domain
+                read -p "Please enter a domain name：" domain
             done
         else
-            tyblue '-------请输入解析到此服务器的域名(前面不带"http://"或"https://")-------'
+            tyblue '-------Please enter the domain name resolved to this server (without"http://"or"https://")-------'
             while [ -z "$domain" ]
             do
-                read -p "请输入域名：" domain
+                read -p "Please enter a domain name：" domain
                 if [ "$(echo -n "$domain" | wc -c)" -gt 46 ]; then
-                    red "域名过长！"
+                    red "domain name too long！"
                     domain=""
                 fi
             done
         fi
         echo
-        ask_if "您输入的域名是\"$domain\"，确认吗？(y/n)" && queren=1
+        ask_if "The domain name you entered is\"$domain\"，Are you sure?？(y/n)" && queren=1
     done
     readPretend "$domain"
     true_domain_list+=("$domain")
@@ -1943,7 +1943,7 @@ readDomain()
 
 install_nginx_compile_toolchains()
 {
-    green "正在安装Nginx编译工具链。。。"
+    green "Installing the Nginx compilation toolchain。。。"
     if [ $release == "centos" ] || [ $release == centos-stream ] || [ $release == oracle ] || [ $release == "rhel" ] || [ $release == "fedora" ] || [ $release == "other-redhat" ]; then
         install_dependence ca-certificates wget gcc gcc-c++ make perl-IPC-Cmd perl-Getopt-Long perl-Data-Dumper
         if ! perl -e "use FindBin" > /dev/null 2>&1; then
@@ -1955,7 +1955,7 @@ install_nginx_compile_toolchains()
 }
 install_php_compile_toolchains()
 {
-    green "正在安装php编译工具链。。。"
+    green "Installing the php compilation toolchain。。。"
     if [ $release == "centos" ] || [ $release == centos-stream ] || [ $release == oracle ] || [ $release == "rhel" ] || [ $release == "fedora" ] || [ $release == "other-redhat" ]; then
         install_dependence ca-certificates wget xz gcc gcc-c++ make pkgconf-pkg-config autoconf git
     else
@@ -1964,7 +1964,7 @@ install_php_compile_toolchains()
 }
 install_nginx_dependence()
 {
-    green "正在安装Nginx依赖。。。"
+    green "Installing Nginx dependencies。。。"
     if [ $release == "centos" ] || [ $release == centos-stream ] || [ $release == oracle ] || [ $release == "rhel" ] || [ $release == "fedora" ] || [ $release == "other-redhat" ]; then
         install_dependence pcre2-devel zlib-devel libxml2-devel libxslt-devel gd-devel geoip-devel perl-ExtUtils-Embed gperftools-devel perl-devel
     else
@@ -1973,7 +1973,7 @@ install_nginx_dependence()
 }
 install_php_dependence()
 {
-    green "正在安装php依赖。。。"
+    green "Installing php dependencies。。。"
     if [ $release == "centos" ] || [ $release == centos-stream ] || [ $release == oracle ] || [ $release == "rhel" ] || [ $release == "fedora" ] || [ $release == "other-redhat" ]; then
         fedora_install_remi
         install_dependence libxml2-devel sqlite-devel systemd-devel libacl-devel openssl-devel krb5-devel pcre2-devel zlib-devel bzip2-devel libcurl-devel gdbm-devel libdb-devel tokyocabinet-devel lmdb-devel enchant-devel libffi-devel libpng-devel gd-devel libwebp-devel libjpeg-turbo-devel libXpm-devel freetype-devel gmp-devel uw-imap-devel libicu-devel openldap-devel oniguruma-devel unixODBC-devel freetds-devel libpq-devel aspell-devel libedit-devel net-snmp-devel libsodium-devel libargon2-devel libtidy-devel libxslt-devel libzip-devel ImageMagick-devel
@@ -1982,9 +1982,9 @@ install_php_dependence()
             $apt update
             $apt_no_install_recommends -y -f install
             if ! $apt_no_install_recommends -y install libxml2-dev libsqlite3-dev libsystemd-dev libacl1-dev libapparmor-dev libssl-dev libkrb5-dev libpcre2-dev zlib1g-dev libbz2-dev libcurl4-openssl-dev libqdbm-dev libdb-dev libtokyocabinet-dev liblmdb-dev libenchant-2-dev libffi-dev libpng-dev libgd-dev libwebp-dev libjpeg-dev libxpm-dev libfreetype6-dev libgmp-dev libc-client2007e-dev libicu-dev libldap2-dev libsasl2-dev libonig-dev unixodbc-dev freetds-dev libpq-dev libpspell-dev libedit-dev libmm-dev libsnmp-dev libsodium-dev libargon2-dev libtidy-dev libxslt1-dev libzip-dev libmagickwand-dev && ! $apt_no_install_recommends -y install libxml2-dev libsqlite3-dev libsystemd-dev libacl1-dev libapparmor-dev libssl-dev libkrb5-dev libpcre2-dev zlib1g-dev libbz2-dev libcurl4-openssl-dev libqdbm-dev libdb-dev libtokyocabinet-dev liblmdb-dev libenchant-dev libffi-dev libpng-dev libgd-dev libwebp-dev libjpeg-dev libxpm-dev libfreetype6-dev libgmp-dev libc-client2007e-dev libicu-dev libldap2-dev libsasl2-dev libonig-dev unixodbc-dev freetds-dev libpq-dev libpspell-dev libedit-dev libmm-dev libsnmp-dev libsodium-dev libargon2-dev libtidy-dev libxslt1-dev libzip-dev libmagickwand-dev; then
-                yellow "依赖安装失败！！"
+                yellow "Dependency installation failed！！"
                 green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
-                yellow "按回车键继续或者Ctrl+c退出"
+                yellow "Press Enter to continue or Ctrl+c to exit"
                 read -s
             fi
         fi
@@ -1992,7 +1992,7 @@ install_php_dependence()
 }
 install_acme_dependence()
 {
-    green "正在安装acme.sh依赖。。。"
+    green "Installing acme.sh dependency。。。"
     if [ $release == "centos" ] || [ $release == centos-stream ] || [ $release == oracle ] || [ $release == "rhel" ] || [ $release == "fedora" ] || [ $release == "other-redhat" ]; then
         install_dependence curl openssl crontabs
     else
@@ -2001,7 +2001,7 @@ install_acme_dependence()
 }
 install_web_dependence()
 {
-    green "正在安装伪装网站依赖。。。"
+    green "Installing masquerade site dependencies。。。"
     if [ "$1" == "" ]; then
         for i in "${pretend_list[@]}"
         do
@@ -2029,14 +2029,14 @@ install_web_dependence()
 #编译&&安装php
 compile_php()
 {
-    green "正在编译php。。。。"
+    green "compiling php。。。。"
     local cflags
     local cxxflags
     gen_cflags
     gen_cxxflags
     if ! wget -O "${php_version}.tar.xz" "https://www.php.net/distributions/${php_version}.tar.xz"; then
-        red    "获取php失败"
-        yellow "按回车键继续或者按Ctrl+c终止"
+        red    "Failed to fetch php"
+        yellow "Press Enter to continue or Ctrl+c to terminate"
         read -s
     fi
     tar -xJf "${php_version}.tar.xz"
@@ -2053,9 +2053,9 @@ compile_php()
     swap_on 2048
     if ! make -j$cpu_thread_num; then
         swap_off
-        red    "php编译失败！"
+        red    "php compilation failed！"
         green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
-        yellow "在Bug修复前，建议使用Ubuntu最新版系统"
+        yellow "Before the bug is fixed, it is recommended to use the latest version of Ubuntu system"
         exit 1
     fi
     swap_off
@@ -2066,8 +2066,8 @@ instal_php_imagick()
     local cflags
     gen_cflags
     if ! git clone https://github.com/Imagick/imagick; then
-        yellow "获取php-imagick源码失败"
-        yellow "按回车键继续或者按Ctrl+c终止"
+        yellow "Failed to get php-imagick source code"
+        yellow "Press Enter to continue or Ctrl+c to terminate"
         read -s
     fi
     cd imagick
@@ -2076,10 +2076,10 @@ instal_php_imagick()
     swap_on 380
     if ! make -j$cpu_thread_num; then
         swap_off
-        yellow "php-imagick编译失败"
+        yellow "php-imagick compilation failed"
         green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
-        yellow "在Bug修复前，建议使用Ubuntu最新版系统"
-        yellow "按回车键继续或者按Ctrl+c终止"
+        yellow "Before the bug is fixed, it is recommended to use the latest version of Ubuntu system"
+        yellow "Press Enter to continue or Ctrl+c to terminate"
         read -s
     else
         swap_off
@@ -2090,7 +2090,7 @@ instal_php_imagick()
 }
 install_php_part1()
 {
-    green "正在安装php。。。。"
+    green "installing php。。。。"
     cd "${php_version}"
     make install
     mv sapi/fpm/php-fpm.service "${php_prefix}/php-fpm.service.default.temp"
@@ -2159,19 +2159,19 @@ EOF
 #编译&&安装nignx
 compile_nginx()
 {
-    green "正在编译Nginx。。。。"
+    green "Compiling Nginx。。。。"
     local cflags
     gen_cflags
     if ! wget -O ${nginx_version}.tar.gz https://nginx.org/download/${nginx_version}.tar.gz; then
-        red    "获取nginx失败"
-        yellow "按回车键继续或者按Ctrl+c终止"
+        red    "Failed to fetch nginx"
+        yellow "Press Enter to continue or Ctrl+c to terminate"
         read -s
     fi
     tar -zxf ${nginx_version}.tar.gz
     rm -f "${nginx_version}.tar.gz"
     if ! wget -O ${openssl_version}.tar.gz https://github.com/openssl/openssl/archive/${openssl_version#*-}.tar.gz; then
-        red    "获取openssl失败"
-        yellow "按回车键继续或者按Ctrl+c终止"
+        red    "Failed to get openssl"
+        yellow "Press Enter to continue or Ctrl+c to terminate"
         read -s
     fi
     tar -zxf ${openssl_version}.tar.gz
@@ -2186,9 +2186,9 @@ compile_nginx()
     swap_on 480
     if ! make -j$cpu_thread_num; then
         swap_off
-        red    "Nginx编译失败！"
+        red    "Nginx compilation failed！"
         green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
-        yellow "在Bug修复前，建议使用Ubuntu最新版系统"
+        yellow "Before the bug is fixed, it is recommended to use the latest version of Ubuntu system"
         exit 1
     fi
     swap_off
@@ -2224,7 +2224,7 @@ EOF
 }
 install_nginx_part1()
 {
-    green "正在安装Nginx。。。"
+    green "Installing Nginx。。。"
     cd "${nginx_version}"
     make install
     cd ..
@@ -2330,10 +2330,10 @@ EOF
 #安装/更新Xray
 install_update_xray()
 {
-    green "正在安装/更新Xray。。。。"
+    green "Installing/updating Xray。。。。"
     if ! bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u root --without-geodata --without-logfiles && ! bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u root --without-geodata --without-logfiles; then
-        red    "安装/更新Xray失败"
-        yellow "按回车键继续或者按Ctrl+c终止"
+        red    "Installing/updating Xray fails"
+        yellow "Press Enter to continue or Ctrl+c to terminate"
         read -s
         return 1
     fi
@@ -2359,9 +2359,9 @@ EOF
 get_cert()
 {
     if [ ${domain_config_list[$1]} -eq 1 ]; then
-        green "正在获取 \"${domain_list[$1]}\"、\"${true_domain_list[$1]}\" 的域名证书"
+        green "retrieving \"${domain_list[$1]}\"、\"${true_domain_list[$1]}\" domain name certificate"
     else
-        green "正在获取 \"${domain_list[$1]}\" 的域名证书"
+        green "retrieving \"${domain_list[$1]}\" domain name certificate"
     fi
     mv $xray_config ${xray_config}.bak
     mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak2
@@ -2390,11 +2390,11 @@ get_all_certs()
     for ((i=0;i<${#domain_list[@]};i++))
     do
         if ! get_cert "$i"; then
-            red    "域名\"${true_domain_list[$i]}\"证书申请失败！"
+            red    "domain name\"${true_domain_list[$i]}\"Certificate request failed！"
             yellow "Check, please："
             yellow "    1.Whether the domain name is resolved correctly"
             yellow "    2.Is port 80 of the vps firewall open?"
-            yellow "并在安装/重置域名完成后，使用脚本主菜单\"重置域名\"选项修复"
+            yellow "And after the install/reset domain is complete, use the script main menu\"reset domain name\"option fix"
             yellow "press enter to continue。。。"
             read -s
         fi
@@ -2803,14 +2803,14 @@ init_web()
         turn_on_off_php
     elif [ "${pretend_list[$1]}" == "2" ]; then
         if ! curl -o "${nginx_prefix}/html/nextcloud.tar.bz2" "${nextcloud_url}"; then
-            red    "获取Nextcloud失败"
-            yellow "按回车键继续或者按Ctrl+c终止"
+            red    "Failed to get Nextcloud"
+            yellow "Press Enter to continue or Ctrl+c to terminate"
             read -s
         fi
         rm -rf "${nginx_prefix}/html/nextcloud"
         if ! tar -xjf "${nginx_prefix}/html/nextcloud.tar.bz2" -C "${nginx_prefix}/html"; then
-            red    "解压 Nextcloud 失败"
-            yellow "按回车键继续或者按Ctrl+c终止"
+            red    "Unpacking Nextcloud failed"
+            yellow "Press Enter to continue or Ctrl+c to terminate"
             read -s
         fi
         rm -f "${nginx_prefix}/html/nextcloud.tar.bz2"
@@ -2834,13 +2834,13 @@ init_web()
 #安装/更新Cloudreve
 update_cloudreve()
 {
-    green "正在安装/更新Cloudreve。。。"
+    green "Installing/updating Cloudreve。。。"
     local temp_cloudreve_status=0
     systemctl -q is-active cloudreve && temp_cloudreve_status=1
     systemctl stop cloudreve
     if ! wget -O "$cloudreve_prefix/cloudreve.tar.gz" "https://github.com/cloudreve/Cloudreve/releases/download/${cloudreve_version}/cloudreve_${cloudreve_version}_linux_${machine}.tar.gz"; then
-        red "获取Cloudreve失败！！"
-        yellow "按回车键继续或者按Ctrl+c终止"
+        red "Failed to fetch Cloudreve！！"
+        yellow "Press Enter to continue or Ctrl+c to terminate"
         read -s
     fi
     tar -zxf "$cloudreve_prefix/cloudreve.tar.gz" -C "$cloudreve_prefix" cloudreve
@@ -2894,16 +2894,16 @@ install_init_cloudreve()
     sleep 1s
     systemctl start cloudreve
     systemctl enable cloudreve
-    tyblue "-------- 请打开\"https://${domain_list[$1]}\"进行Cloudreve初始化 -------"
-    tyblue "  1. 登陆帐号"
-    purple "    初始管理员账号：admin@cloudreve.org"
-    purple "    初始管理员密码：$password"
-    tyblue "  2. 右上角头像 -> 管理面板"
-    tyblue "  3. 这时会弹出对话框 \"确定站点URL设置\" 选择 \"更改\""
-    tyblue "  4. 左侧参数设置 -> 注册与登陆 -> 不允许新用户注册 -> 往下拉点击保存"
+    tyblue "-------- please open\"https://${domain_list[$1]}\"Perform Cloudreve initialization -------"
+    tyblue "  1. login account"
+    purple "    Initial administrator account：admin@cloudreve.org"
+    purple "    initial admin password：$password"
+    tyblue "  2. Avatar in the upper right corner -> Admin Panel"
+    tyblue "  3. A dialog box will pop up \"Determine Site URL Settings\" choose \"Change\""
+    tyblue "  4. Parameter settings on the left -> registration and login -> do not allow new user registration -> pull down and click save"
     sleep 15s
     echo -e "\\n\\n"
-    tyblue "按两次回车键以继续。。。"
+    tyblue "Press enter twice to continue。。。"
     read -s
     read -s
     cloudreve_is_installed=1
@@ -2913,13 +2913,13 @@ install_init_cloudreve()
 let_init_nextcloud()
 {
     echo -e "\\n\\n"
-    yellow "请尽快打开\"https://${domain_list[$1]}\"进行Nextcloud初始化设置："
-    tyblue " 1. 初始化管理员用户名和密码"
-    tyblue " 2. 数据库类型选择SQLite"
-    tyblue " 3. 不建议勾选\"安装推荐的应用\"，初始化完成后还能安装"
+    yellow "please open as soon as possible\"https://${domain_list[$1]}\"Perform Nextcloud initialization settings："
+    tyblue " 1. Initialize the administrator username and password"
+    tyblue " 2. Select SQLite as the database type"
+    tyblue " 3. Not recommended to check\"Install recommended apps\"，After the initialization is complete, it can also be installed"
     sleep 15s
     echo -e "\\n\\n"
-    tyblue "按两次回车键以继续。。。"
+    tyblue "Press enter twice to continue。。。"
     read -s
     read -s
     echo
