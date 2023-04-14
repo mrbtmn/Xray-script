@@ -4020,11 +4020,11 @@ change_dns()
     fi
     green "modification completed！！"
 }
-#开始菜单
+#Start Menu
 start_menu()
 {
     local xray_status
-    [ $xray_is_installed -eq 1 ] && xray_status="\\033[32m已安装" || xray_status="\\033[31m未安装"
+    [ $xray_is_installed -eq 1 ] && xray_status="\\033[32mInstalled" || xray_status="\\033[31mNot Installed"
     systemctl -q is-active xray && xray_status+="                \\033[32m运行中" || xray_status+="                \\033[31m未运行"
     local nginx_status
     [ $nginx_is_installed -eq 1 ] && nginx_status="\\033[32m已安装" || nginx_status="\\033[31m未安装"
