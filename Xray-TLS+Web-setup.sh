@@ -4003,12 +4003,12 @@ repair_tuige()
 }
 change_dns()
 {
-    red    "注意！！"
-    red    "1.部分云服务商(如阿里云)使用本地服务器作为软件包源，修改dns后需要换源！！"
-    red    "  如果不明白，那么请在安装完成后再修改dns，并且修改完后不要重新安装"
-    red    "2.Ubuntu系统重启后可能会恢复原dns"
-    tyblue "此操作将修改dns服务器为1.1.1.1和1.0.0.1(cloudflare公共dns)"
-    ! ask_if "是否要继续?(y/n)" && return 0
+    red    "Notice！！"
+    red    "1.Some cloud service providers (such as Alibaba Cloud) use the local server as the package source, and need to change the source after modifying dns！！"
+    red    "  If you don't understand, please modify the dns after the installation is complete, and do not reinstall after the modification"
+    red    "2.The original dns may be restored after the Ubuntu system restarts"
+    tyblue "This operation will modify the dns server to 1.1.1.1 and 1.0.0.1 (cloudflare public dns)"
+    ! ask_if "do you want to continue?(y/n)" && return 0
     if ! grep -q "#This file has been edited by Xray-TLS-Web-setup-script" /etc/resolv.conf; then
         sed -i 's/^[ \t]*nameserver[ \t][ \t]*/#&/' /etc/resolv.conf
         {
@@ -4018,7 +4018,7 @@ change_dns()
             echo '#This file has been edited by Xray-TLS-Web-setup-script'
         } >> /etc/resolv.conf
     fi
-    green "修改完成！！"
+    green "modification completed！！"
 }
 #开始菜单
 start_menu()
@@ -4164,14 +4164,14 @@ start_menu()
         update_cloudreve
         cd /
         rm -rf "$temp_dir"
-        green "Cloudreve更新完成！"
+        green "Cloudreve update complete！"
     elif [ $choice -eq 9 ]; then
         [ "$dnf" == "yum" ] && check_important_dependence_installed "" "yum-utils"
         check_SELinux
         check_important_dependence_installed ca-certificates ca-certificates
         check_important_dependence_installed curl curl
         install_update_xray
-        green "Xray更新完成！"
+        green "Xray update complete！"
     elif [ $choice -eq 10 ]; then
         ! ask_if "You sure you want to delete it?(y/n)" && return 0
         [ "$dnf" == "yum" ] && check_important_dependence_installed "" "yum-utils"
@@ -4183,7 +4183,7 @@ start_menu()
         remove_cloudreve
         $HOME/.acme.sh/acme.sh --uninstall
         rm -rf $HOME/.acme.sh
-        green "删除完成！"
+        green "delete complete！"
     elif [ $choice -eq 11 ]; then
         get_config_info
         [ $is_installed -eq 1 ] && check_need_php && red "有域名正在使用php" && return 1
