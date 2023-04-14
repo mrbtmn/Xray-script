@@ -1130,41 +1130,41 @@ doupdate()
     {
         check_important_dependence_installed "ubuntu-release-upgrader-core"
         echo -e "\\n\\n\\n"
-        tyblue "------------------请选择升级系统版本--------------------"
-        tyblue " 1. beta版(测试版)          当前版本号：22.10"
-        tyblue " 2. release版(稳定版)       当前版本号：22.10"
-        tyblue " 3. LTS版(长期支持版)       当前版本号：22.04"
-        tyblue " 0. 不升级系统"
-        tyblue "-------------------------注意事项-------------------------"
-        yellow " 1.升级过程中遇到问话/对话框，如果不清楚，请选择yes/y/第一个选项"
-        yellow " 2.升级系统可能需要15分钟或更久"
-        yellow " 3.有的时候不能一次性更新到所选择的版本，可能要更新多次"
-        yellow " 4.升级系统后以下配置可能会恢复系统默认配置："
-        yellow "     ssh端口   ssh超时时间    bbr加速(恢复到关闭状态)"
+        tyblue "------------------Please choose to upgrade the system version--------------------"
+        tyblue " 1. beta version (beta version)          current version number：22.10"
+        tyblue " 2. release version (stable version)       current version number：22.10"
+        tyblue " 3. LTS version (long-term support version)       current version number：22.04"
+        tyblue " 0. Do not upgrade the system"
+        tyblue "-------------------------Precautions-------------------------"
+        yellow " 1.If you encounter a question/dialog box during the upgrade process, if you are not clear, please select yes/y/the first option"
+        yellow " 2.Upgrading the system may take 15 minutes or more"
+        yellow " 3.Sometimes it is not possible to update to the selected version at one time, and it may be necessary to update multiple times"
+        yellow " 4.After upgrading the system, the following configurations may restore the system default configuration："
+        yellow "     ssh port ssh timeout bbr speedup (revert to closed state)"
         tyblue "----------------------------------------------------------"
-        green  " 您现在的系统版本是：$systemVersion"
+        green  " Your current system version is：$systemVersion"
         tyblue "----------------------------------------------------------"
         echo
         choice=""
         while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>3))
         do
-            read -p "您的选择是：" choice
+            read -p "your choice is：" choice
         done
         if [ $choice -ne 0 ]; then
             if ! [[ "$(grep -i '^[ '$'\t]*port[ '$'\t]' /etc/ssh/sshd_config | awk '{print $2}')" =~ ^("22"|)$ ]]; then
-                red "检测到ssh端口号被修改"
-                red "升级系统后ssh端口号可能恢复默认值(22)"
-                yellow "按回车键继续。。。"
+                red "Detected that the ssh port number has been modified"
+                red "After upgrading the system, the ssh port number may return to the default value (22)"
+                yellow "press enter to continue。。。"
                 read -s
             fi
             if [ $in_install_update_xray_tls_web -eq 1 ]; then
                 echo
-                tyblue "提示：即将开始升级系统"
-                yellow " 升级完系统后服务器将重启，重启后，请再次运行脚本完成 Xray-TLS+Web 剩余部分的安装/升级"
-                yellow " 再次运行脚本时，重复之前选过的选项即可"
+                tyblue "Reminder: Upgrading the system is about to start"
+                yellow " After upgrading the system, the server will restart. After restarting, please run the script again to complete the installation/upgrade of the rest of Xray-TLS+Web"
+                yellow " When running the script again, repeat the previously selected options"
                 echo
                 sleep 2s
-                yellow "按回车键以继续。。。"
+                yellow "press enter to continue。。。"
                 read -s
             fi
         fi
@@ -1208,24 +1208,24 @@ doupdate()
     while ((1))
     do
         echo -e "\\n\\n\\n"
-        tyblue "-----------------------是否更新系统组件？-----------------------"
-        green  " 1. 更新已安装软件，并升级系统 (Ubuntu专享)"
-        green  " 2. 仅更新已安装软件"
-        red    " 3. 不更新"
+        tyblue "-----------------------Whether to update system components？-----------------------"
+        green  " 1. Update installed software and upgrade system (Ubuntu only)"
+        green  " 2. Only update installed software"
+        red    " 3. not update"
         if [ $release == "ubuntu" ] && (($(free -m | sed -n 2p | awk '{print $2}')<400)); then
-            red "检测到内存过小，升级系统可能导致无法开机，请谨慎选择"
+            red "It is detected that the memory is too small, and upgrading the system may result in failure to boot, please choose carefully"
         fi
         echo
         choice=""
         while [ "$choice" != "1" ] && [ "$choice" != "2" ] && [ "$choice" != "3" ]
         do
-            read -p "您的选择是：" choice
+            read -p "your choice is：" choice
         done
         if [ $release == "ubuntu" ] || [ $choice -ne 1 ]; then
             break
         fi
         echo
-        yellow " 更新系统仅支持Ubuntu！"
+        yellow " The update system only supports Ubuntu！"
         sleep 3s
     done
     if [ $choice -eq 1 ]; then
@@ -1233,9 +1233,9 @@ doupdate()
         $apt -y --purge autoremove
         $apt clean
     elif [ $choice -eq 2 ]; then
-        tyblue "-----------------------即将开始更新-----------------------"
-        yellow " 更新过程中遇到问话/对话框，如果不明白，选择yes/y/第一个选项"
-        yellow " 按回车键继续。。。"
+        tyblue "-----------------------Updating soon-----------------------"
+        yellow " If you encounter a question/dialog box during the update process, if you don’t understand, select yes/y/the first option"
+        yellow " press enter to continue。。。"
         read -s
         $apt -y --purge autoremove
         $apt update
@@ -1256,7 +1256,7 @@ install_bbr()
     #输出：latest_kernel_version 和 your_kernel_version
     get_kernel_info()
     {
-        green "正在获取最新版本内核版本号。。。。(60内秒未获取成功自动跳过)"
+        green "Getting the latest kernel version number。。。。(If it is not successfully obtained within 60 seconds, it will be automatically skipped)"
         your_kernel_version="$(uname -r | cut -d - -f 1)"
         while [ ${your_kernel_version##*.} -eq 0 ]
         do
@@ -1552,10 +1552,10 @@ install_bbr()
         done
         if (( 1<=choice&&choice<=4 )); then
             if (( choice==1 || choice==4 )) && ([ $release == "ubuntu" ] || [ $release == "debian" ] || [ $release == "deepin" ] || [ $release == "other-debian" ]) && ! dpkg-deb --help | grep -qw "zstd"; then
-                red    "当前系统dpkg不支持解压zst包，不支持安装此内核！"
-                green  "请更新系统，或选择使用其他系统，或选择安装xanmod内核"
+                red    "The current system dpkg does not support decompressing zst packages, and does not support installing this kernel！"
+                green  "Please update the system, or choose to use another system, or choose to install the xanmod kernel"
             elif (( choice==2 || choice==3 )) && ([ $release == "centos" ] || [ $release == centos-stream ] || [ $release == oracle ] || [ $release == "rhel" ] || [ $release == "fedora" ] || [ $release == "other-redhat" ]); then
-                red "xanmod内核仅支持Debian系的系统，如Ubuntu、Debian、deepin、UOS"
+                red "The xanmod kernel only supports Debian-based systems, such as Ubuntu, Debian, deepin, UOS"
             else
                 if (( choice==1 || choice==4 )) && ([ $release == "ubuntu" ] || [ $release == "debian" ] || [ $release == "deepin" ] || [ $release == "other-debian" ]); then
                     check_important_dependence_installed "linux-base" ""
