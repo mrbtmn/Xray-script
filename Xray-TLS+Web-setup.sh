@@ -19,14 +19,17 @@ unset timezone
 unset ssh_service
 
 #安装配置信息
-nginx_version="nginx-1.23.3"
-openssl_version="openssl-openssl-3.0.8"
+nginx_version="nginx-1.24.0"
+#nginx_version="nginx-1.23.3"
+openssl_version="openssl-openssl-3.1.0"
+#openssl_version="openssl-openssl-3.0.8"
 nginx_prefix="/usr/local/nginx"
 nginx_config="${nginx_prefix}/conf.d/xray.conf"
 nginx_service="/etc/systemd/system/nginx.service"
 nginx_is_installed=""
 
-php_version="php-8.2.3"
+php_version="php-8.2.5"
+#php_version="php-8.2.3"
 php_prefix="/usr/local/php"
 php_service="/etc/systemd/system/php-fpm.service"
 unset php_is_installed
@@ -36,7 +39,8 @@ cloudreve_prefix="/usr/local/cloudreve"
 cloudreve_service="/etc/systemd/system/cloudreve.service"
 unset cloudreve_is_installed
 
-nextcloud_url="https://download.nextcloud.com/server/prereleases/nextcloud-26.0.0beta4.tar.bz2"
+nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-26.0.0.tar.bz2"
+#nextcloud_url="https://download.nextcloud.com/server/prereleases/nextcloud-26.0.0beta4.tar.bz2"
 
 xray_config="/usr/local/etc/xray/config.json"
 unset xray_is_installed
@@ -142,12 +146,12 @@ version_ge()
 #检查脚本更新
 check_script_update()
 {
-    [ "$(md5sum "${BASH_SOURCE[0]}" | awk '{print $1}')" == "$(md5sum <(wget -O - "https://github.com/kirin10000/Xray-script/raw/main/Xray-TLS+Web-setup.sh") | awk '{print $1}')" ] && return 1 || return 0
+    [ "$(md5sum "${BASH_SOURCE[0]}" | awk '{print $1}')" == "$(md5sum <(wget -O - "https://github.com/mrbtmn/Xray-script/raw/main/Xray-TLS+Web-setup.sh") | awk '{print $1}')" ] && return 1 || return 0
 }
 #更新脚本
 update_script()
 {
-    if wget -O "${BASH_SOURCE[0]}" "https://github.com/kirin10000/Xray-script/raw/main/Xray-TLS+Web-setup.sh" || wget -O "${BASH_SOURCE[0]}" "https://github.com/mrbtmn/Xray-script/raw/main/Xray-TLS+Web-setup.sh"; then
+    if wget -O "${BASH_SOURCE[0]}" "https://github.com/mrbtmn/Xray-script/raw/main/Xray-TLS+Web-setup.sh" || wget -O "${BASH_SOURCE[0]}" "https://github.com/mrbtmn/Xray-script/raw/main/Xray-TLS+Web-setup.sh"; then
         green "The script update is complete, please run the script again！"
         exit 0
     else
@@ -1600,11 +1604,11 @@ install_bbr()
                     fi
                     local temp_kernel_sh_url
                     if [ $choice -eq 1 ]; then
-                        temp_kernel_sh_url="https://github.com/kirin10000/update-kernel/raw/master/update-kernel-stable.sh"
+                        temp_kernel_sh_url="https://github.com/mrbtmn/update-kernel/raw/master/update-kernel-stable.sh"
                     elif [ $choice -eq 4 ]; then
-                        temp_kernel_sh_url="https://github.com/kirin10000/update-kernel/raw/master/update-kernel.sh"
+                        temp_kernel_sh_url="https://github.com/mrbtmn/update-kernel/raw/master/update-kernel.sh"
                     else
-                        temp_kernel_sh_url="https://github.com/kirin10000/xanmod-install/raw/main/xanmod-install.sh"
+                        temp_kernel_sh_url="https://github.com/mrbtmn/xanmod-install/raw/main/xanmod-install.sh"
                     fi
                     if ! wget -O kernel.sh "$temp_kernel_sh_url"; then
                         red    "Failed to fetch kernel install script"
@@ -1841,7 +1845,7 @@ readPretend()
                 queren=0
                 continue
             elif [ $release == "other-debian" ] || [ $release == "other-redhat" ]; then
-                yellow "未知的系统，可能导致php安装失败！"
+                yellow "Unknown system may cause php installation to fail！"
                 echo
                 tyblue "安装Nextcloud需要安装php"
                 yellow "仅支持在以下版本系统下安装php："
@@ -1864,7 +1868,7 @@ readPretend()
                 tyblue "安装Nextcloud需要安装php"
                 yellow "编译&&安装php可能需要额外消耗15-60分钟"
                 yellow "php将占用一定系统资源，不建议内存<512M的机器使用"
-                ! ask_if "确定选择吗？(y/n)" && queren=0
+                ! ask_if "Are you sure about your choice?？(y/n)" && queren=0
             fi
         elif [ $pretend -eq 4 ]; then
             tyblue "安装完成后请在 \"${nginx_prefix}/html/$1\" 放置您的网站源代码"
@@ -3798,7 +3802,7 @@ change_xray_id()
     echo
     while [[ ! "$flag" =~ ^([1-9][0-9]*)$ ]] || ((flag>3))
     do
-        read -p "您的选择是：" flag
+        read -p "Your choice is：" flag
     done
     local temp_protocol="protocol_$flag"
     if [ ${!temp_protocol} -eq 0 ]; then
@@ -4045,7 +4049,7 @@ start_menu()
     echo
     tyblue "        Cloudreve ：           ${cloudreve_status}"
     echo
-    tyblue "       official website：https://github.com/kirin10000/Xray-script"
+    tyblue "       official website：https://github.com/mrbtmn/Xray-script"
     echo
     tyblue "----------------------------------Precautions----------------------------------"
     yellow " 1. This script requires a domain name that resolves to this server"
