@@ -21,6 +21,59 @@ unset ssh_service
 #GetCountryName
 country_name=$(curl https://ifconfig.net/country-iso)
 
+# List of American Presidents
+presidents=(
+  "Washington"
+  "Adams"
+  "Jefferson"
+  "Madison"
+  "Monroe"
+  "Adams"
+  "Jackson"
+  "Van Buren"
+  "Harrison"
+  "Tyler"
+  "Polk"
+  "Taylor"
+  "Fillmore"
+  "Pierce"
+  "Buchanan"
+  "Lincoln"
+  "Johnson"
+  "Grant"
+  "Hayes"
+  "Garfield"
+  "Arthur"
+  "Cleveland"
+  "Harrison"
+  "Cleveland"
+  "McKinley"
+  "Roosevelt"
+  "Taft"
+  "Wilson"
+  "Harding"
+  "Coolidge"
+  "Hoover"
+  "Roosevelt"
+  "Truman"
+  "Eisenhower"
+  "Kennedy"
+  "Johnson"
+  "Nixon"
+  "Ford"
+  "Carter"
+  "Reagan"
+  "Bush"
+  "Clinton"
+  "Bush"
+  "Obama"
+  "Trump"
+  "Biden"
+)
+
+# Select a random American President
+random_president=${presidents[$RANDOM % ${#presidents[@]}]}
+
 #安装配置信息
 nginx_version="nginx-1.25.2"
 #nginx_version="nginx-1.24.0"
@@ -2977,7 +3030,7 @@ print_share_link()
         green  "=========== VLESS-gRPC-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
-            tyblue "vless://${xid_2}@${i}:443?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1#ARASH-${country_name}-gRPC-tls"
+            tyblue "vless://${xid_2}@${i}:443?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1#${random_president}-${country_name}-gRPC-tls"
         done
     elif [ $protocol_2 -eq 2 ]; then
         green  "=========== VMess-gRPC-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
@@ -2990,7 +3043,7 @@ print_share_link()
         green  "=========== VLESS-WebSocket-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
-            tyblue "vless://${xid_3}@${i}:443?type=ws&security=tls&path=%2F${path#/}%3Fed=2048#ARASH-${country_name}-WS-tls"
+            tyblue "vless://${xid_3}@${i}:443?type=ws&security=tls&path=%2F${path#/}%3Fed=2048#${random_president}-${country_name}-ws-tls"
         done
     elif [ $protocol_3 -eq 2 ]; then
         green  "=========== VMess-WebSocket-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
