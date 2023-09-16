@@ -1,3 +1,4 @@
+To see this Readme in English, right-click on the page and select "Translate to English"
 # Xray-TLS+Web搭建/管理脚本
 ## 目录
 [1. 脚本特性](#脚本特性)
