@@ -108,7 +108,7 @@ cloudreve_prefix="/usr/local/cloudreve"
 cloudreve_service="/etc/systemd/system/cloudreve.service"
 unset cloudreve_is_installed
 
-nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.0.2.tar.bz2"
+nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.0.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-26.0.0.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/prereleases/nextcloud-26.0.0beta4.tar.bz2"
 
@@ -1796,7 +1796,7 @@ readProtocolConfig()
     echo
     blue   " Note："
     blue   "   1. If you don't use CDN, please choose TCP"
-    blue   "   2. gRPC and WebSocket support CDN. For the difference between the two, see: https://github.com/kirin10000/Xray-script#About grpc and websocket"
+    blue   "   2. gRPC and WebSocket support CDN. For the difference between the two, see: https://github.com/mrbtmn/Xray-script#About grpc and websocket"
     blue   "   3. Only TCP can use XTLS"
     echo
     local choice=""
@@ -1882,7 +1882,7 @@ readPretend()
         green  " 128MB<=memory<1G, it is recommended to choose Cloudreve"
         green  " Memory>=1G It is recommended to choose Nextcloud or Cloudreve"
         echo
-        yellow " For detailed instructions on choosing a camouflaged website, see：https://github.com/kirin10000/Xray-script#伪装网站说明"
+        yellow " For detailed instructions on choosing a camouflaged website, see：https://github.com/mrbtmn/Xray-script#伪装网站说明"
         echo
         pretend=""
         while [[ "$pretend" != "1" && "$pretend" != "2" && "$pretend" != "3" && "$pretend" != "4" && "$pretend" != "5" ]]
@@ -3211,12 +3211,12 @@ print_config_info()
     yellow "Note: Some options may not be covered by the sharing link. If you are not afraid of trouble, it is recommended to fill in manually"
     ask_if "Whether to generate a share link？(y/n)" && print_share_link
     echo
-    yellow " About fingerprint and alpn，See details：https://github.com/kirin10000/Xray-script#About tls handshake tls fingerprint and alpn"
+    yellow " About fingerprint and alpn，See details：https://github.com/mrbtmn/Xray-script#About tls handshake tls fingerprint and alpn"
     echo
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " script last update time：15SEP2023 - ARASH"
+    tyblue " script last update time：16SEP2023 - ARASH"
     echo
     red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
@@ -4124,7 +4124,7 @@ start_menu()
     tyblue "----------------------------------Precautions----------------------------------"
     yellow " 1. This script requires a domain name that resolves to this server"
     tyblue " 2. This script takes a long time to install, it is recommended to read it before installation："
-    tyblue "      https://github.com/kirin10000/Xray-script#Installation duration instructions"
+    tyblue "      https://github.com/mrbtmn/Xray-script#Installation duration instructions"
     green  " 3. It is recommended to use this script on a clean system (VPS console - reset system)"
     tyblue "----------------------------------------------------------------------------"
     echo
