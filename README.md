@@ -117,10 +117,10 @@ bash Xray-TLS+Web-setup.sh
 ### 4. 根据脚本提示完成安装
 ## 运行截图
 <div>
-    <img width="400" src="https://github.com/kirin10000/Xray-script/blob/main/image/menu.jpg">
+    <img width="400" src="https://github.com/mrbtmn/Xray-script/blob/main/image/menu.jpg">
 </div>
 <div>
-    <img width="600" src="https://github.com/kirin10000/Xray-script/blob/main/image/protocol.jpg">
+    <img width="600" src="https://github.com/mrbtmn/Xray-script/blob/main/image/protocol.jpg">
 </div>
 
 ## 伪装网站说明
@@ -289,7 +289,7 @@ Xray默认使用的是GO语言官方提供的TLS库，这也是几乎所有GO语
 ||git|git|
 ||libmagickwand-dev|ImageMagick-devel|
 ## 注
-1.本文链接(官网)：https://github.com/kirin10000/Xray-script
+1.本文链接(官网)：https://github.com/mrbtmn/Xray-script
 
 2.参考教程：https://www.v2fly.org/config/overview.html https://guide.v2fly.org/ https://docs.nextcloud.com/server/latest/admin_manual/installation/source_installation.html https://docs.cloudreve.org/
 
