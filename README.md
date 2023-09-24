@@ -117,7 +117,7 @@ bash Xray-TLS+Web-setup.sh
 ### 4. 根据脚本提示完成安装
 ## 运行截图
 <div>
-    <img width="400" src="https://github.com/mrbtmn/Xray-script/blob/main/image/menu.jpg">
+    <img src="https://github.com/mrbtmn/Xray-script/blob/main/image/Xray_menu.jpg">
 </div>
 <div>
     <img width="600" src="https://github.com/mrbtmn/Xray-script/blob/main/image/protocol.jpg">
