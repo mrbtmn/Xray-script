@@ -21,6 +21,9 @@ unset ssh_service
 #GetCountryName
 country_name=$(curl https://ifconfig.net/country)
 
+#GetIP
+serverIP=$(curl -s ipv4.ip.sb)
+
 # List of Super Heroes
 characters=(
   "Superman"
@@ -87,7 +90,7 @@ random_characters=${characters[$RANDOM % ${#characters[@]}]}
 nginx_version="nginx-1.25.2"
 #nginx_version="nginx-1.24.0"
 #nginx_version="nginx-1.23.3"
-openssl_version="openssl-openssl-3.1.2"
+openssl_version="openssl-openssl-3.1.3"
 #openssl_version="openssl-openssl-3.1.0"
 #openssl_version="openssl-openssl-3.0.8"
 nginx_prefix="/usr/local/nginx"
@@ -95,7 +98,7 @@ nginx_config="${nginx_prefix}/conf.d/xray.conf"
 nginx_service="/etc/systemd/system/nginx.service"
 nginx_is_installed=""
 
-php_version="php-8.2.10"
+php_version="php-8.2.11"
 #php_version="php-8.2.5"
 #php_version="php-8.2.3"
 php_prefix="/usr/local/php"
@@ -108,7 +111,7 @@ cloudreve_prefix="/usr/local/cloudreve"
 cloudreve_service="/etc/systemd/system/cloudreve.service"
 unset cloudreve_is_installed
 
-nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.0.tar.bz2"
+nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.1.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-26.0.0.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/prereleases/nextcloud-26.0.0beta4.tar.bz2"
 
@@ -1040,7 +1043,7 @@ check_nginx_installed_system()
     fi
     red "uninstall failed！"
     yellow "Please try to replace the system, it is recommended to use the latest version of Ubuntu system"
-    green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
+    green  "欢迎进行Bug report(https://github.com/mrbtmn/Xray-script/issues)，感谢您的支持"
     exit 1
 }
 
@@ -3216,7 +3219,7 @@ print_config_info()
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " script last update time：16SEP2023 - ARASH"
+    tyblue " script last update time：30SEP2023 - ARASH"
     echo
     red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
@@ -4121,6 +4124,9 @@ start_menu()
     echo
     tyblue "       official website：https://github.com/mrbtmn/Xray-script"
     echo
+    yellow "       Server IP is:          ${serverIP}"
+    echo
+    yellow "       Server Location is:    ${country_name}"
     tyblue "----------------------------------Precautions----------------------------------"
     yellow " 1. This script requires a domain name that resolves to this server"
     tyblue " 2. This script takes a long time to install, it is recommended to read it before installation："
@@ -4169,12 +4175,18 @@ start_menu()
     tyblue "  24. Modify the path (path) of WebSocket"
     echo
     tyblue " ----------------other----------------"
-    tyblue "  25. streamlined system"
+    tyblue "  25. Streamlined system"
     purple "         Remove unnecessary system components, even if Xray-TLS+Web is installed, you can still use this feature"
     tyblue "  26. Try to fix the problem that the backspace key cannot be used"
     purple "         Some ssh tools (such as Xshell) may have such problems"
-    tyblue "  27. modify dns"
-    yellow "  0. exit script"
+    tyblue "  27. Modify dns"
+    yellow "  0. Exit script"
+    echo
+    yellow "---------------Server Status--------------"
+    green  "       Server IP is:       ${serverIP}"
+    echo
+    green  "       Server Location is: ${country_name}"
+    yellow "------------------------------------------"
     echo
     echo
     local choice=""
