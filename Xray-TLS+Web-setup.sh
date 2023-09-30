@@ -24,6 +24,9 @@ country_name=$(curl https://ifconfig.net/country)
 #GetIP
 serverIP=$(curl -s ipv4.ip.sb)
 
+#ServerUpTime
+serverUpTime=$(uptime)
+
 # List of Super Heroes
 characters=(
   "Superman"
@@ -4127,6 +4130,9 @@ start_menu()
     yellow "       Server IP is:          ${serverIP}"
     echo
     yellow "       Server Location is:    ${country_name}"
+    echo
+    tyblue "       Sever UpTime:          ${serverUpTime}"
+    echo
     tyblue "----------------------------------Precautions----------------------------------"
     yellow " 1. This script requires a domain name that resolves to this server"
     tyblue " 2. This script takes a long time to install, it is recommended to read it before installation："
@@ -4186,6 +4192,8 @@ start_menu()
     green  "       Server IP is:       ${serverIP}"
     echo
     green  "       Server Location is: ${country_name}"
+    echo
+    tyblue "       Sever UpTime:       ${serverUpTime}"    
     yellow "------------------------------------------"
     echo
     echo
