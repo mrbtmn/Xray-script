@@ -108,13 +108,13 @@ php_prefix="/usr/local/php"
 php_service="/etc/systemd/system/php-fpm.service"
 unset php_is_installed
 
-cloudreve_version="3.8.2"
+cloudreve_version="3.8.3"
 #cloudreve_version="3.7.1"
 cloudreve_prefix="/usr/local/cloudreve"
 cloudreve_service="/etc/systemd/system/cloudreve.service"
 unset cloudreve_is_installed
 
-nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.1.tar.bz2"
+nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.2.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-26.0.0.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/prereleases/nextcloud-26.0.0beta4.tar.bz2"
 
@@ -3222,7 +3222,7 @@ print_config_info()
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " script last update time：30SEP2023 - ARASH"
+    tyblue " script last update time：09OCT2023 - ARASH"
     echo
     red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
