@@ -90,10 +90,10 @@ characters=(
 random_characters=${characters[$RANDOM % ${#characters[@]}]}
 
 #安装配置信息
-nginx_version="nginx-1.25.2"
+nginx_version="nginx-1.25.3"
 #nginx_version="nginx-1.24.0"
 #nginx_version="nginx-1.23.3"
-openssl_version="openssl-openssl-3.1.3"
+openssl_version="openssl-openssl-3.1.4"
 #openssl_version="openssl-openssl-3.1.0"
 #openssl_version="openssl-openssl-3.0.8"
 nginx_prefix="/usr/local/nginx"
@@ -101,7 +101,7 @@ nginx_config="${nginx_prefix}/conf.d/xray.conf"
 nginx_service="/etc/systemd/system/nginx.service"
 nginx_is_installed=""
 
-php_version="php-8.2.11"
+php_version="php-8.2.12"
 #php_version="php-8.2.5"
 #php_version="php-8.2.3"
 php_prefix="/usr/local/php"
@@ -114,7 +114,7 @@ cloudreve_prefix="/usr/local/cloudreve"
 cloudreve_service="/etc/systemd/system/cloudreve.service"
 unset cloudreve_is_installed
 
-nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.2.tar.bz2"
+nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.3.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-26.0.0.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/prereleases/nextcloud-26.0.0beta4.tar.bz2"
 
