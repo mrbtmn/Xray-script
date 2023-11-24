@@ -19,10 +19,17 @@ unset timezone
 unset ssh_service
 
 #GetCountryName
-country_name=$(curl https://ifconfig.net/country)
+country_name=$(curl -s https://ipinfo.io/country)
+#country_name=$(curl https://ifconfig.net/country)
+
+#GetCityName
+city_name=$(curl -s https://ipinfo.io/city)
 
 #GetIP
 serverIP=$(curl -s ipv4.ip.sb)
+
+#GetIPv6
+serverIP6=$(curl -s ipv6.ip.sb)
 
 #ServerUpTime
 serverUpTime=$(uptime)
@@ -31,6 +38,8 @@ serverUpTime=$(uptime)
 characters=(
   "Superman"
   "Batman"
+  "ARASH"
+  "ARCHER"
   "SpiderMan"
   "WonderWoman"
   "Thor"
@@ -3045,7 +3054,7 @@ print_share_link()
         green  "=========== VLESS-gRPC-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
-            tyblue "vless://${xid_2}@${i}:443?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1#${random_characters}-${country_name}-gRPC-tls"
+            tyblue "vless://${xid_2}@${i}:443?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1#${random_characters}-${country_name}-${city_name}-gRPC-tls"
         done
     elif [ $protocol_2 -eq 2 ]; then
         green  "=========== VMess-gRPC-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
@@ -3058,7 +3067,7 @@ print_share_link()
         green  "=========== VLESS-WebSocket-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
-            tyblue "vless://${xid_3}@${i}:443?type=ws&security=tls&path=%2F${path#/}%3Fed=2048#${random_characters}-${country_name}-ws-tls"
+            tyblue "vless://${xid_3}@${i}:443?type=ws&security=tls&path=%2F${path#/}%3Fed=2048#${random_characters}-${country_name}-${city_name}-ws-tls"
         done
     elif [ $protocol_3 -eq 2 ]; then
         green  "=========== VMess-WebSocket-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
@@ -3222,7 +3231,7 @@ print_config_info()
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " script last update time：03NOV2023 - ARASH"
+    tyblue " script last update time：24NOV2023 - ARASH"
     echo
     red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
@@ -4129,7 +4138,9 @@ start_menu()
     echo
     yellow "       Server IP is:          ${serverIP}"
     echo
-    yellow "       Server Location is:    ${country_name}"
+    yellow "       Server IPv6 is:        ${serverIP6}"
+    echo
+    yellow "       Server Location is:    ${country_name}-${city_name}"
     echo
     tyblue "       Sever UpTime:          ${serverUpTime}"
     echo
@@ -4188,13 +4199,15 @@ start_menu()
     tyblue "  27. Modify dns"
     yellow "  0. Exit script"
     echo
-    yellow "---------------Server Status--------------"
+    yellow "----------------------Server Status---------------------"
     green  "       Server IP is:       ${serverIP}"
     echo
-    green  "       Server Location is: ${country_name}"
+    green  "       Server IPv6 is:     ${serverIP6}"
+    echo
+    green  "       Server Location is: ${country_name}-${city_name}"
     echo
     tyblue "       Sever UpTime:       ${serverUpTime}"    
-    yellow "------------------------------------------"
+    yellow "--------------------------------------------------------"
     echo
     echo
     local choice=""
