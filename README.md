@@ -114,6 +114,10 @@ wget -O Xray-TLS+Web-setup.sh https://github.com/mrbtmn/Xray-script/raw/main/Xra
 ```bash
 bash Xray-TLS+Web-setup.sh
 ```
+### You can run the script online
+```bash
+bash <(curl -Ls https://github.com/mrbtmn/Xray-script/raw/main/Xray-TLS+Web-setup.sh)
+```
 ### 4. 根据脚本提示完成安装
 ## 运行截图
 <div>
