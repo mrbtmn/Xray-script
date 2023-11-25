@@ -102,7 +102,8 @@ random_characters=${characters[$RANDOM % ${#characters[@]}]}
 nginx_version="nginx-1.25.3"
 #nginx_version="nginx-1.24.0"
 #nginx_version="nginx-1.23.3"
-openssl_version="openssl-openssl-3.1.4"
+openssl_version="openssl-openssl-3.2.0"
+#openssl_version="openssl-openssl-3.1.4"
 #openssl_version="openssl-openssl-3.1.0"
 #openssl_version="openssl-openssl-3.0.8"
 nginx_prefix="/usr/local/nginx"
@@ -110,7 +111,8 @@ nginx_config="${nginx_prefix}/conf.d/xray.conf"
 nginx_service="/etc/systemd/system/nginx.service"
 nginx_is_installed=""
 
-php_version="php-8.2.12"
+php_version="php-8.3.0"
+#php_version="php-8.2.12"
 #php_version="php-8.2.5"
 #php_version="php-8.2.3"
 php_prefix="/usr/local/php"
@@ -123,7 +125,8 @@ cloudreve_prefix="/usr/local/cloudreve"
 cloudreve_service="/etc/systemd/system/cloudreve.service"
 unset cloudreve_is_installed
 
-nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.3.tar.bz2"
+nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.4.tar.bz2"
+#nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.3.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-26.0.0.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/prereleases/nextcloud-26.0.0beta4.tar.bz2"
 
@@ -3231,7 +3234,7 @@ print_config_info()
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " script last update time：24NOV2023 - ARASH"
+    tyblue " script last update time：26NOV2023 - ARASH"
     echo
     red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
