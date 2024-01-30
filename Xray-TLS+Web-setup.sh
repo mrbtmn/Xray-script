@@ -1022,13 +1022,16 @@ get_system_info()
 #Check whether TCP port 80 and port 443 are occupied
 check_port()
 {
+    yellow "Enter Cloudflare Port Number(443, 8443, 2096, 2053, 2083, 2087): "    
+    read portNo
     green "Checking port usage。。。"
     local xray_status=0
     local nginx_status=0
     systemctl -q is-active xray && xray_status=1 && systemctl stop xray
     systemctl -q is-active nginx && nginx_status=1 && systemctl stop nginx
     ([ $xray_status -eq 1 ] || [ $nginx_status -eq 1 ]) && sleep 2s
-    local check_list=('80' '443')
+    #local check_list=('80' '443')
+    local check_list=('80' '${portNo}')
     local i
     for i in "${check_list[@]}"
     do
@@ -2388,7 +2391,7 @@ cat > ${nginx_prefix}/conf.d/nextcloud.conf <<EOF
         include fastcgi.conf;
         fastcgi_param PATH_INFO \$path_info;
         fastcgi_param REMOTE_ADDR 127.0.0.1;
-        fastcgi_param SERVER_PORT 443;
+        fastcgi_param SERVER_PORT ${portNo};
         fastcgi_param HTTPS on;
         fastcgi_param modHeadersAvailable true;
         fastcgi_param front_controller_active true;
@@ -2598,7 +2601,7 @@ http {
     # HTTPS server
     #
     #server {
-    #    listen       443 ssl;
+    #    listen       ${portNo} ssl;
     #    server_name  localhost;
 
     #    ssl_certificate      cert.pem;
@@ -2745,7 +2748,7 @@ cat > $xray_config <<EOF
     },
     "inbounds": [
         {
-            "port": 443,
+            "port": ${portNo},
             "protocol": "vless",
             "settings": {
 EOF
@@ -3038,9 +3041,9 @@ print_share_link()
         for i in "${!domain_list[@]}"
         do
             if [ "${pretend_list[$i]}" == "1" ] || [ "${pretend_list[$i]}" == "2" ]; then
-                tyblue "vless://${xid_1}@${ip}:443?security=tls&sni=${domain_list[$i]}&alpn=http%2F1.1&flow=xtls-rprx-vision"
+                tyblue "vless://${xid_1}@${ip}:${portNo}?security=tls&sni=${domain_list[$i]}&alpn=http%2F1.1&flow=xtls-rprx-vision"
             else
-                tyblue "vless://${xid_1}@${ip}:443?security=tls&sni=${domain_list[$i]}&alpn=h2,http%2F1.1&flow=xtls-rprx-vision"
+                tyblue "vless://${xid_1}@${ip}:${portNo}?security=tls&sni=${domain_list[$i]}&alpn=h2,http%2F1.1&flow=xtls-rprx-vision"
             fi
         done
     fi
@@ -3049,9 +3052,9 @@ print_share_link()
         for i in "${!domain_list[@]}"
         do
             if [ "${pretend_list[$i]}" == "1" ] || [ "${pretend_list[$i]}" == "2" ]; then
-                tyblue "vless://${xid_1}@${ip}:443?security=tls&sni=${domain_list[$i]}&alpn=http%2F1.1"
+                tyblue "vless://${xid_1}@${ip}:${portNo}?security=tls&sni=${domain_list[$i]}&alpn=http%2F1.1"
             else
-                tyblue "vless://${xid_1}@${ip}:443?security=tls&sni=${domain_list[$i]}&alpn=h2,http%2F1.1"
+                tyblue "vless://${xid_1}@${ip}:${portNo}?security=tls&sni=${domain_list[$i]}&alpn=h2,http%2F1.1"
             fi
         done
     fi
@@ -3059,26 +3062,26 @@ print_share_link()
         green  "=========== VLESS-gRPC-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
-            tyblue "vless://${xid_2}@${i}:443?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1#${random_characters}-${country_name}-${city_name}-gRPC-tls"
+            tyblue "vless://${xid_2}@${i}:${portNo}?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1#${random_characters}-${country_name}-${city_name}-gRPC-tls"
         done
     elif [ $protocol_2 -eq 2 ]; then
         green  "=========== VMess-gRPC-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
-            tyblue "vmess://${xid_2}@${i}:443?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1"
+            tyblue "vmess://${xid_2}@${i}:${portNo}?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1"
         done
     fi
     if [ $protocol_3 -eq 1 ]; then
         green  "=========== VLESS-WebSocket-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
-            tyblue "vless://${xid_3}@${i}:443?type=ws&security=tls&path=%2F${path#/}%3Fed=2048#${random_characters}-${country_name}-${city_name}-ws-tls"
+            tyblue "vless://${xid_3}@${i}:${portNo}?type=ws&security=tls&path=%2F${path#/}%3Fed=2048#${random_characters}-${country_name}-${city_name}-ws-tls"
         done
     elif [ $protocol_3 -eq 2 ]; then
         green  "=========== VMess-WebSocket-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
-            tyblue "vmess://${xid_3}@${i}:443?type=ws&security=tls&path=%2F${path#/}%3Fed=2048"
+            tyblue "vmess://${xid_3}@${i}:${portNo}?type=ws&security=tls&path=%2F${path#/}%3Fed=2048"
         done
     fi
 }
@@ -3097,7 +3100,7 @@ print_config_info()
         purple "  (V2RayN selection\"Add [VLESS] server\";V2RayNG selection\"manual input[VLESS]\")"
         tyblue " address(address)         ：\\033[33mServer ip"
         purple "  (Qv2ray: Host)"
-        tyblue " port(port)            ：\\033[33m443"
+        tyblue " port(port)            ：\\033[33m${portNo}"
         tyblue " id(User ID/UUID)       ：\\033[33m${xid_1}"
         if [ $protocol_1 -eq 1 ]; then
             tyblue " flow(Flow Control)            ：\\033[33mxtls-rprx-vision"
@@ -3152,7 +3155,7 @@ print_config_info()
             tyblue " address(address)         ：\\033[33m${domain_list[*]} \\033[35m(choose one)"
         fi
         purple "  (Qv2ray: Host)"
-        tyblue " port(port)            ：\\033[33m443"
+        tyblue " port(port)            ：\\033[33m${portNo}"
         tyblue " id(User ID/UUID)       ：\\033[33m${xid_2}"
         if [ $protocol_2 -eq 1 ]; then
             tyblue " flow(Flow Control)            ：\\033[33mnull"
@@ -3198,7 +3201,7 @@ print_config_info()
             tyblue " address(address)         ：\\033[33m${domain_list[*]} \\033[35m(choose one)"
         fi
         purple "  (Qv2ray: Host)"
-        tyblue " port(port)            ：\\033[33m443"
+        tyblue " port(port)            ：\\033[33m${portNo}"
         tyblue " id(User ID/UUID)       ：\\033[33m${xid_3}"
         if [ $protocol_3 -eq 1 ]; then
             tyblue " flow(Flow Control)            ：\\033[33mnull"
@@ -3236,7 +3239,7 @@ print_config_info()
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " script last update time：28DEC2023 - ARASH"
+    tyblue " script last update time：30JAN2024 - ARASH"
     echo
     red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
