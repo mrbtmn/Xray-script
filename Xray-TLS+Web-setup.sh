@@ -111,7 +111,7 @@ nginx_config="${nginx_prefix}/conf.d/xray.conf"
 nginx_service="/etc/systemd/system/nginx.service"
 nginx_is_installed=""
 
-php_version="php-8.3.1"
+php_version="php-8.3.2"
 #php_version="php-8.3.0"
 #php_version="php-8.2.12"
 #php_version="php-8.2.5"
