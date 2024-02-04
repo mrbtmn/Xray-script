@@ -121,8 +121,8 @@ php_service="/etc/systemd/system/php-fpm.service"
 unset php_is_installed
 
 #cloudreve_version="3.8.3"
-#cloudreve_version="3.7.1"
-cloudreve_version="3.8.2"
+cloudreve_version="3.7.1"
+#cloudreve_version="3.8.2"
 cloudreve_prefix="/usr/local/cloudreve"
 cloudreve_service="/etc/systemd/system/cloudreve.service"
 unset cloudreve_is_installed
