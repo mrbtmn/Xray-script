@@ -128,7 +128,8 @@ cloudreve_prefix="/usr/local/cloudreve"
 cloudreve_service="/etc/systemd/system/cloudreve.service"
 unset cloudreve_is_installed
 
-nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-28.0.1.tar.bz2"
+nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-28.0.2.tar.bz2"
+#nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-28.0.1.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.4.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.3.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-26.0.0.tar.bz2"
