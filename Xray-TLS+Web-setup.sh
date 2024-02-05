@@ -102,7 +102,8 @@ random_characters=${characters[$RANDOM % ${#characters[@]}]}
 nginx_version="nginx-1.25.3"
 #nginx_version="nginx-1.24.0"
 #nginx_version="nginx-1.23.3"
-openssl_version="openssl-openssl-3.2.0"
+openssl_version="openssl-openssl-3.2.1"
+#openssl_version="openssl-openssl-3.2.0"
 #openssl_version="openssl-openssl-3.1.4"
 #openssl_version="openssl-openssl-3.1.0"
 #openssl_version="openssl-openssl-3.0.8"
@@ -3240,7 +3241,7 @@ print_config_info()
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " script last update time：04FEB2024 - ARASH"
+    tyblue " script last update time：06FEB2024 - ARASH"
     echo
     red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
