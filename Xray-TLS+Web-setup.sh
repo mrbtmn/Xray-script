@@ -4220,6 +4220,8 @@ start_menu()
     yellow "----------------------Server Status---------------------"
     green  "       Server IP is:       ${serverIP}"
     echo
+    green  "       Port value:         $port_value"
+    echo
     green  "       Server IPv6 is:     ${serverIP6}"
     echo
     green  "       Server Location is: ${country_name}-${city_name}"
