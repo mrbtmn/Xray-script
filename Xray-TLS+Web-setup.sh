@@ -2887,6 +2887,13 @@ cat >> $xray_config <<EOF
 }
 EOF
 }
+###Extract Port Number From Xray Config File to use in Links(ARASH)
+# Your configuration file path
+xray_config_path="/usr/local/etc/xray/config.json"
+# Extract the port value using grep and awk
+port_value=$(grep -Po '"port": \K[0-9]+' "$xray_config_path")
+# Print the extracted port value
+echo "Port value: $port_value"
 
 init_web()
 {
@@ -3044,9 +3051,9 @@ print_share_link()
         for i in "${!domain_list[@]}"
         do
             if [ "${pretend_list[$i]}" == "1" ] || [ "${pretend_list[$i]}" == "2" ]; then
-                tyblue "vless://${xid_1}@${ip}:${portNo}?security=tls&sni=${domain_list[$i]}&alpn=http%2F1.1&flow=xtls-rprx-vision"
+                tyblue "vless://${xid_1}@${ip}:${port_value}?security=tls&sni=${domain_list[$i]}&alpn=http%2F1.1&flow=xtls-rprx-vision"
             else
-                tyblue "vless://${xid_1}@${ip}:${portNo}?security=tls&sni=${domain_list[$i]}&alpn=h2,http%2F1.1&flow=xtls-rprx-vision"
+                tyblue "vless://${xid_1}@${ip}:${port_value}?security=tls&sni=${domain_list[$i]}&alpn=h2,http%2F1.1&flow=xtls-rprx-vision"
             fi
         done
     fi
@@ -3055,9 +3062,9 @@ print_share_link()
         for i in "${!domain_list[@]}"
         do
             if [ "${pretend_list[$i]}" == "1" ] || [ "${pretend_list[$i]}" == "2" ]; then
-                tyblue "vless://${xid_1}@${ip}:${portNo}?security=tls&sni=${domain_list[$i]}&alpn=http%2F1.1"
+                tyblue "vless://${xid_1}@${ip}:${port_value}?security=tls&sni=${domain_list[$i]}&alpn=http%2F1.1"
             else
-                tyblue "vless://${xid_1}@${ip}:${portNo}?security=tls&sni=${domain_list[$i]}&alpn=h2,http%2F1.1"
+                tyblue "vless://${xid_1}@${ip}:${port_value}?security=tls&sni=${domain_list[$i]}&alpn=h2,http%2F1.1"
             fi
         done
     fi
@@ -3065,26 +3072,26 @@ print_share_link()
         green  "=========== VLESS-gRPC-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
-            tyblue "vless://${xid_2}@${i}:${portNo}?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1#${random_characters}-${country_name}-${city_name}-gRPC-tls"
+            tyblue "vless://${xid_2}@${i}:${port_value}?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1#${random_characters}-${country_name}-${city_name}-gRPC-tls"
         done
     elif [ $protocol_2 -eq 2 ]; then
         green  "=========== VMess-gRPC-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
-            tyblue "vmess://${xid_2}@${i}:${portNo}?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1"
+            tyblue "vmess://${xid_2}@${i}:${port_value}?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1"
         done
     fi
     if [ $protocol_3 -eq 1 ]; then
         green  "=========== VLESS-WebSocket-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
-            tyblue "vless://${xid_3}@${i}:${portNo}?type=ws&security=tls&path=%2F${path#/}%3Fed=2048#${random_characters}-${country_name}-${city_name}-ws-tls"
+            tyblue "vless://${xid_3}@${i}:${port_value}?type=ws&security=tls&path=%2F${path#/}%3Fed=2048#${random_characters}-${country_name}-${city_name}-ws-tls"
         done
     elif [ $protocol_3 -eq 2 ]; then
         green  "=========== VMess-WebSocket-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
-            tyblue "vmess://${xid_3}@${i}:${portNo}?type=ws&security=tls&path=%2F${path#/}%3Fed=2048"
+            tyblue "vmess://${xid_3}@${i}:${port_value}?type=ws&security=tls&path=%2F${path#/}%3Fed=2048"
         done
     fi
 }
@@ -3103,7 +3110,7 @@ print_config_info()
         purple "  (V2RayN selection\"Add [VLESS] server\";V2RayNG selection\"manual input[VLESS]\")"
         tyblue " address(address)         ：\\033[33mServer ip"
         purple "  (Qv2ray: Host)"
-        tyblue " port(port)            ：\\033[33m${portNo}"
+        tyblue " port(port)            ：\\033[33m${port_value}"
         tyblue " id(User ID/UUID)       ：\\033[33m${xid_1}"
         if [ $protocol_1 -eq 1 ]; then
             tyblue " flow(Flow Control)            ：\\033[33mxtls-rprx-vision"
@@ -3158,7 +3165,7 @@ print_config_info()
             tyblue " address(address)         ：\\033[33m${domain_list[*]} \\033[35m(choose one)"
         fi
         purple "  (Qv2ray: Host)"
-        tyblue " port(port)            ：\\033[33m${portNo}"
+        tyblue " port(port)            ：\\033[33m${port_value}"
         tyblue " id(User ID/UUID)       ：\\033[33m${xid_2}"
         if [ $protocol_2 -eq 1 ]; then
             tyblue " flow(Flow Control)            ：\\033[33mnull"
@@ -3204,7 +3211,7 @@ print_config_info()
             tyblue " address(address)         ：\\033[33m${domain_list[*]} \\033[35m(choose one)"
         fi
         purple "  (Qv2ray: Host)"
-        tyblue " port(port)            ：\\033[33m${portNo}"
+        tyblue " port(port)            ：\\033[33m${port_value}"
         tyblue " id(User ID/UUID)       ：\\033[33m${xid_3}"
         if [ $protocol_3 -eq 1 ]; then
             tyblue " flow(Flow Control)            ：\\033[33mnull"
