@@ -1988,7 +1988,7 @@ readDomain()
         elif [ "${1%%.*}" == "www" ]; then
             red "Do not put www in front of the domain name！"
             return 1
-        elif [ "$(echo -n "$1" | wc -c)" -gt 42 ]; then
+        elif [ "$(echo -n "$1" | wc -c)" -gt 63 ]; then
             red "domain name too long！"
             return 1
         else
@@ -2025,7 +2025,7 @@ readDomain()
             while [ -z "$domain" ]
             do
                 read -p "Please enter a domain name：" domain
-                if [ "$(echo -n "$domain" | wc -c)" -gt 46 ]; then
+                if [ "$(echo -n "$domain" | wc -c)" -gt 63 ]; then
                     red "domain name too long！"
                     domain=""
                 fi
