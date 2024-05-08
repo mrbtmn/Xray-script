@@ -3092,6 +3092,7 @@ print_share_link()
         for i in "${domain_list[@]}"
         do
             tyblue "vless://${xid_3}@${i}:${port_value}?type=ws&security=tls&path=%2F${path#/}%3Fed=2048#${random_characters}-${country_name}-${city_name}-ws-tls"
+            
         done
     elif [ $protocol_3 -eq 2 ]; then
         green  "=========== VMess-WebSocket-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
@@ -3248,6 +3249,11 @@ print_config_info()
     fi
     echo
     yellow "Note: Some options may not be covered by the sharing link. If you are not afraid of trouble, it is recommended to fill in manually"
+    echo
+    yellow "Enter Host and SNI:"
+    echo
+    read hostSNI
+    echo
     ask_if "Whether to generate a share link？(y/n)" && print_share_link
     echo
     yellow " About fingerprint and alpn，See details：https://github.com/mrbtmn/Xray-script#About tls handshake tls fingerprint and alpn"
