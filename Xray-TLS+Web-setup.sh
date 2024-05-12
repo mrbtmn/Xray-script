@@ -4169,15 +4169,15 @@ start_menu()
     echo
     tyblue "       official website：https://github.com/mrbtmn/Xray-script"
     echo
-    yellow "       Server IP is:          ${serverIP}"
-    echo
-    yellow "       Server IPv6 is:        ${serverIP6}"
-    echo
-    yellow "       Server Location is:    ${country_name}"-"${city_name}"
+    #yellow "       Server IP is:          ${serverIP}"
+    #echo
+    #yellow "       Server IPv6 is:        ${serverIP6}"
+    #echo
+    #yellow "       Server Location is:    ${country_name}"-"${city_name}"
     #yellow "       Server Location is:    ${country_name}"
-    echo
-    tyblue "       Sever UpTime:          ${serverUpTime}"
-    echo
+    #echo
+    #tyblue "       Sever UpTime:          ${serverUpTime}"
+    #echo
     tyblue "----------------------------------Precautions----------------------------------"
     yellow " 1. This script requires a domain name that resolves to this server"
     tyblue " 2. This script takes a long time to install, it is recommended to read it before installation："
