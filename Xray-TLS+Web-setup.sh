@@ -4173,7 +4173,8 @@ start_menu()
     echo
     yellow "       Server IPv6 is:        ${serverIP6}"
     echo
-    yellow "       Server Location is:    ${country_name}-${city_name}"
+    #yellow "       Server Location is:    ${country_name}-${city_name}"
+    yellow "       Server Location is:    ${country_name}"
     echo
     tyblue "       Sever UpTime:          ${serverUpTime}"
     echo
@@ -4239,7 +4240,8 @@ start_menu()
     echo
     green  "       Server IPv6 is:     ${serverIP6}"
     echo
-    green  "       Server Location is: ${country_name}-${city_name}"
+    #green  "       Server Location is: ${country_name}-${city_name}"
+    green  "       Server Location is: ${country_name}"-"${city_name}"
     echo
     tyblue "       Sever UpTime:       ${serverUpTime}"    
     yellow "--------------------------------------------------------"
