@@ -19,8 +19,8 @@ unset timezone
 unset ssh_service
 
 #GetCountryName
-#country_name=$(curl -s https://ipinfo.io/country)
-country_name=$(curl https://ifconfig.net/country)
+country_name=$(curl -s https://ipinfo.io/country)
+#country_name=$(curl https://ifconfig.net/country)
 
 #GetCityName
 city_name=$(curl -s https://ipinfo.io/city)
@@ -3080,7 +3080,7 @@ print_share_link()
         green  "=========== VLESS-gRPC-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
         for i in "${domain_list[@]}"
         do
-            tyblue "vless://${xid_2}@${i}:${port_value}?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1#${random_characters}-${country_name}-${city_name}-gRPC-tls"
+            tyblue "vless://${xid_2}@${i}:${port_value}?type=grpc&security=tls&serviceName=${serviceName}&mode=multi&alpn=h2,http%2F1.1#${random_characters}-${country_name}"-"${city_name}-gRPC-tls"
         done
     elif [ $protocol_2 -eq 2 ]; then
         green  "=========== VMess-gRPC-TLS \\033[35m(If CDN resolution is enabled for the domain name, it will connect to CDN, otherwise it will be directly connected)\\033[32m ==========="
@@ -3094,7 +3094,7 @@ print_share_link()
         for i in "${domain_list[@]}"
         do
             #tyblue "vless://${xid_3}@${i}:${port_value}?type=ws&security=tls&path=%2F${path#/}%3Fed=2048#${random_characters}-${country_name}-${city_name}-ws-tls"
-            tyblue "vless://${xid_3}@${hostSNI}:${port_value}?type=ws&encryption=none&security=tls&sni=${i}&host=${i}&path=%2F${path#/}%3Fed=2048#${random_characters}-${country_name}-${city_name}-ws-tls"
+            tyblue "vless://${xid_3}@${hostSNI}:${port_value}?type=ws&encryption=none&security=tls&sni=${i}&host=${i}&path=%2F${path#/}%3Fed=2048#${random_characters}-${country_name}"-"${city_name}-ws-tls"
             
         done
     elif [ $protocol_3 -eq 2 ]; then
@@ -4173,8 +4173,8 @@ start_menu()
     echo
     yellow "       Server IPv6 is:        ${serverIP6}"
     echo
-    #yellow "       Server Location is:    ${country_name}-${city_name}"
-    yellow "       Server Location is:    ${country_name}"
+    yellow "       Server Location is:    ${country_name}"-"${city_name}"
+    #yellow "       Server Location is:    ${country_name}"
     echo
     tyblue "       Sever UpTime:          ${serverUpTime}"
     echo
