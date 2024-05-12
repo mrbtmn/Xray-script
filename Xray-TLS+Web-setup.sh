@@ -23,9 +23,9 @@ unset ssh_service
 country_name=$(curl https://ifconfig.net/country)
 
 #GetCityName
-#city_name=$(curl -s https://ipinfo.io/city)
+city_name=$(curl -s https://ipinfo.io/city)
 #city_name=$(curl ifconfig.net/city)
-city_name="Helsinki"
+#city_name="Helsinki"
 
 #GetIP
 serverIP=$(curl -s ipv4.ip.sb)
