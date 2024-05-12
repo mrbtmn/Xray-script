@@ -24,7 +24,7 @@ country_name=$(curl https://ifconfig.net/country)
 
 #GetCityName
 #city_name=$(curl -s https://ipinfo.io/city)
-city_name=$(curl ifconfig.co/city)
+city_name=$(curl ifconfig.net/city)
 
 #GetIP
 serverIP=$(curl -s ipv4.ip.sb)
