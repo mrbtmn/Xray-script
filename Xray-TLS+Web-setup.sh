@@ -3533,7 +3533,7 @@ install_check_update_update_php()
             green "php有新版本"
             ! ask_if "Whether to update？(y/n)" && return 0
         else
-            green "php已是最新版本"
+            green "PHP is the latest version"
             return 0
         fi
         systemctl -q is-active php-fpm && php_status=1
