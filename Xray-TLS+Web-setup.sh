@@ -100,6 +100,16 @@ characters=(
 # Select a random American President
 random_characters=${characters[$RANDOM % ${#characters[@]}]}
 
+get_xray_current_version() {
+  # Get the CURRENT_VERSION
+  if [[ -f '/usr/local/bin/xray' ]]; then
+    XRAY_CURRENT_VERSION="$(/usr/local/bin/xray -version | awk 'NR==1 {print $2}')"
+    XRAY_CURRENT_VERSION="v${XRAY_CURRENT_VERSION#v}"
+  else
+    XRAY_CURRENT_VERSION=""
+  fi
+}
+
 #安装配置信息
 nginx_version="nginx-1.26.0"
 #nginx_version="nginx-1.25.4"
@@ -4243,7 +4253,9 @@ start_menu()
     #green  "       Server Location is: ${country_name}-${city_name}"
     green  "       Server Location is: ${country_name}"
     echo
-    tyblue "       Sever UpTime:       ${serverUpTime}"    
+    tyblue "       Sever UpTime:       ${serverUpTime}"
+    echo
+    green "        Xray Version:       $XRAY_CURRENT_VERSION"
     yellow "--------------------------------------------------------"
     echo
     echo
