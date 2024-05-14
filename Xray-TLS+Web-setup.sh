@@ -105,6 +105,7 @@ get_xray_current_version() {
   if [[ -f '/usr/local/bin/xray' ]]; then
     XRAY_CURRENT_VERSION="$(/usr/local/bin/xray -version | awk 'NR==1 {print $2}')"
     XRAY_CURRENT_VERSION="v${XRAY_CURRENT_VERSION#v}"
+    echo "Xray Version: "$XRAY_CURRENT_VERSION
   else
     XRAY_CURRENT_VERSION=""
   fi
@@ -4255,7 +4256,8 @@ start_menu()
     echo
     tyblue "       Sever UpTime:       ${serverUpTime}"
     echo
-    green "        Xray Version:       $XRAY_CURRENT_VERSION"
+    #green "        Xray Version:       $XRAY_CURRENT_VERSION"
+    green  "get_xray_current_version"
     yellow "--------------------------------------------------------"
     echo
     echo
