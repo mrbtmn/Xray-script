@@ -3274,7 +3274,7 @@ print_config_info()
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " script last update time：12MAY2024 - ARASH"
+    tyblue " script last update time：14MAY2024 - ARASH"
     echo
     red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
@@ -4244,6 +4244,8 @@ start_menu()
     yellow "  0. Exit script"
     echo
     yellow "----------------------Server Status---------------------"
+    tyblue "       Script last update：14MAY2024 - ARASH"
+    echo
     green  "       Server IP is:       ${serverIP}"
     echo
     green  "       Port value:         $port_value"
