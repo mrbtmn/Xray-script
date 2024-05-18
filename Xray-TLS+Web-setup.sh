@@ -3104,7 +3104,7 @@ print_share_link()
         for i in "${domain_list[@]}"
         do
             #tyblue "vless://${xid_3}@${i}:${port_value}?type=ws&security=tls&path=%2F${path#/}%3Fed=2048#${random_characters}-${country_name}-${city_name}-ws-tls"
-            tyblue "vless://${xid_3}@${hostSNI}:${port_value}?type=ws&encryption=none&security=tls&sni=${i}&host=${i}&path=%2F${path#/}%3Fed=2048#${random_characters}-${country_name}-ws-tls"
+            tyblue "vless://${xid_3}@${hostSNI}:${port_value}?type=ws&encryption=none&security=tls&sni=${i}&host=${i}&path=%2F${path#/}%3Fed%3D2048#${random_characters}-${country_name}-ws-tls"
             
         done
     elif [ $protocol_3 -eq 2 ]; then
