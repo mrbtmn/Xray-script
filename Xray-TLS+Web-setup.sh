@@ -110,6 +110,13 @@ get_xray_current_version() {
   fi
 }
 
+get_ssh_port() {
+  # Read the SSH port from /etc/ssh/sshd_config
+  ssh_port=$(grep -E '^Port ' /etc/ssh/sshd_config | awk '{print $2}')
+  # Display the SSH port
+  #echo "SSH Port: $ssh_port"
+}
+
 #安装配置信息
 nginx_version="nginx-1.26.0"
 #nginx_version="nginx-1.25.4"
@@ -4258,7 +4265,10 @@ start_menu()
     tyblue "       Sever UpTime:       ${serverUpTime}"
     echo
     get_xray_current_version
-    green "        Xray Version:       $XRAY_CURRENT_VERSION"    
+    green "        Xray Version:       $XRAY_CURRENT_VERSION"
+    echo
+    get_ssh_port
+    green "        SSH Port No:        $ssh_port"
     yellow "--------------------------------------------------------"
     echo
     echo
