@@ -4279,7 +4279,7 @@ start_menu()
     echo
     echo
     local choice=""
-    while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>27))
+    while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>30))
     do
         read -p "your choice is：" choice
     done
