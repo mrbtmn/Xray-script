@@ -117,6 +117,10 @@ get_ssh_port() {
   #echo "SSH Port: $ssh_port"
 }
 
+system_reboot() {
+  reboot
+}
+
 #安装配置信息
 nginx_version="nginx-1.26.0"
 #nginx_version="nginx-1.25.4"
@@ -3281,7 +3285,7 @@ print_config_info()
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " script last update time：14MAY2024 - ARASH"
+    tyblue " script last update time：19MAY2024 - ARASH"
     echo
     red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
@@ -4248,14 +4252,16 @@ start_menu()
     tyblue "  26. Try to fix the problem that the backspace key cannot be used"
     purple "         Some ssh tools (such as Xshell) may have such problems"
     tyblue "  27. Modify dns"
+    echo
+    yellow "  30. Restart VPS"
     yellow "  0. Exit script"
     echo
     yellow "----------------------Server Status---------------------"
-    tyblue "       Script last update：14MAY2024 - ARASH"
+    tyblue "       Script last update：19MAY2024 - ARASH"
     echo
     green  "       Server IP is:       ${serverIP}"
     echo
-    green  "       Port value:         $port_value"
+    green  "       Xray Port value:    $port_value"
     echo
     green  "       Server IPv6 is:     ${serverIP6}"
     echo
@@ -4397,6 +4403,8 @@ start_menu()
         repair_tuige
     elif [ $choice -eq 27 ]; then
         change_dns
+    elif [ $choice -eq 30 ]; then
+        system_reboot
     fi
 }
 
