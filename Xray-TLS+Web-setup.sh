@@ -4274,6 +4274,9 @@ start_menu()
     purple "     Add this line to http block: server_names_hash_bucket_size 128;"
     purple "     Then Restart Nginx: service nginx restart"
     echo
+    yellow "  34. Change Host Name"
+    purple "     It Will Change after reboot Server"
+    echo
     yellow "  40. Restart VPS"
     yellow "  0. Exit script"
     echo
