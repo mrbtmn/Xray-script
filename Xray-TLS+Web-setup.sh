@@ -117,6 +117,13 @@ get_ssh_port() {
   #echo "SSH Port: $ssh_port"
 }
 
+#Change Host Name 
+hostName_Changer() {
+  wget -O hostNameChanger.sh https://github.com/mrbtmn/Xray-script/raw/main/hostNameChanger.sh
+  chmod +x hostNameChanger.sh
+  bash hostNameChanger.sh
+}
+
 system_reboot() {
   reboot
 }
@@ -4425,6 +4432,8 @@ start_menu()
         nano /etc/ssh/sshd_config
     elif [ $choice -eq 33 ]; then
         nano /usr/local/nginx/conf/nginx.conf
+    elif [ $choice -eq 34 ]; then
+        hostName_Changer
     elif [ $choice -eq 40 ]; then
         system_reboot
     fi
