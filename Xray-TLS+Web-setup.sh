@@ -119,10 +119,10 @@ get_ssh_port() {
 
 #Change Host Name 
 hostName_Changer() {
-  apt install dos2unix -y
+  #apt install dos2unix -y
   wget -O hostNameChanger.sh https://github.com/mrbtmn/Xray-script/raw/main/hostNameChanger.sh
   chmod +x hostNameChanger.sh
-  dos2unix ./hostNameChanger.sh
+  #dos2unix ./hostNameChanger.sh
   bash hostNameChanger.sh
 }
 
