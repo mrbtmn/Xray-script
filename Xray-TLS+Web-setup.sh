@@ -131,12 +131,14 @@ system_reboot() {
 }
 
 #安装配置信息
-nginx_version="nginx-1.26.0"
+nginx_version="nginx-1.26.2"
+#nginx_version="nginx-1.26.0"
 #nginx_version="nginx-1.25.4"
 #nginx_version="nginx-1.25.3"
 #nginx_version="nginx-1.24.0"
 #nginx_version="nginx-1.23.3"
-openssl_version="openssl-openssl-3.3.1"
+openssl_version="openssl-openssl-3.3.2"
+#openssl_version="openssl-openssl-3.3.1"
 #openssl_version="openssl-openssl-3.3.0"
 #openssl_version="openssl-openssl-3.2.1"
 #openssl_version="openssl-openssl-3.2.0"
@@ -148,7 +150,8 @@ nginx_config="${nginx_prefix}/conf.d/xray.conf"
 nginx_service="/etc/systemd/system/nginx.service"
 nginx_is_installed=""
 
-php_version="php-8.3.8"
+php_version="php-8.3.11"
+#php_version="php-8.3.8"
 #php_version="php-8.3.6"
 #php_version="php-8.3.4"
 #php_version="php-8.3.0"
@@ -166,7 +169,8 @@ cloudreve_prefix="/usr/local/cloudreve"
 cloudreve_service="/etc/systemd/system/cloudreve.service"
 unset cloudreve_is_installed
 
-nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-29.0.3.tar.bz2"
+nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-30.0.0.tar.bz2"
+#nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-29.0.3.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-29.0.0.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-28.0.3.tar.bz2"
 #nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-28.0.2.tar.bz2"
@@ -630,7 +634,7 @@ swap_on()
 {
     if [ $using_swap_now -ne 0 ]; then
         red    "Open swap error occurs"
-        green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
+        green  "欢迎进行Bug report(https://github.com/mrbtmn/Xray-script/issues)，感谢您的支持"
         yellow "Press Enter to continue or Ctrl+c to exit"
         read -s
     fi
@@ -643,7 +647,7 @@ swap_on()
             rm -rf ${temp_dir}/swap
             red    "Failed to open swap！"
             yellow "It may be that the machine memory and hard disk space are insufficient"
-            green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
+            green  "欢迎进行Bug report(https://github.com/mrbtmn/Xray-script/issues)，感谢您的支持"
             yellow "Press Enter to continue or Ctrl+c to exit"
             read -s
         fi
@@ -657,7 +661,7 @@ swap_off()
             using_swap_now=0
         else
             red    "Failed to close swap！"
-            green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的
+            green  "欢迎进行Bug report(https://github.com/mrbtmn/Xray-script/issues)，感谢您的
 支持"
             yellow "Press Enter to continue or Ctrl+c to exit"
             read -s
@@ -2124,7 +2128,7 @@ install_php_dependence()
             $apt_no_install_recommends -y -f install
             if ! $apt_no_install_recommends -y install libxml2-dev libsqlite3-dev libsystemd-dev libacl1-dev libapparmor-dev libssl-dev libkrb5-dev libpcre2-dev zlib1g-dev libbz2-dev libcurl4-openssl-dev libqdbm-dev libdb-dev libtokyocabinet-dev liblmdb-dev libenchant-2-dev libffi-dev libpng-dev libgd-dev libwebp-dev libjpeg-dev libxpm-dev libfreetype6-dev libgmp-dev libc-client2007e-dev libicu-dev libldap2-dev libsasl2-dev libonig-dev unixodbc-dev freetds-dev libpq-dev libpspell-dev libedit-dev libmm-dev libsnmp-dev libsodium-dev libargon2-dev libtidy-dev libxslt1-dev libzip-dev libmagickwand-dev && ! $apt_no_install_recommends -y install libxml2-dev libsqlite3-dev libsystemd-dev libacl1-dev libapparmor-dev libssl-dev libkrb5-dev libpcre2-dev zlib1g-dev libbz2-dev libcurl4-openssl-dev libqdbm-dev libdb-dev libtokyocabinet-dev liblmdb-dev libenchant-dev libffi-dev libpng-dev libgd-dev libwebp-dev libjpeg-dev libxpm-dev libfreetype6-dev libgmp-dev libc-client2007e-dev libicu-dev libldap2-dev libsasl2-dev libonig-dev unixodbc-dev freetds-dev libpq-dev libpspell-dev libedit-dev libmm-dev libsnmp-dev libsodium-dev libargon2-dev libtidy-dev libxslt1-dev libzip-dev libmagickwand-dev; then
                 yellow "Dependency installation failed！！"
-                green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
+                green  "欢迎进行Bug report(https://github.com/mrbtmn/Xray-script/issues)，感谢您的支持"
                 yellow "Press Enter to continue or Ctrl+c to exit"
                 read -s
             fi
@@ -3297,7 +3301,7 @@ print_config_info()
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " script last update time：27JUN2024 - ARASH"
+    tyblue " script last update time：17SEP2024 - ARASH"
     echo
     red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
@@ -4283,7 +4287,7 @@ start_menu()
     yellow "  0. Exit script"
     echo
     yellow "----------------------Server Status---------------------"
-    tyblue "       Script last update：27JUN2024 - ARASH"
+    tyblue "       Script last update：17SEP2024 - ARASH"
     echo
     green  "       Server IP is:       ${serverIP}"
     echo
