@@ -3131,7 +3131,7 @@ print_share_link()
         for i in "${domain_list[@]}"
         do
             #tyblue "vless://${xid_3}@${i}:${port_value}?type=ws&security=tls&path=%2F${path#/}%3Fed=2048#${random_characters}-${country_name}-${city_name}-ws-tls"
-            tyblue "vless://${xid_3}@${hostSNI}:${port_value}?type=ws&encryption=none&security=tls&sni=${i}&host=${i}&path=%2F${path#/}%3Fed%3D2560#${random_characters}-${country_name}-ws-tls"
+            tyblue "vless://${xid_3}@${hostSNI}:${port_value}?type=ws&encryption=none&security=tls&sni=${i}&host=${i}&path=%2F${path#/}%3Fed%3D2560#${random_characters}-${city_name}"
             
         done
     elif [ $protocol_3 -eq 2 ]; then
@@ -3301,7 +3301,7 @@ print_config_info()
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " script last update time：17SEP2024 - ARASH"
+    tyblue " script last update time：30SEP2024 - ARASH"
     echo
     red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
@@ -4287,7 +4287,7 @@ start_menu()
     yellow "  0. Exit script"
     echo
     yellow "----------------------Server Status---------------------"
-    tyblue "       Script last update：17SEP2024 - ARASH"
+    tyblue "       Script last update：30SEP2024 - ARASH"
     echo
     green  "       Server IP is:       ${serverIP}"
     echo
@@ -4296,7 +4296,8 @@ start_menu()
     green  "       Server IPv6 is:     ${serverIP6}"
     echo
     #green  "       Server Location is: ${country_name}-${city_name}"
-    green  "       Server Location is: ${country_name}"
+    #green  "       Server Location is: ${country_name}"
+    green  "       Server Location is: ${city_name}"
     echo
     tyblue "       Sever UpTime:       ${serverUpTime}"
     echo
