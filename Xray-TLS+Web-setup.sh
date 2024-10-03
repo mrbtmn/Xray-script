@@ -20,12 +20,17 @@ unset ssh_service
 
 #GetCountryName
 #country_name=$(curl -s https://ipinfo.io/country)
-country_name=$(curl https://ifconfig.net/country)
+#country_name=$(curl https://ifconfig.net/country)
+country_name=$(curl -sS "http://ipwhois.app/json/$SERVER_IP" | jq -r '.country')
 
 #GetCityName
 city_name=$(curl -s https://ipinfo.io/city)
 #city_name=$(curl https://ifconfig.net/city)
 #city_name="Helsinki"
+
+#GetDataCenterName
+SERVER_ISP=$(curl -sS "http://ipwhois.app/json/$SERVER_IP" | jq -r '.isp')
+
 
 #GetIP
 serverIP=$(curl -s ipv4.ip.sb)
@@ -4290,7 +4295,7 @@ start_menu()
     tyblue "       Script last update：30SEP2024 - ARASH"
     echo
     green  "       Server IP is:       ${serverIP}"
-    echo
+    echo    
     green  "       Xray Port value:    $port_value"
     echo
     green  "       Server IPv6 is:     ${serverIP6}"
@@ -4298,6 +4303,8 @@ start_menu()
     #green  "       Server Location is: ${country_name}-${city_name}"
     #green  "       Server Location is: ${country_name}"
     green  "       Server Location is: ${city_name}"
+    echo
+    green  "       Server ISP is:      ${SERVER_ISP}"
     echo
     tyblue "       Sever UpTime:       ${serverUpTime}"
     echo
