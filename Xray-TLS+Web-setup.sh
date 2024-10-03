@@ -24,9 +24,10 @@ unset ssh_service
 country_name=$(curl -sS "http://ipwhois.app/json/$SERVER_IP" | jq -r '.country')
 
 #GetCityName
-city_name=$(curl -s https://ipinfo.io/city)
+#city_name=$(curl -s https://ipinfo.io/city)
 #city_name=$(curl https://ifconfig.net/city)
 #city_name="Helsinki"
+city_name=$(curl -sS "http://ipwhois.app/json/$SERVER_IP" | jq -r '.city')
 
 #GetDataCenterName
 SERVER_ISP=$(curl -sS "http://ipwhois.app/json/$SERVER_IP" | jq -r '.isp')
@@ -3306,7 +3307,7 @@ print_config_info()
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " script last update time：30SEP2024 - ARASH"
+    tyblue " script last update time：04OCT2024 - ARASH"
     echo
     red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
@@ -4292,7 +4293,7 @@ start_menu()
     yellow "  0. Exit script"
     echo
     yellow "----------------------Server Status---------------------"
-    tyblue "       Script last update：30SEP2024 - ARASH"
+    tyblue "       Script last update：04OCT2024 - ARASH"
     echo
     green  "       Server IP is:       ${serverIP}"
     echo    
@@ -4300,9 +4301,9 @@ start_menu()
     echo
     green  "       Server IPv6 is:     ${serverIP6}"
     echo
-    #green  "       Server Location is: ${country_name}-${city_name}"
+    green  "       Server Location is: ${country_name}-${city_name}"
     #green  "       Server Location is: ${country_name}"
-    green  "       Server Location is: ${city_name}"
+    #green  "       Server Location is: ${city_name}"
     echo
     green  "       Server ISP is:      ${SERVER_ISP}"
     echo
