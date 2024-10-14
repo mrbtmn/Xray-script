@@ -4318,6 +4318,24 @@ start_menu()
     yellow "--------------------------------------------------------"
     echo
     echo
+    
+echo  #                                                              
+echo  #                                                              
+echo  #         _      ________           _        ____  ____    ____
+echo  #        dM.     `MMMMMMMb.        dM.      6MMMMb\`MM'    `MM'
+echo  #       ,MMb      MM    `Mb       ,MMb     6M'    ` MM      MM 
+echo  #       d'YM.     MM     MM       d'YM.    MM       MM      MM 
+echo  #      ,P `Mb     MM     MM      ,P `Mb    YM.      MM      MM 
+echo  #      d'  YM.    MM    .M9      d'  YM.    YMMMMb  MMMMMMMMMM 
+echo  #     ,P   `Mb    MMMMMMM9'     ,P   `Mb        `Mb MM      MM 
+echo  #     d'    YM.   MM  \M\       d'    YM.        MM MM      MM 
+echo  #    ,MMMMMMMMb   MM   \M\     ,MMMMMMMMb        MM MM      MM 
+echo  #    d'      YM.  MM    \M\    d'      YM. L    ,M9 MM      MM 
+echo  #  _dM_     _dMM__MM_    \M\__dM_     _dMM_MYMMMM9 _MM_    _MM_
+echo  #                                                              
+echo  #                                                              
+echo  #                                                              
+
     local choice=""
     while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>40))
     do
