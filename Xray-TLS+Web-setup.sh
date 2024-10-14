@@ -4317,24 +4317,20 @@ start_menu()
     green "        SSH Port No:        $ssh_port"
     yellow "--------------------------------------------------------"
     echo
-    echo
-    
-yellow  #                                                              
-yellow  #                                                              
-yellow  #         _      ________           _        ____  ____    ____
-yellow  #        dM.     `MMMMMMMb.        dM.      6MMMMb\`MM'    `MM'
-yellow  #       ,MMb      MM    `Mb       ,MMb     6M'    ` MM      MM 
-yellow  #       d'YM.     MM     MM       d'YM.    MM       MM      MM 
-yellow  #      ,P `Mb     MM     MM      ,P `Mb    YM.      MM      MM 
-yellow  #      d'  YM.    MM    .M9      d'  YM.    YMMMMb  MMMMMMMMMM 
-yellow  #     ,P   `Mb    MMMMMMM9'     ,P   `Mb        `Mb MM      MM 
-yellow  #     d'    YM.   MM  \M\       d'    YM.        MM MM      MM 
-yellow  #    ,MMMMMMMMb   MM   \M\     ,MMMMMMMMb        MM MM      MM 
-yellow  #    d'      YM.  MM    \M\    d'      YM. L    ,M9 MM      MM 
-yellow  #  _dM_     _dMM__MM_    \M\__dM_     _dMM_MYMMMM9 _MM_    _MM_
-yellow  #                                                              
-yellow  #                                                              
-yellow  #                                                              
+    echo                                                                    
+    yellow            _      ________           _        ____  ____    ____
+    yellow           dM.     `MMMMMMMb.        dM.      6MMMMb\`MM'    `MM'
+    yellow          ,MMb      MM    `Mb       ,MMb     6M'    ` MM      MM 
+    yellow          d'YM.     MM     MM       d'YM.    MM       MM      MM 
+    yellow         ,P `Mb     MM     MM      ,P `Mb    YM.      MM      MM 
+    yellow         d'  YM.    MM    .M9      d'  YM.    YMMMMb  MMMMMMMMMM 
+    yellow        ,P   `Mb    MMMMMMM9'     ,P   `Mb        `Mb MM      MM 
+    yellow        d'    YM.   MM  \M\       d'    YM.        MM MM      MM 
+    yellow       ,MMMMMMMMb   MM   \M\     ,MMMMMMMMb        MM MM      MM 
+    yellow       d'      YM.  MM    \M\    d'      YM. L    ,M9 MM      MM 
+    yellow     _dM_     _dMM__MM_    \M\__dM_     _dMM_MYMMMM9 _MM_    _MM_
+    echo                                                                
+                                                                 
 
     local choice=""
     while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>40))
