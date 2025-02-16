@@ -137,8 +137,8 @@ system_reboot() {
 }
 
 #安装配置信息
-nginx_version="nginx-1.26.3"
-#nginx_version="nginx-1.26.2"
+#nginx_version="nginx-1.26.3"
+nginx_version="nginx-1.26.2"
 #nginx_version="nginx-1.26.0"
 #nginx_version="nginx-1.25.4"
 #nginx_version="nginx-1.25.3"
