@@ -137,8 +137,8 @@ system_reboot() {
 }
 
 #安装配置信息
-nginx_version="nginx-1.26.3"
-#nginx_version="nginx-1.26.2"
+#nginx_version="nginx-1.26.3"
+nginx_version="nginx-1.26.2"
 #nginx_version="nginx-1.26.0"
 #nginx_version="nginx-1.25.4"
 #nginx_version="nginx-1.25.3"
@@ -159,8 +159,8 @@ nginx_config="${nginx_prefix}/conf.d/xray.conf"
 nginx_service="/etc/systemd/system/nginx.service"
 nginx_is_installed=""
 
-php_version="php-8.4.4"
-#php_version="php-8.4.2"
+#php_version="php-8.4.4"
+php_version="php-8.4.2"
 #php_version="php-8.3.12"
 #php_version="php-8.3.11"
 #php_version="php-8.3.8"
