@@ -3284,7 +3284,7 @@ print_config_info()
         tyblue " ---Transport/StreamSettings(Low-level transport/stream settings)---"
         tyblue "  network(transfer method)             ：\\033[33mws"
         purple "   (Shadowrocket transmission mode choose websocket)"
-        tyblue "  path(path)                    ：\\033[33m${path}?ed=2048"
+        tyblue "  path(path)                    ：\\033[33m${path}?ed=2560"
         tyblue "  Host                          ：\\033[33mnull"
         purple "   (V2RayN(G):Masquerade domain name; Qv2ray: protocol setting - request header)"
         tyblue "  security(transport layer encryption)          ：\\033[33mtls"
