@@ -18,6 +18,7 @@ unset timezone
 # ssh service name
 unset ssh_service
 
+apt install jq -y
 #GetCountryName
 #country_name=$(curl -s https://ipinfo.io/country)
 #country_name=$(curl https://ifconfig.net/country)
