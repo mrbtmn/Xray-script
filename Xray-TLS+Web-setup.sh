@@ -1,19 +1,19 @@
 #!/bin/bash
 
-#系统信息
-# 指令集
+#System Information
+# Instruction Set
 unset machine
-# 系统
+# system
 unset release
-# 系统版本
+# System version
 unset systemVersion
 unset apt
 unset apt_no_install_recommends
 unset dnf
 unset dnf_no_install_recommends
-# CPU线程数
+# Number of CPU threads
 unset cpu_thread_num
-# 系统时区
+# System time zone
 unset timezone
 # ssh service name
 unset ssh_service
