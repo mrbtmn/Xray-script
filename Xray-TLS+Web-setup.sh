@@ -2516,63 +2516,32 @@ EOF
 }
 
 #获取证书 参数: 域名位置
-get_cert() {
-    if [[ ${domain_config_list[$1]} -eq 1 ]]; then
-        green "Retrieving certificate for \"${domain_list[$1]}\" and \"${true_domain_list[$1]}\""
+get_cert()
+{
+    if [ ${domain_config_list[$1]} -eq 1 ]; then
+        green "retrieving \"${domain_list[$1]}\"、\"${true_domain_list[$1]}\" domain name certificate"
     else
-        green "Retrieving certificate for \"${domain_list[$1]}\""
+        green "retrieving \"${domain_list[$1]}\" domain name certificate"
     fi
-
-    # Backup config files
-    mv "${xray_config}" "${xray_config}.bak"
-    mv "${nginx_prefix}/conf/nginx.conf" "${nginx_prefix}/conf/nginx.conf.bak2"
-    cp "${nginx_prefix}/conf/nginx.conf.default" "${nginx_prefix}/conf/nginx.conf"
-    echo "{}" > "${xray_config}"
-
+    mv $xray_config ${xray_config}.bak
+    mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak2
+    cp ${nginx_prefix}/conf/nginx.conf.default ${nginx_prefix}/conf/nginx.conf
+    echo "{}" > $xray_config
     local temp=""
-    [[ ${domain_config_list[$1]} -eq 1 ]] && temp="-d ${domain_list[$1]}"
-
-    issue_cert() {
-        local server_option="$1"
-        "${HOME}/.acme.sh/acme.sh" --issue -d "${true_domain_list[$1]}" $temp \
-            -w "${nginx_prefix}/html/issue_certs" -k ec-256 -ak ec-256 \
-            --server "$server_option" \
-            --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" \
-            --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" \
-            #--ocsp
-            --force
-    }
-
-    # Try default ACME server first, then fallback to Let's Encrypt if needed
-    if ! issue_cert "default" && ! issue_cert "letsencrypt"; then
-        # Debug mode for troubleshooting
-        issue_cert "default" --debug || issue_cert "letsencrypt" --debug
+    [ ${domain_config_list[$1]} -eq 1 ] && temp="-d ${domain_list[$1]}"
+    if ! $HOME/.acme.sh/acme.sh --issue -d ${true_domain_list[$1]} $temp -w ${nginx_prefix}/html/issue_certs -k ec-256 -ak ec-256 --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" && ! $HOME/.acme.sh/acme.sh --issue -d ${true_domain_list[$1]} $temp -w ${nginx_prefix}/html/issue_certs -k ec-256 -ak ec-256 --server letsencrypt --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx"; then
+        $HOME/.acme.sh/acme.sh --issue -d ${true_domain_list[$1]} $temp -w ${nginx_prefix}/html/issue_certs -k ec-256 -ak ec-256 --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --debug || $HOME/.acme.sh/acme.sh --issue -d ${true_domain_list[$1]} $temp -w ${nginx_prefix}/html/issue_certs -k ec-256 -ak ec-256 --server letsencrypt --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --debug
     fi
-
-    # Install certificate
-    if ! "${HOME}/.acme.sh/acme.sh" --installcert -d "${true_domain_list[$1]}" \
-        --key-file "${nginx_prefix}/certs/${true_domain_list[$1]}.key" \
-        --fullchain-file "${nginx_prefix}/certs/${true_domain_list[$1]}.cer" \
-        --reloadcmd "sleep 2s && systemctl restart xray" --ecc; then
-        
-        red "Certificate installation failed for ${true_domain_list[$1]}"
-
-        # Remove failed certificate
-        "${HOME}/.acme.sh/acme.sh" --remove --domain "${true_domain_list[$1]}" --ecc
-        rm -rf "${HOME}/.acme.sh/${true_domain_list[$1]}_ecc"
+    if ! $HOME/.acme.sh/acme.sh --installcert -d ${true_domain_list[$1]} --key-file ${nginx_prefix}/certs/${true_domain_list[$1]}.key --fullchain-file ${nginx_prefix}/certs/${true_domain_list[$1]}.cer --reloadcmd "sleep 2s && systemctl restart xray" --ecc; then
+        $HOME/.acme.sh/acme.sh --remove --domain ${true_domain_list[$1]} --ecc
+        rm -rf $HOME/.acme.sh/${true_domain_list[$1]}_ecc
         rm -rf "${nginx_prefix}/certs/${true_domain_list[$1]}.key" "${nginx_prefix}/certs/${true_domain_list[$1]}.cer"
-
-        # Restore backups
-        mv "${xray_config}.bak" "${xray_config}"
-        mv "${nginx_prefix}/conf/nginx.conf.bak2" "${nginx_prefix}/conf/nginx.conf"
-
+        mv ${xray_config}.bak $xray_config
+        mv ${nginx_prefix}/conf/nginx.conf.bak2 ${nginx_prefix}/conf/nginx.conf
         return 1
     fi
-
-    # Restore backups after success
-    mv "${xray_config}.bak" "${xray_config}"
-    mv "${nginx_prefix}/conf/nginx.conf.bak2" "${nginx_prefix}/conf/nginx.conf"
-
+    mv ${xray_config}.bak $xray_config
+    mv ${nginx_prefix}/conf/nginx.conf.bak2 ${nginx_prefix}/conf/nginx.conf
     return 0
 }
 
