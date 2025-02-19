@@ -2538,7 +2538,7 @@ get_cert() {
             --server "$server_option" \
             --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" \
             --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" \
-            --ocsp
+            #--ocsp
     }
 
     # Try default ACME server first, then fallback to Let's Encrypt if needed
