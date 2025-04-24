@@ -3320,7 +3320,7 @@ print_config_info()
     blue   " To achieve Fullcone (NAT type open), the following conditions are required："
     blue   "   If the client system is Windows，And you are using transparent proxy or TUN/Bypass LAN, please make sure the current network is set to private network"
     echo
-    tyblue " script last update time：23APR2025 - ARASH"
+    tyblue " script last update time：24APR2025 - ARASH"
     echo
     red    " This script is only for communication and learning, please do not use this script to do illegal things。Where the Internet is illegal, if you do illegal things, you will be punished by law!!!!"
     tyblue " 2020.11"
@@ -4302,11 +4302,14 @@ start_menu()
     yellow "  34. Change Host Name"
     purple "     It Will Change after reboot Server"
     echo
+    yellow "  35. Edit Config.json"
+    purple "     /usr/local/etc/xray/config.json"
+    echo
     yellow "  40. Restart VPS"
     yellow "  0. Exit script"
     echo
     yellow "----------------------Server Status---------------------"
-    tyblue "       Script last update：23APR2025 - ARASH"
+    tyblue "       Script last update：24APR2025 - ARASH"
     echo
     green  "       Server IP is:       ${serverIP}"
     echo    
@@ -4479,6 +4482,8 @@ start_menu()
         nano /usr/local/nginx/conf/nginx.conf
     elif [ $choice -eq 34 ]; then
         hostName_Changer
+    elif [ $choice -eq 35 ]; then
+        nano /usr/local/etc/xray/config.json
     elif [ $choice -eq 40 ]; then
         system_reboot
     fi
